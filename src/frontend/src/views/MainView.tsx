@@ -1,4 +1,5 @@
 import { Rooms } from './Rooms';
+import { Scenes } from './Scenes';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
@@ -32,7 +33,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 showComponent = <Rooms />;
                 break;
             case CurrentView.Scene:
-                showComponent = <div />;
+                showComponent = <Scenes />;
                 break;
             case CurrentView.Data:
                 showComponent = <div />;
