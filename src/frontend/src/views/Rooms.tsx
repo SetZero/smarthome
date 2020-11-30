@@ -2,8 +2,9 @@ import { Container, Grid } from "@material-ui/core";
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
-import { RoomsState} from "../reducer/states/RoomStates"
+import { RoomState} from "../reducer/states/RoomStates"
 import { StateType } from "../reducer/rootReducer";
+import { addRoom } from "../reducer/actions/roomActions";
 
 interface RoomProps { }
  //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
@@ -12,8 +13,8 @@ export const Rooms: React.FC<RoomProps> = ({ }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state.roomsReducer.rooms);
     const dispatch = useDispatch();
 
-    const addRoom = (room: RoomsState) => {
-        dispatch({type: "ADD_ROOM", payload: room})
+    const onAddRoom = (room: RoomState) => {
+        dispatch(addRoom(room));
     }
 
     return (
