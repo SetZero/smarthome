@@ -1,7 +1,11 @@
 import React from 'react';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import { SceneState } from './states/SceneStates';
+
+
+
 
 const images = [
   {
@@ -93,11 +97,12 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 'calc(50% - 9px)',
       transition: theme.transitions.create('opacity'),
     },
-  }),
+  }
+  )
 );
 
-export default function ButtonBases() {
-  const classes = useStyles();
+export function ButtonBases(this: any) {
+  var classes = this.props;
 
   return (
     <div className={classes.root}>
@@ -134,3 +139,58 @@ export default function ButtonBases() {
     </div>
   );
 }
+interface SceneButtonsProps {
+  info: SceneState
+}
+
+
+
+export default class SceneButtons extends React.Component<SceneButtonsProps>{
+
+  render(){
+   // const {classes}  = useStyles();
+    return (
+    <div>
+      <div className="Tset">
+
+          <ButtonBase
+            focusRipple
+            key='Morgenprogramm'
+      //      className={classes.image}
+  //          focusVisibleClassName={classes.focusVisible}
+            style={{
+              width: '40%',
+            }}
+          >
+            <span
+       //       className={classes.imageSrc}
+              style={{
+                backgroundImage: `url(/static/images/grid-list/background.jpg)`,
+              }}
+            />
+            <span 
+           // className={classes.imageBackdrop} 
+            />
+            <span 
+           // className={classes.imageButton}
+            >
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+               // className={classes.imageTitle}
+              >
+                "Morgenprogramm"
+                <span 
+                //className={classes.imageMarked} 
+                />
+              </Typography>
+            </span>
+          </ButtonBase>
+        )
+      </div>
+    </div>);
+  }
+}
+
+
