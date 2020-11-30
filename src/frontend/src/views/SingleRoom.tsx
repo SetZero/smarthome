@@ -1,4 +1,4 @@
-import { Paper, Container, Switch, Grid, Typography, LinearProgress, IconButton } from "@material-ui/core"
+import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
 import { RoomState } from "../reducer/states/RoomStates"
@@ -50,19 +50,35 @@ export class SingleRoom extends React.Component<SingleRoomProps> {
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
                             <Grid item sm={4} xs={10}>
                                 <Typography variant="h5" component="h6">
-                                    Temperatur
-                                    </Typography>
+                                    Helligkeit
+                                </Typography>
                             </Grid>
                             <Grid item sm={6} xs={6}>
-                                <LinearProgress variant="determinate" value={25} />
+                                <Slider defaultValue={50} aria-labelledby="discrete-slider" step={10} marks min={0} max={100} />
                             </Grid>
                             <Grid item sm={2} xs={2}>
                                 <Typography>
-                                    23°C
-                            </Typography>
+                                    50%
+                                </Typography>
                             </Grid>
                         </Grid>
-
+                        <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                            <Grid item sm={8} xs={10}>
+                                <Typography variant="h5" component="h6">
+                                    Fernseher
+                                </Typography>
+                            </Grid>
+                            <Grid item sm={4} xs={6}>
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
+                            </Grid>
+                        </Grid>
+                        <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                            <Grid item sm={12}>
+                                <Button>
+                                    Actions
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Paper>
                 </Container>
             </div>
