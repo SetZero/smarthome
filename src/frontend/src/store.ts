@@ -1,5 +1,5 @@
 import { createStore } from "redux"
-import { roomsReducer } from "./views/states/RoomStates"
+import { rootReducer } from "./reducer/rootReducer"
 
 
-export const store = createStore(roomsReducer)
+export const store = createStore(rootReducer);

@@ -8,7 +8,15 @@ export interface RoomsState {
 }
 
 const initialState = {
-    rooms: []
+    rooms: [
+        { name: "Bad", icon: "BathtubIcon" },
+        { name: "Küche", icon: "KitchenIcon" },
+        { name: "Wohnzimmer", icon: "WeekendIcon" },
+        { name: "Briefkasten", icon: "WeekendIcon" },
+        { name: "Büro", icon: "WeekendIcon" },
+        { name: "Schlafzimmer", icon: "WeekendIcon" },
+        { name: "Garage", icon: "WeekendIcon" }
+    ]
 }
 
 type Action = {type: "ADD_ROOM", payload: RoomState}
