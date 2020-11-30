@@ -2,20 +2,21 @@ import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Image from './pics/morning.jpg'; // Import using relative path
 
 const images = [
   {
-    url: '/static/images/grid-list/background.jpg',
+    url: './pics/morning.jpg',
     title: 'Morgenprogramm',
     width: '40%',
   },
   {
-    url: '/static/images/grid-list/background1.jpg',
+    url: 'https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg',
     title: 'Abendprogramm',
     width: '30%',
   },
   {
-    url: '/static/images/grid-list/background2.jpg',
+    url: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2020%2F01%2Fflorida-keys-florida-FLVISIT0519.jpg',
     title: 'Urlaub',
     width: '30%',
   },
