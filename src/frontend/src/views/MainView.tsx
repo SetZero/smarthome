@@ -1,4 +1,5 @@
 import { Rooms } from './Rooms';
+import { SingleRoom } from './SingleRoom';
 import { Scenes } from './Scenes';
 import { Add } from './Add';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -11,6 +12,7 @@ import React from 'react';
 enum CurrentView {
     Room,
     Scene,
+    SingleRoom,
     Add
 }
 
@@ -29,6 +31,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
         this.setState({currentView: value});
     }
     render() {
+        const state = { name : "Wohnzimmer", icon : "Whatever"};
         let showComponent = null;
         switch (this.state.currentView) {
             case CurrentView.Room:
@@ -39,6 +42,9 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 break;
             case CurrentView.Add:
                 showComponent = <Add />;
+                break;
+            case CurrentView.SingleRoom:
+                showComponent = <SingleRoom info={state} />;
                 break;
             default:
                 showComponent = <div />;
@@ -55,6 +61,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
                 <BottomNavigationAction label="Add" icon={<AddIcon />} value={CurrentView.Add} />
+                <BottomNavigationAction label="Raum" icon={<AddIcon />} value={CurrentView.SingleRoom} />
             </BottomNavigation>
         </div>)
     }

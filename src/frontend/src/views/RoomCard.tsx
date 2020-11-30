@@ -2,12 +2,6 @@ import { Card, CardContent, Switch, Typography, Grid, makeStyles } from "@materi
 import React from "react"
 import { RoomState } from "../reducer/states/RoomStates"
 
-const styles = makeStyles((theme) => ({
-    fullHeightCard: {
-        height: "100%",
-        },
-    }));
-
 interface RoomCardProps {
     info: RoomState
 }
