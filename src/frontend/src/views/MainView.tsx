@@ -1,14 +1,17 @@
 import { Rooms } from './Rooms';
+import { Scenes } from './Scenes';
+import { Add } from './Add';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
+import AddIcon from '@material-ui/icons/Add';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import React from 'react';
 
 enum CurrentView {
     Room,
     Scene,
-    Data
+    Add
 }
 
 interface MainViewProps {}
@@ -32,10 +35,10 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 showComponent = <Rooms />;
                 break;
             case CurrentView.Scene:
-                showComponent = <div />;
+                showComponent = <Scenes />;
                 break;
-            case CurrentView.Data:
-                showComponent = <div />;
+            case CurrentView.Add:
+                showComponent = <Add />;
                 break;
             default:
                 showComponent = <div />;
@@ -51,7 +54,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             >
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
-                <BottomNavigationAction label="Daten" icon={<TimelineIcon />} value={CurrentView.Data} />
+                <BottomNavigationAction label="Add" icon={<AddIcon />} value={CurrentView.Add} />
             </BottomNavigation>
         </div>)
     }
