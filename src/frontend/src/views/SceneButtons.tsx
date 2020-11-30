@@ -1,30 +1,8 @@
 import React from 'react';
-import { Theme, makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-
-import Image from './pics/morning.jpg'; // Import using relative path
-
 import { SceneState } from './states/SceneStates';
-
-
-const images = [
-  {
-    url: './pics/morning.jpg',
-    title: 'Morgenprogramm',
-    width: '40%',
-  },
-  {
-    url: 'https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg',
-    title: 'Abendprogramm',
-    width: '30%',
-  },
-  {
-    url: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2020%2F01%2Fflorida-keys-florida-FLVISIT0519.jpg',
-    title: 'Urlaub',
-    width: '30%',
-  },
-];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -98,29 +76,32 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 'calc(50% - 9px)',
       transition: theme.transitions.create('opacity'),
     },
-  }
-  )
+  }),
 );
 
-export function ButtonBases(this: any) {
-  var classes = this.props;
+interface ButtonBasesProps{
+  sceneState:SceneState;
+}
+
+export default function ButtonBases({sceneState}:ButtonBasesProps) {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {images.map((image) => (
+     
         <ButtonBase
           focusRipple
-          key={image.title}
+          key={sceneState.name}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
-            width: image.width,
+            width: '33%',
           }}
         >
           <span
             className={classes.imageSrc}
             style={{
-              backgroundImage: `url(${image.url})`,
+              backgroundImage: `url(${sceneState.url})`,
             }}
           />
           <span className={classes.imageBackdrop} />
@@ -131,67 +112,12 @@ export function ButtonBases(this: any) {
               color="inherit"
               className={classes.imageTitle}
             >
-              {image.title}
+              {sceneState.name}
               <span className={classes.imageMarked} />
             </Typography>
           </span>
         </ButtonBase>
-      ))}
+    
     </div>
   );
 }
-interface SceneButtonsProps {
-  info: SceneState
-}
-
-
-
-export default class SceneButtons extends React.Component<SceneButtonsProps>{
-
-  render(){
-   // const {classes}  = useStyles();
-    return (
-    <div>
-      <div className="Tset">
-
-          <ButtonBase
-            focusRipple
-            key='Morgenprogramm'
-      //      className={classes.image}
-  //          focusVisibleClassName={classes.focusVisible}
-            style={{
-              width: '40%',
-            }}
-          >
-            <span
-       //       className={classes.imageSrc}
-              style={{
-                backgroundImage: `url(/static/images/grid-list/background.jpg)`,
-              }}
-            />
-            <span 
-           // className={classes.imageBackdrop} 
-            />
-            <span 
-           // className={classes.imageButton}
-            >
-              <Typography
-                component="span"
-                variant="subtitle1"
-                color="inherit"
-               // className={classes.imageTitle}
-              >
-                "Morgenprogramm"
-                <span 
-                //className={classes.imageMarked} 
-                />
-              </Typography>
-            </span>
-          </ButtonBase>
-        )
-      </div>
-    </div>);
-  }
-}
-
-
