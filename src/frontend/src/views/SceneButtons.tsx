@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
       minWidth: 300,
       width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     image: {
       position: 'relative',
@@ -87,7 +89,8 @@ export default function ButtonBases({sceneState}:ButtonBasesProps) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+   
+    <div className={classes.root} >
      
         <ButtonBase
           focusRipple
