@@ -1,6 +1,12 @@
-import { Card, CardContent, Switch, Typography } from "@material-ui/core"
+import { Card, CardContent, Switch, Typography, Grid, makeStyles } from "@material-ui/core"
 import React from "react"
-import { RoomState } from "./states/RoomStates"
+import { RoomState } from "../reducer/states/RoomStates"
+
+const styles = makeStyles((theme) => ({
+    fullHeightCard: {
+        height: "100%",
+        },
+    }));
 
 interface RoomCardProps {
     info: RoomState
@@ -8,8 +14,9 @@ interface RoomCardProps {
 
 export class RoomCard extends React.Component<RoomCardProps> {
     render() {
+
         return (
-            <div>
+            <Grid item xs={12} sm={6} md={3} lg={2}>
                 <Card>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -18,7 +25,7 @@ export class RoomCard extends React.Component<RoomCardProps> {
                         </Typography>
                     </CardContent>
                 </Card>
-            </div>
+            </Grid>
         )
     }
 }
