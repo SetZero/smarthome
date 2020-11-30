@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     image: {
       position: 'relative',
-      height: 200,
+      height: '30vh',
       [theme.breakpoints.down('xs')]: {
         width: '100% !important', // Overrides inline-style
-        height: 100,
+        height: '30vh',
       },
       '&:hover, &$focusVisible': {
         zIndex: 1,
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       bottom: 0,
       backgroundSize: 'cover',
-      backgroundPosition: 'center 40%',
+      backgroundPosition: 'center 60%',
     },
     imageBackdrop: {
       position: 'absolute',
@@ -98,7 +98,7 @@ export default function ButtonBases({sceneState}:ButtonBasesProps) {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
-            width: '33%',
+            width: '70%',
           }}
         >
           <span
