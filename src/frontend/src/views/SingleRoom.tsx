@@ -1,13 +1,17 @@
 import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
-import { RoomState } from "../reducer/states/RoomStates"
+import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 
 interface SingleRoomProps {
-    info: RoomState
 }
 
-export class SingleRoom extends React.Component<SingleRoomProps> {
+export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
+    constructor(props : any) {
+        super(props);
+        this.state = { name : "Wohnzimmer", icon : "Whatever", cardSize: RoomCardSize.SMALL, sensors : [{name : "Temperature", value : "23°C"}]};
+    }
+
     render() {
         return (
             <div>
@@ -16,7 +20,7 @@ export class SingleRoom extends React.Component<SingleRoomProps> {
                         <Grid container alignItems="center" justify="space-around" spacing={2}>
                             <Grid item sm={8} xs={10}>
                                 <Typography variant="h4" component="h3">
-                                    {this.props.info.name}
+                                    {this.state.name}
                                 </Typography>
                             </Grid>
                             <Grid item xs={2} sm={2}>

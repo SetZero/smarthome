@@ -9,9 +9,19 @@ import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      minWidth: 300,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     button: {
       display: 'block',
       marginTop: theme.spacing(2),
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     formControl: {
       margin: theme.spacing(1),
@@ -91,9 +101,6 @@ export default function ControlledOpenSelect() {
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpenTyp}>
-        Typ
-      </Button>
       <FormControl className={classes.formControl}>
         <InputLabel id="typ-select-label">Typ</InputLabel>
         <Select
@@ -113,11 +120,8 @@ export default function ControlledOpenSelect() {
           <MenuItem value={30}>Raum</MenuItem>
         </Select>
       </FormControl>
+      <br></br>
 
-
-      <Button className={classes.button} onClick={handleOpenArt}>
-        Geräteart
-      </Button>
       <FormControl className={classes.formControl}>
         <InputLabel id="art-select-label">Geräteart</InputLabel>
         <Select
@@ -137,10 +141,8 @@ export default function ControlledOpenSelect() {
           <MenuItem value={30}>Thermostat</MenuItem>
         </Select>
       </FormControl>
-
-      <Button className={classes.button} onClick={handleOpenDetail}>
-        Zu welchem Raum/Szene
-      </Button>
+      <br></br>
+      
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
@@ -175,28 +177,3 @@ export default function ControlledOpenSelect() {
     </div>
   );
 }
-
-/*
-      <Button className={classes.button} onClick={handleOpen}>
-        Zu welchem Raum/Szene
-      </Button>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
-        <Select
-          labelId="detail-select-label"
-          id="detail-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Raum 1</MenuItem>
-          <MenuItem value={20}>Raum 2</MenuItem>
-          <MenuItem value={30}>Szene 1</MenuItem>
-        </Select>
-      </FormControl>
-*/
