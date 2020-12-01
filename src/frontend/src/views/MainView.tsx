@@ -6,7 +6,7 @@ import { BottomNavigation, BottomNavigationAction, Container } from '@material-u
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
 import AddIcon from '@material-ui/icons/Add';
-import TimelineIcon from '@material-ui/icons/Timeline';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import React from 'react';
 
 enum CurrentView {
@@ -59,8 +59,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             >
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
-                <BottomNavigationAction label="Add" icon={<AddIcon />} value={CurrentView.Add} />
-                <BottomNavigationAction label="Raum" icon={<AddIcon />} value={CurrentView.SingleRoom} />
+                <BottomNavigationAction label="Raum" icon={<MeetingRoomIcon />} value={CurrentView.SingleRoom} />
                 <BottomNavigationAction label="Hinzufügen" icon={<AddIcon />} value={CurrentView.Add} />
             </BottomNavigation>
         </div>)
