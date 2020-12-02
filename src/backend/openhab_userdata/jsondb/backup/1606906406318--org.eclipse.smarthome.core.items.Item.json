@@ -1,0 +1,29 @@
+{
+  "HeizungSZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Dimmer",
+      "tags": [],
+      "label": "HSZ"
+    }
+  },
+  "DeckenlampeSZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [],
+      "label": "DLSZ"
+    }
+  },
+  "FernseherWZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [],
+      "label": "FWZ"
+    }
+  }
+}
