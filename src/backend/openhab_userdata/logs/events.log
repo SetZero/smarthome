@@ -152,3 +152,7 @@
 2020-12-04 10:54:16.099 [vent.ItemStateChangedEvent] - FernseherWZ changed from NULL to ON
 2020-12-04 10:54:16.794 [ome.event.ItemCommandEvent] - Item 'FernseherWZ' received command OFF
 2020-12-04 10:54:16.798 [vent.ItemStateChangedEvent] - FernseherWZ changed from ON to OFF
+2020-12-04 12:01:15.956 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 33
+2020-12-04 12:01:16.212 [vent.ItemStateChangedEvent] - HeizungWZ changed from 13 to 33
+2020-12-04 12:01:17.101 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 32
+2020-12-04 12:01:17.104 [vent.ItemStateChangedEvent] - HeizungWZ changed from 33 to 32

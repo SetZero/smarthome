@@ -59,7 +59,14 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 </Typography>
                             </Grid>
                             <Grid item sm={6} xs={6}>
-                                <Slider defaultValue={50} aria-labelledby="discrete-slider" step={10} marks min={0} max={100} />
+                                <Slider 
+                                    defaultValue={50} 
+                                    aria-labelledby="discrete-slider" 
+                                    step={10} 
+                                    marks 
+                                    min={0} 
+                                    max={100} 
+                                    onChange={() => { alert("changed")/*ApiService.ChangeDimmer(event.target.value, "HeizungWZ")*/ }}/>
                             </Grid>
                             <Grid item sm={2} xs={2}>
                                 <Typography>
@@ -74,7 +81,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 </Typography>
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"DeckenlampeSZ") }}/>
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"FernseherSZ") }}/>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2} >
@@ -85,7 +92,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused"  inputProps={{ 'aria-label': 'secondary-checkbox' }} />
+                                <Switch name="unused"  inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"DeckenlampeWZ") }}/>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
