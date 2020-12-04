@@ -137,3 +137,16 @@ Caused by: java.lang.IllegalStateException: ServiceLocatorImpl(__HK2_Generated_1
 2020-12-02 12:06:06.380 [INFO ] [panel.internal.HABPanelDashboardTile] - Started HABPanel at /habpanel
 2020-12-02 12:06:06.450 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Started Home Builder at /homebuilder
 2020-12-02 12:06:06.511 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Started Paper UI at /paperui
+2020-12-04 16:09:41.253 [INFO ] [e.io.rest.internal.filter.CorsFilter] - enabled CORS for REST API.
+2020-12-04 16:10:03.899 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Stopped Paper UI
+2020-12-04 16:10:03.927 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Stopped Home Builder
+2020-12-04 16:10:03.940 [INFO ] [panel.internal.HABPanelDashboardTile] - Stopped HABPanel
+2020-12-04 16:10:04.006 [INFO ] [basic.internal.servlet.WebAppServlet] - Stopped Basic UI
+2020-12-04 16:10:04.061 [INFO ] [.dashboard.internal.DashboardService] - Stopped Dashboard
+2020-12-04 16:11:00.090 [INFO ] [e.io.rest.internal.filter.CorsFilter] - enabled CORS for REST API.
+2020-12-04 16:11:07.059 [INFO ] [thome.model.lsp.internal.ModelServer] - Started Language Server Protocol (LSP) service on port 5007
+2020-12-04 16:11:08.700 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at http://172.23.0.2:8080
+2020-12-04 16:11:08.706 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at https://172.23.0.2:8443
+2020-12-04 16:11:09.143 [INFO ] [panel.internal.HABPanelDashboardTile] - Started HABPanel at /habpanel
+2020-12-04 16:11:09.221 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Started Home Builder at /homebuilder
+2020-12-04 16:11:09.344 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Started Paper UI at /paperui
