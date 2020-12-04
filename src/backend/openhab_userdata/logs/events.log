@@ -144,3 +144,11 @@
 2020-12-02 11:58:12.399 [vent.ItemStateChangedEvent] - HeizungSZ changed from 28 to 20
 2020-12-02 11:58:14.026 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 19
 2020-12-02 11:58:14.030 [vent.ItemStateChangedEvent] - HeizungWZ changed from 14 to 19
+2020-12-02 12:31:06.906 [ome.event.ItemCommandEvent] - Item 'HeizungSZ' received command 15
+2020-12-02 12:31:06.915 [vent.ItemStateChangedEvent] - HeizungSZ changed from NULL to 15
+2020-12-02 12:31:08.219 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 13
+2020-12-02 12:31:08.237 [vent.ItemStateChangedEvent] - HeizungWZ changed from NULL to 13
+2020-12-04 10:54:16.002 [ome.event.ItemCommandEvent] - Item 'FernseherWZ' received command ON
+2020-12-04 10:54:16.099 [vent.ItemStateChangedEvent] - FernseherWZ changed from NULL to ON
+2020-12-04 10:54:16.794 [ome.event.ItemCommandEvent] - Item 'FernseherWZ' received command OFF
+2020-12-04 10:54:16.798 [vent.ItemStateChangedEvent] - FernseherWZ changed from ON to OFF

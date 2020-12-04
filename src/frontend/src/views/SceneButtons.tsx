@@ -95,6 +95,7 @@ export default function ButtonBases({sceneState}:ButtonBasesProps) {
         <ButtonBase
           focusRipple
           key={sceneState.name}
+          onClick={() => { alert('clicked') }}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{

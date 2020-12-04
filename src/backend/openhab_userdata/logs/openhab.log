@@ -131,3 +131,9 @@ Caused by: java.lang.IllegalStateException: ServiceLocatorImpl(__HK2_Generated_1
 2020-12-02 11:59:27.152 [INFO ] [panel.internal.HABPanelDashboardTile] - Stopped HABPanel
 2020-12-02 11:59:27.194 [INFO ] [basic.internal.servlet.WebAppServlet] - Stopped Basic UI
 2020-12-02 11:59:27.336 [INFO ] [.dashboard.internal.DashboardService] - Stopped Dashboard
+2020-12-02 12:06:04.591 [INFO ] [thome.model.lsp.internal.ModelServer] - Started Language Server Protocol (LSP) service on port 5007
+2020-12-02 12:06:05.945 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at http://172.23.0.2:8080
+2020-12-02 12:06:05.948 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at https://172.23.0.2:8443
+2020-12-02 12:06:06.380 [INFO ] [panel.internal.HABPanelDashboardTile] - Started HABPanel at /habpanel
+2020-12-02 12:06:06.450 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Started Home Builder at /homebuilder
+2020-12-02 12:06:06.511 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Started Paper UI at /paperui
