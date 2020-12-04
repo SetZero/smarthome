@@ -77,6 +77,16 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                            <Grid item sm={8} xs={10}>
+                                <Typography variant="h5" component="h6">
+                                    Lampe
+                                </Typography>
+                            </Grid>
+                            <Grid item sm={4} xs={6}>
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
+                            </Grid>
+                        </Grid>
+                        <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
                             <Grid item sm={12}>
                                 <Button>
                                     Actions
