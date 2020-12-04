@@ -1,5 +1,6 @@
 export class ApiService  {
-   private const itemURL:string ='https://localhost:8443/rest/items/';
+
+    static itemURL: string="https://localhost:8443/rest/items/";
 
     static async ChangeSwitch(onOff:boolean, name:string){
         var message;
@@ -8,7 +9,7 @@ export class ApiService  {
         else
             message="OFF";
 
-        const response = await fetch(itemURL+name, {
+        const response = await fetch(this.itemURL+name, {
               method: 'POST',
               body: message,
               headers: {'Content-Type': 'text/plain',
@@ -19,7 +20,7 @@ export class ApiService  {
     static async ChangeDimmer(value:number, name:string){
         var message = ''+value;
         
-        const response = await fetch(url, {
+        const response = await fetch(this.itemURL+name, {
               method: 'POST',
               body: message,
               headers: {'Content-Type': 'text/plain',
