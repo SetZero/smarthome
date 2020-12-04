@@ -2,6 +2,7 @@ import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, Ico
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
+import { ApiService } from "../Utils/ApiService";
 
 interface SingleRoomProps {
 }
@@ -73,14 +74,15 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 </Typography>
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"DeckenlampeSZ") }}/>
                             </Grid>
                         </Grid>
-                        <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                        <Grid container alignItems="center" justify="flex-start" item xs spacing={2} >
                             <Grid item sm={8} xs={10}>
                                 <Typography variant="h5" component="h6">
                                     Lampe
                                 </Typography>
+                                
                             </Grid>
                             <Grid item sm={4} xs={6}>
                                 <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
