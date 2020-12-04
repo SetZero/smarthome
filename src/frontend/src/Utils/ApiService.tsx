@@ -1,6 +1,8 @@
+import { request } from "http";
+
 export class ApiService  {
 
-    static itemURL: string="https://localhost:8443/rest/items/";
+    static itemURL: string="http://localhost:8080/rest/items/";
 
     static async ChangeSwitch(onOff:boolean, name:string){
         var message;
@@ -28,5 +30,22 @@ export class ApiService  {
     }
 
 
+
+    
+    static async GetSwitchState( name:string){
+        var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
+
+xhr.send();
+
+    }
 
 }

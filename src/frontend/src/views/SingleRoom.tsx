@@ -91,7 +91,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { alert(ApiService.GetSwitchState("DeckenlampeSZ")) }}/>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
