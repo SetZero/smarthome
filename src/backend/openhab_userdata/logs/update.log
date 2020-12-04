@@ -1,0 +1,16 @@
+Image and userdata versions differ! Starting an upgrade.
+You can find backup of userdata in /openhab/userdata/backup/userdata-2020-12-04T15-15-22.tar
+
+################################################
+          openHAB Docker update script          
+################################################
+
+The script will attempt to update openHAB to version 2.5.10
+Please read the following [32mnotes[m and [31mwarnings[m:
+
+Replacing userdata system files with newer versions...
+Clearing cache...
+
+
+SUCCESS: openHAB updated from 2.5.10 to 2.5.10
+
