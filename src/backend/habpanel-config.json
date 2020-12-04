@@ -1,0 +1,94 @@
+{
+    "dashboards": [
+        {
+            "id": "Smarthome",
+            "name": "Smarthome",
+            "widgets": [
+                {
+                    "name": "Deckenlampe SZ",
+                    "sizeX": 4,
+                    "sizeY": 2,
+                    "item": "DeckenlampeSZ",
+                    "type": "switch",
+                    "row": 0,
+                    "col": 0,
+                    "hideonoff": false,
+                    "backdrop_iconset": "smarthome-set",
+                    "backdrop_icon": "bulb",
+                    "iconset": "smarthome-set",
+                    "icon": "power",
+                    "icon_size": 32,
+                    "$$hashKey": "object:51"
+                },
+                {
+                    "name": "Heizung",
+                    "sizeX": 4,
+                    "sizeY": 2,
+                    "item": "HeizungSZ",
+                    "type": "slider",
+                    "row": 2,
+                    "col": 0,
+                    "floor": 0,
+                    "ceil": 35,
+                    "step": 1,
+                    "unit": "°C",
+                    "backdrop_iconset": "smarthome-set",
+                    "backdrop_icon": "air-conditioning-indoor",
+                    "$$hashKey": "object:52"
+                },
+                {
+                    "name": "LampeWZ",
+                    "sizeX": 5,
+                    "sizeY": 2,
+                    "item": "LampeWZ",
+                    "type": "switch",
+                    "row": 0,
+                    "col": 6,
+                    "backdrop_iconset": "smarthome-set",
+                    "backdrop_icon": "bulb",
+                    "iconset": "smarthome-set",
+                    "icon": "power-button",
+                    "icon_size": 32,
+                    "$$hashKey": "object:53"
+                },
+                {
+                    "name": "HeizungWZ",
+                    "sizeX": 5,
+                    "sizeY": 1,
+                    "item": "HeizungWZ",
+                    "type": "slider",
+                    "row": 2,
+                    "col": 6,
+                    "floor": 0,
+                    "ceil": 35,
+                    "step": 1,
+                    "unit": "°C",
+                    "backdrop_iconset": "smarthome-set",
+                    "backdrop_icon": "air-conditioning-indoor",
+                    "$$hashKey": "object:54"
+                },
+                {
+                    "name": "FernseherWZ",
+                    "sizeX": 5,
+                    "sizeY": 1,
+                    "item": "FernseherWZ",
+                    "type": "switch",
+                    "row": 3,
+                    "col": 6,
+                    "backdrop_iconset": "smarthome-set",
+                    "backdrop_icon": "tv",
+                    "iconset": "smarthome-set",
+                    "icon": "power-button",
+                    "icon_size": 32,
+                    "$$hashKey": "object:55"
+                }
+            ],
+            "row": 0,
+            "col": 0,
+            "$$hashKey": "object:33"
+        }
+    ],
+    "menucolumns": 2,
+    "settings": {},
+    "customwidgets": {}
+}
