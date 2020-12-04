@@ -17,7 +17,7 @@ export class ApiService  {
     }
 
 
-    static async ChangeDimmer(value:number, name:string){
+    static async ChangeDimmer(value:string, name:string){
         var message = ''+value;
         
         const response = await fetch(this.itemURL+name, {
@@ -26,5 +26,7 @@ export class ApiService  {
               headers: {'Content-Type': 'text/plain',
                         'Accept':'application/json'} });
     }
+
+
 
 }
