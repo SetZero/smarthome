@@ -14,6 +14,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
     }
 
     render() {
+
         return (
             <div>
                 <Container maxWidth="sm">
@@ -55,15 +56,20 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
                             <Grid item sm={4} xs={10}>
                                 <Typography variant="h5" component="h6">
-                                    Helligkeit
+                                    Heizung
                                 </Typography>
                             </Grid>
                             <Grid item sm={6} xs={6}>
-                                <Slider defaultValue={50} aria-labelledby="discrete-slider" step={10} marks min={0} max={100} />
+                                <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35} 
+                                onChange={ (e, val) => {
+                                        ApiService.ChangeDimmer(val+'',"HeizungWZ");
+                                }}   
+                                
+                                    />
                             </Grid>
                             <Grid item sm={2} xs={2}>
                                 <Typography>
-                                    50%
+                            20°C
                                 </Typography>
                             </Grid>
                         </Grid>
