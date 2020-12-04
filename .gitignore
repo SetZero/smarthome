@@ -1,0 +1,10 @@
+
+*.log
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.58
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.80
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.83
+src/backend/openhab_userdata/tmp/port
+src/backend/openhab_userdata/cache/org.eclipse.osgi/48/data/FeatureDeploymentListener.cfg
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.58
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.83
+src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.86
