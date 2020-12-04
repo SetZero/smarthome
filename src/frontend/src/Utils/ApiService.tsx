@@ -1,6 +1,6 @@
 export class ApiService  {
 
-    static itemURL: string="https://localhost:8443/rest/items/";
+    static itemURL: string="http://localhost:8080/rest/items/";
 
     static async ChangeSwitch(onOff:boolean, name:string){
         var message;
@@ -32,7 +32,7 @@ export class ApiService  {
         const response = await fetch("http://localhost:8080/rest/items?recursive=false", {
               method: 'GET',
               headers: {'Accept':'application/json'},
-              mode: 'no-cors'
+              
             });
             return response;
     }

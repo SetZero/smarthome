@@ -156,3 +156,25 @@
 2020-12-04 12:01:16.212 [vent.ItemStateChangedEvent] - HeizungWZ changed from 13 to 33
 2020-12-04 12:01:17.101 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 32
 2020-12-04 12:01:17.104 [vent.ItemStateChangedEvent] - HeizungWZ changed from 33 to 32
+2020-12-04 16:30:51.273 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 5
+2020-12-04 16:30:51.381 [vent.ItemStateChangedEvent] - HeizungWZ changed from NULL to 5
+2020-12-04 16:30:52.170 [ome.event.ItemCommandEvent] - Item 'HeizungSZ' received command 11
+2020-12-04 16:30:52.175 [vent.ItemStateChangedEvent] - HeizungSZ changed from NULL to 11
+2020-12-04 16:57:19.242 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 6
+2020-12-04 16:57:19.262 [vent.ItemStateChangedEvent] - HeizungWZ changed from 5 to 6
+2020-12-04 16:57:19.740 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 18
+2020-12-04 16:57:19.756 [vent.ItemStateChangedEvent] - HeizungWZ changed from 6 to 18
+2020-12-04 16:57:20.202 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 20
+2020-12-04 16:57:20.213 [vent.ItemStateChangedEvent] - HeizungWZ changed from 18 to 20
+2020-12-04 17:08:50.039 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 7
+2020-12-04 17:08:50.043 [vent.ItemStateChangedEvent] - HeizungWZ changed from 20 to 7
+2020-12-04 17:11:55.393 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 14
+2020-12-04 17:11:55.409 [vent.ItemStateChangedEvent] - HeizungWZ changed from 7 to 14
+2020-12-04 17:11:56.504 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 10
+2020-12-04 17:11:56.511 [vent.ItemStateChangedEvent] - HeizungWZ changed from 14 to 10
+2020-12-04 17:11:57.280 [ome.event.ItemCommandEvent] - Item 'HeizungWZ' received command 22
+2020-12-04 17:11:57.292 [vent.ItemStateChangedEvent] - HeizungWZ changed from 10 to 22
+2020-12-04 17:12:01.236 [ome.event.ItemCommandEvent] - Item 'FernseherWZ' received command ON
+2020-12-04 17:12:01.240 [vent.ItemStateChangedEvent] - FernseherWZ changed from NULL to ON
+2020-12-04 17:12:07.415 [ome.event.ItemCommandEvent] - Item 'LampeWZ' received command ON
+2020-12-04 17:12:07.418 [vent.ItemStateChangedEvent] - LampeWZ changed from NULL to ON

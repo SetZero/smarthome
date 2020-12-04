@@ -150,3 +150,13 @@ Caused by: java.lang.IllegalStateException: ServiceLocatorImpl(__HK2_Generated_1
 2020-12-04 16:11:09.143 [INFO ] [panel.internal.HABPanelDashboardTile] - Started HABPanel at /habpanel
 2020-12-04 16:11:09.221 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Started Home Builder at /homebuilder
 2020-12-04 16:11:09.344 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Started Paper UI at /paperui
+2020-12-04 16:29:06.673 [INFO ] [e.io.rest.internal.filter.CorsFilter] - enabled CORS for REST API.
+2020-12-04 16:29:15.114 [INFO ] [thome.model.lsp.internal.ModelServer] - Started Language Server Protocol (LSP) service on port 5007
+2020-12-04 16:29:17.135 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at http://172.23.0.2:8080
+2020-12-04 16:29:17.138 [INFO ] [.dashboard.internal.DashboardService] - Started Dashboard at https://172.23.0.2:8443
+2020-12-04 16:29:17.676 [INFO ] [panel.internal.HABPanelDashboardTile] - Started HABPanel at /habpanel
+2020-12-04 16:29:17.798 [INFO ] [ebuilder.internal.HomeBuilderServlet] - Started Home Builder at /homebuilder
+2020-12-04 16:29:17.910 [INFO ] [openhab.ui.paper.internal.PaperUIApp] - Started Paper UI at /paperui
+2020-12-04 16:56:10.577 [INFO ] [rest.core.internal.item.ItemResource] - Received HTTP POST request at 'items/FernseherSZ' for the unknown item 'FernseherSZ'.
+2020-12-04 16:56:13.889 [INFO ] [rest.core.internal.item.ItemResource] - Received HTTP POST request at 'items/FernseherSZ' for the unknown item 'FernseherSZ'.
+2020-12-04 17:08:42.634 [INFO ] [rest.core.internal.item.ItemResource] - Received HTTP POST request at 'items/FernseherSZ' for the unknown item 'FernseherSZ'.

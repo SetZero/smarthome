@@ -79,7 +79,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 </Typography>
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"FernseherSZ") }}/>
+                                <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"FernseherWZ") }}/>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2} >
@@ -90,7 +90,7 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 
                             </Grid>
                             <Grid item sm={4} xs={6}>
-                                <Switch name="unused"  inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"DeckenlampeWZ") }}/>
+                                <Switch name="unused"  inputProps={{ 'aria-label': 'secondary-checkbox' }} onChange={(event: React.ChangeEvent<HTMLInputElement>) => { ApiService.ChangeSwitch(event.target.checked,"LampeWZ") }}/>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2} >
@@ -104,7 +104,8 @@ export class SingleRoom extends React.Component<SingleRoomProps, RoomState> {
                                 <Switch 
                                 name="unused"  
                                 inputProps={{ 'aria-label': 'secondary-checkbox' }} 
-                                onChange={() => { ApiService.GetAllItems().then(e => { console.log(e); },e=>{console.error(e)}) }}/>
+                                onChange={() => { ApiService.GetAllItems().then(e => e.json()).then(e => console.log(e) ) }}
+                                />
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
