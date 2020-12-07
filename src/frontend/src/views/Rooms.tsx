@@ -13,10 +13,6 @@ export const Rooms: React.FC<RoomProps> = ({ }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state.roomsReducer.rooms);
     const dispatch = useDispatch();
 
-    const onAddRoom = (room: RoomState) => {
-        dispatch(addRoom(room));
-    }
-
     return (
         <Container>
             <Grid container spacing={3}
