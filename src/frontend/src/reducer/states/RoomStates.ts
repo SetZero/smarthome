@@ -37,7 +37,8 @@ const initialState = {
 export const roomsReducer = (state: RoomsState = initialState, action: Action) => {
     switch (action.type) {
         case "ADD_ROOM": {
-            return { ...state, notes: [...state.rooms, action.payload] };
+            console.log(state)
+            return { ...state, rooms: [...state.rooms, action.payload] };
         }
         default:
             return state;

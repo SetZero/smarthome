@@ -6,6 +6,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { RoomCardSize, RoomState } from '../reducer/states/RoomStates';
+import { addRoom } from '../reducer/actions/roomActions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,14 +59,14 @@ export default function ControlledOpenSelect() {
   const classes = useStyles();
   const classesText = useStylesText();
   const classesButton = useStyles();
- /* const [typ, setTyp] = React.useState<string | number>('');*/
+  /* const [typ, setTyp] = React.useState<string | number>('');*/
   const [typ, setTyp] = React.useState<string | number>('');
   const [art, setArt] = React.useState<string | number>('');
   const [detail, setDetail] = React.useState<string | number>('');
   const [openTyp, setOpen] = React.useState(false);
   const [openArt, setOpenArt] = React.useState(false);
   const [openDetail, setOpenDetail] = React.useState(false);
-  
+
 
   const handleChangeTyp = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTyp(event.target.value as number);
@@ -96,8 +99,22 @@ export default function ControlledOpenSelect() {
   const handleOpenDetail = () => {
     setOpenDetail(true);
   };
-  
-  
+
+  const dispatch = useDispatch();
+
+  const onAddRoom = (room: RoomState) => {
+    dispatch(addRoom(room));
+  }
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onAddRoom({
+      name: "Test",
+      icon: "",
+      cardSize: RoomCardSize.SMALL,
+      sensors: undefined
+    });
+  }
+
 
   return (
     <div>
@@ -142,7 +159,7 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-      
+
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
@@ -164,15 +181,15 @@ export default function ControlledOpenSelect() {
       </FormControl>
 
 
-    
-      
+
+
 
 
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" />
       </form>
 
-      <Button variant="outlined">Hinzufügen</Button>
+      <Button variant="outlined" onClick={onClick}>Hinzufügen</Button>
 
     </div>
   );
