@@ -111,8 +111,6 @@ export default function ControlledOpenSelect() {
     setOpenDetail(true);
   };
   
-  
-
   return (
     <div>
       <FormControl className={classes.formControl}>
