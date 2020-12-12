@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
 import { RoomState} from "../reducer/states/RoomStates"
 import { StateType } from "../reducer/rootReducer";
-import { addRoom } from "../reducer/actions/roomActions";
+import { addRoom } from "../reducer/actions/RoomActions";
 
 interface RoomProps { }
  //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"

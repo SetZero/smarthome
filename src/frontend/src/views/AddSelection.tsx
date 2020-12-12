@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch } from "react-redux"
 import { Rooms } from './Rooms';
-import { addRoom } from '../reducer/actions/roomActions'
+import { addRoom } from '../reducer/actions/RoomActions'
 import { RoomState, RoomCardSize } from '../reducer/states/RoomStates'
 
 const useStyles = makeStyles((theme: Theme) =>

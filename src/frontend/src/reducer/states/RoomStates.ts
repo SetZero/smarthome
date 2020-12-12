@@ -1,4 +1,4 @@
-import { Action } from "../actions/roomActions";
+import { Action } from "../actions/RoomActions";
 
 export enum RoomCardSize {
     SMALL = 1,
