@@ -23,7 +23,7 @@ export interface ItemState {
 
 export let itemReducer = async () => {
     return new Promise<Reducer<any, ItemAction>>((resolve, reject) => {
-        ApiService.GetAllItems().then((el: any) => {
+        ApiService.GetAllItems().then((output: any) => output.json().then((el: any) => {
             const reducer = (state: ItemState = el.map((item: Item) => item.label), action: ItemAction) => {
                 switch (action.type) {
                     case "ADD_ITEM": {
@@ -33,9 +33,9 @@ export let itemReducer = async () => {
                         return state;
                 }
             }
-
+            console.log(el);
             resolve(reducer);
-        });
-        reject("Error!");
+        }).catch(() => reject("Unable to convert Item result to JSON"))
+        ).catch(() => reject("Unable to contact Backend"));
     });
 };
