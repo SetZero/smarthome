@@ -11,7 +11,6 @@ interface RoomProps { }
 
 export const Rooms: React.FC<RoomProps> = ({ }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
-
     return (
         <Container>
             <Grid container spacing={3}

@@ -1,4 +1,6 @@
 import { request } from "http";
+import { Url } from "url";
+import { ItemState } from "../reducer/states/ItemState";
 
 export class ApiService {
 
@@ -12,6 +14,23 @@ export class ApiService {
             message = "OFF";
 
         const response = await fetch(this.itemURL + name, {
+            method: 'POST',
+            body: message,
+            headers: {
+                'Content-Type': 'text/plain',
+                'Accept': 'application/json'
+            }
+        });
+    }
+
+    static async switchStateChange(onOff: ItemState, link: string) {
+        var message;
+        if (onOff == ItemState.ON)
+            message = "ON";
+        else
+            message = "OFF";
+
+        const response = await fetch(link, {
             method: 'POST',
             body: message,
             headers: {
