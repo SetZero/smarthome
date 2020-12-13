@@ -1,60 +1,66 @@
 import { request } from "http";
 
-export class ApiService  {
+export class ApiService {
 
-    static itemURL: string="http://localhost:8080/rest/items/";
+    static itemURL: string = "http://localhost:8080/rest/items/";
 
-    static async ChangeSwitch(onOff:boolean, name:string){
+    static async ChangeSwitch(onOff: boolean, name: string) {
         var message;
-        if(onOff)
-            message="ON";
+        if (onOff)
+            message = "ON";
         else
-            message="OFF";
+            message = "OFF";
 
-        const response = await fetch(this.itemURL+name, {
-              method: 'POST',
-              body: message,
-              headers: {'Content-Type': 'text/plain',
-                        'Accept':'application/json'} });
+        const response = await fetch(this.itemURL + name, {
+            method: 'POST',
+            body: message,
+            headers: {
+                'Content-Type': 'text/plain',
+                'Accept': 'application/json'
+            }
+        });
     }
 
 
-    static async ChangeDimmer(value:string, name:string){
-        var message = ''+value;
-        
-        const response = await fetch(this.itemURL+name, {
-              method: 'POST',
-              body: message,
-              headers: {'Content-Type': 'text/plain',
-                        'Accept':'application/json'} });
+    static async ChangeDimmer(value: string, name: string) {
+        var message = '' + value;
+
+        const response = await fetch(this.itemURL + name, {
+            method: 'POST',
+            body: message,
+            headers: {
+                'Content-Type': 'text/plain',
+                'Accept': 'application/json'
+            }
+        });
     }
 
     //Funktioniert noch nicht. response liegt als Promise<response> vor soll aber json sein
-    static async GetAllItems(){       
+    static async GetAllItems() {
         const response = await fetch("http://localhost:8080/rest/items?recursive=false", {
-              method: 'GET',
-              headers: {'Accept':'application/json'},
-              
-            });
-            return response;
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+
+        });
+        return response;
     }
 
 
 
-    
-    static async GetSwitchState( name:string){
+
+    static async GetSwitchState(name: string) {
         var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+        xhr.withCredentials = true;
 
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
+        });
 
-xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
+        xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
 
-xhr.send();
+        xhr.send();
 
     }
 

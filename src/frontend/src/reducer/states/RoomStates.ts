@@ -15,7 +15,7 @@ export interface RoomState {
     name: string;
     icon: string;
     cardSize: RoomCardSize;
-    sensors: Array<Sensors> | undefined
+    sensors?: Array<Sensors>;
 }
 
 export interface RoomsState {

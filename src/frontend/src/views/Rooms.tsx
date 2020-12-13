@@ -10,7 +10,7 @@ interface RoomProps { }
 //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
 
 export const Rooms: React.FC<RoomProps> = ({ }) => {
-    const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state.roomsReducer.rooms);
+    const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
 
     return (
         <Container>
