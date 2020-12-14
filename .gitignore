@@ -19,3 +19,5 @@ src/backend/openhab_userdata/logs/
 src/backend/openhab_userdata/tmp/mvn/org/openhab/
 
 src/backend/openhab_userdata/tmp/
+
+**package-lock.json
