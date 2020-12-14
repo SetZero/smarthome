@@ -56,6 +56,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             <BottomNavigation
                 onChange={(c, v) => { this.handleChange(c, v) }}
                 showLabels
+                value={this.state.currentView}
             >
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
