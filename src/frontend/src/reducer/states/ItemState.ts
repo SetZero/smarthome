@@ -56,6 +56,6 @@ export let itemReducer = async () => {
             }
             resolve(reducer);
         }).catch(() => reject("Unable to convert Item result to JSON"))
-        ).catch(() => reject("Unable to contact Backend"));
+        ).catch((e) => reject("Unable to contact Backend, Reason: " + JSON.stringify(e)));
     });
 };
