@@ -8,6 +8,7 @@ src/backend/openhab_userdata/cache/org.eclipse.osgi/48/data/FeatureDeploymentLis
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.58
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.83
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.86
+src/backend/openhab_userdata/config/org_apache_felix_cm_impl_DynamicBindings.config
 
 src/backend/openhab_userdata/cache/
 
