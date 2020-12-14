@@ -5,7 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
 import { configureStoreAsync } from './store';
-import { Container, Card, CardContent } from '@material-ui/core';
+import { Container, Card, CardContent, LinearProgress, CircularProgress, Backdrop } from '@material-ui/core';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <LinearProgress />
+    <Backdrop open={true}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 configureStoreAsync().then(result => {
   const store = result;
@@ -21,14 +31,16 @@ configureStoreAsync().then(result => {
   .catch((error) => {
     ReactDOM.render(
       <React.StrictMode>
+      <Backdrop open={true}>
         <Container maxWidth="sm">
           <Card>
-          <CardContent>
-            <div>There was an error while contacting OpenHAB. Is OpenHAB running?</div>
-            <div>Error Message: <code> {JSON.stringify(error)} </code></div>
+            <CardContent>
+              <div>There was an error while contacting OpenHAB. Is OpenHAB running?</div>
+              <div>Error Message: <code> {JSON.stringify(error)} </code></div>
             </CardContent>
           </Card>
         </Container>
+        </Backdrop>
       </React.StrictMode>,
       document.getElementById('root')
     );
