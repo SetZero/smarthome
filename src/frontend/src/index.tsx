@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
 import { configureStoreAsync } from './store';
-import { Container, Card, CardContent, LinearProgress, CircularProgress, Backdrop } from '@material-ui/core';
+import { LinearProgress, CircularProgress, Backdrop } from '@material-ui/core';
+import { LoadingError } from './views/LoadingError';
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,16 +33,7 @@ configureStoreAsync().then(result => {
   .catch((error) => {
     ReactDOM.render(
       <React.StrictMode>
-      <Backdrop open={true}>
-        <Container maxWidth="sm">
-          <Card>
-            <CardContent>
-              <div>There was an error while contacting OpenHAB. Is OpenHAB running?</div>
-              <div>Error Message: <code> {JSON.stringify(error)} </code></div>
-            </CardContent>
-          </Card>
-        </Container>
-        </Backdrop>
+        <LoadingError error={error}/>
       </React.StrictMode>,
       document.getElementById('root')
     );
