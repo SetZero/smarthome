@@ -11,19 +11,22 @@ export const loadState = () => {
   } catch (err) {
     return undefined;
   }
-}; 
+};
 
 export const updateStoredState = () => {
     // TODO: delta between stored and to store state, don't just store the whole thing completly
     try {
-        localStorage.setItem('state', JSON.stringify(store.getState()))
+      //TODO: store
+        //localStorage.setItem('state', JSON.stringify(store.getState()))
     } catch {
     }
 }
 
 const storedState = loadState();
-export const store = createStore(rootReducer, storedState);
-store.subscribe(updateStoredState);
+export const configureStoreAsync = async () => {
+  let store = createStore(await rootReducer(), storedState);
+  store.subscribe(updateStoredState);
+  return store;
+ };
 
 
-export const configureStoreAsync = async () => { return createStore(await rootReducer()) };

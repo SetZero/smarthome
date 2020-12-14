@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { ItemList, itemReducer } from "./states/ItemState";
 
 import { roomsReducer, RoomsState } from "./states/RoomStates";
 import { scenesReducer, ScenesState } from "./states/SceneStates";
