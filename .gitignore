@@ -8,3 +8,13 @@ src/backend/openhab_userdata/cache/org.eclipse.osgi/48/data/FeatureDeploymentLis
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.58
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.83
 src/backend/openhab_userdata/cache/org.eclipse.osgi/framework.info.86
+
+src/backend/openhab_userdata/cache/
+
+src/backend/openhab_userdata/backup/
+
+src/backend/openhab_userdata/logs/
+
+src/backend/openhab_userdata/tmp/mvn/org/openhab/
+
+src/backend/openhab_userdata/tmp/

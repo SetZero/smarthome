@@ -34,7 +34,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
         let showComponent = null;
         switch (this.state.currentView) {
             case CurrentView.Room:
-                showComponent = <Rooms currentView={this.state.currentView}/>;
+                showComponent = <Rooms isNew='true'/>;
                 break;
             case CurrentView.Scene:
                 showComponent = <Scenes />;
@@ -56,6 +56,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             <BottomNavigation
                 onChange={(c, v) => { this.handleChange(c, v) }}
                 showLabels
+                value={this.state.currentView}
             >
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />

@@ -61,7 +61,7 @@ export default function ControlledOpenSelect() {
   const classes = useStyles();
   const classesText = useStylesText();
   const classesButton = useStyles();
- /* const [typ, setTyp] = React.useState<string | number>('');*/
+  /* const [typ, setTyp] = React.useState<string | number>('');*/
   const [typ, setTyp] = React.useState<string | number>('');
   const [art, setArt] = React.useState<string | number>('');
   const [detail, setDetail] = React.useState<string | number>('');
@@ -112,7 +112,17 @@ export default function ControlledOpenSelect() {
   const handleOpenDetail = () => {
     setOpenDetail(true);
   };
-  
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onAddRoom({
+      name: "Test",
+      icon: "",
+      cardSize: RoomCardSize.SMALL,
+      sensors: undefined
+    });
+  }
+
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -156,7 +166,6 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-      </div>}
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
@@ -177,11 +186,6 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
 
-
-    
-      
-
-
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
@@ -190,7 +194,8 @@ export default function ControlledOpenSelect() {
         let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
         onAddRoom(room);
       }}>Hinzufügen</Button>
-
+      
     </div>
-  );
+}</div>
+  )
 }
