@@ -34,7 +34,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
         let showComponent = null;
         switch (this.state.currentView) {
             case CurrentView.Room:
-                showComponent = <Rooms />;
+                showComponent = <Rooms currentView={this.state.currentView}/>;
                 break;
             case CurrentView.Scene:
                 showComponent = <Scenes />;

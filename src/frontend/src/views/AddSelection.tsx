@@ -56,6 +56,7 @@ const useStylesButton = makeStyles((theme: Theme) =>
   }),
 );
 
+
 export default function ControlledOpenSelect() {
   const classes = useStyles();
   const classesText = useStylesText();
@@ -73,6 +74,7 @@ export default function ControlledOpenSelect() {
   const onAddRoom = (room: RoomState) => {
         dispatch(addRoom(room));
   }
+  
   
 
   const handleChangeTyp = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -133,7 +135,7 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-
+      {(typ ==10) &&<div >
       <FormControl className={classes.formControl}>
         <InputLabel id="art-select-label">Geräteart</InputLabel>
         <Select
@@ -154,7 +156,7 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-      
+      </div>}
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
