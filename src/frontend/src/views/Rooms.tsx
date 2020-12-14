@@ -5,23 +5,47 @@ import { RoomCard } from "./RoomCard";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { StateType } from "../reducer/rootReducer";
 import { addRoom } from "../reducer/actions/RoomActions";
+import { SingleRoom } from "./SingleRoom";
+import { useState } from "react";
 
-interface RoomProps { }
+interface RoomProps { isNew:string}
 //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
 
-export const Rooms: React.FC<RoomProps> = ({ }) => {
+export const Rooms: React.FC<RoomProps> = ({ isNew}) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
-    return (
-        <Container>
-            <Grid container spacing={3}
-                direction="row"
-                justify="center"
-                alignItems="center">
-                {rooms.map((element, i) => {
-                    return (<RoomCard info={element} key={i} />)
-                })}
-            </Grid>
+    const onAddRoom = (room: RoomState) => {
+        dispatch(addRoom(room));
+    }
+
+    var [showSelectedRoom,setShowSelectedRoom ]  =useState(false);
+
+    console.log(showSelectedRoom);
+
+    if(showSelectedRoom){
+        return (<Container className="flexGrow">
+            <SingleRoom />
         </Container>
-    )
+        )
+    }
+    else{
+        return (
+            <Container>
+                <Grid container spacing={3}
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                        Test:{String(showSelectedRoom)}
+                    {rooms.map((element, i) => {
+                        return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom}/>)
+                    })}
+                </Grid>
+            </Container>
+        )
+
+    }
+    
+
+
 }
+

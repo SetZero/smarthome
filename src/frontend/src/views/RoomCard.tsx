@@ -1,9 +1,13 @@
-import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea } from "@material-ui/core"
+import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, Container, IconButton } from "@material-ui/core"
 import React from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
+import { MainView } from "./MainView";
+import { SingleRoom } from './SingleRoom';
 
 interface RoomCardProps {
-    info: RoomState
+    info: RoomState,
+    showRoomFunction: (selectedRoom: boolean) => void
+    //currentView:number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-export const RoomCard: React.FC<RoomCardProps> = ({ info }) => {
+export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) => {
     let sizeXS: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeSM: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeMD: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
@@ -47,13 +51,21 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info }) => {
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
             <Card className={classes.fullHeightCard}>
-                <CardActionArea>
+                <CardActionArea onClick={() => { showRoomFunction(true) }}>
                     <CardMedia
                         className={classes.media}
                         image="https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg"
                         title="Contemplative Reptile"
                     />
                     <CardContent>
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                           // onClick={handleClick}
+                        >
+
+                        </IconButton>
                         <Typography gutterBottom variant="h5" component="h2">
                             {info.name}
                             <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />

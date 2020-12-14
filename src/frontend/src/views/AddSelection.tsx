@@ -56,6 +56,7 @@ const useStylesButton = makeStyles((theme: Theme) =>
   }),
 );
 
+
 export default function ControlledOpenSelect() {
   const classes = useStyles();
   const classesText = useStylesText();
@@ -69,6 +70,12 @@ export default function ControlledOpenSelect() {
   const [openDetail, setOpenDetail] = React.useState(false);
   const [name, setName] = React.useState<string>("");
 
+  const dispatch = useDispatch();
+  const onAddRoom = (room: RoomState) => {
+        dispatch(addRoom(room));
+  }
+  
+  
 
   const handleChangeTyp = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTyp(event.target.value as number);
@@ -106,12 +113,6 @@ export default function ControlledOpenSelect() {
     setOpenDetail(true);
   };
 
-  const dispatch = useDispatch();
-
-  const onAddRoom = (room: RoomState) => {
-    dispatch(addRoom(room));
-  }
-
   const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     onAddRoom({
       name: "Test",
@@ -144,7 +145,7 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-
+      {(typ ==10) &&<div >
       <FormControl className={classes.formControl}>
         <InputLabel id="art-select-label">Geräteart</InputLabel>
         <Select
@@ -165,7 +166,6 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
@@ -186,11 +186,6 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
 
-
-
-
-
-
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
@@ -199,7 +194,8 @@ export default function ControlledOpenSelect() {
         let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
         onAddRoom(room);
       }}>Hinzufügen</Button>
-
+      
     </div>
-  );
+}</div>
+  )
 }
