@@ -6,5 +6,5 @@ Strategies {
 }
 Items {
 	// persist everything when the value is updated, just a default, and restore them from database on startup
-	* : strategy = everyMinute, restoreOnStartup
+	* : strategy = everyChange, restoreOnStartup
 }
