@@ -1,5 +1,7 @@
 import { request } from "http";
+import { Action, Store } from "redux";
 import { Url } from "url";
+import { ItemAction } from "../reducer/actions/ItemActions";
 import { ItemState } from "../reducer/states/ItemState";
 
 export class ApiService {
@@ -24,8 +26,11 @@ export class ApiService {
     }
 
     static async switchStateChange(onOff: ItemState, link: string) {
+        if (!link.startsWith(ApiService.itemURL))
+            link = ApiService.itemURL + link;
+
         var message;
-        if (onOff == ItemState.ON)
+        if (onOff === ItemState.ON)
             message = "ON";
         else
             message = "OFF";
@@ -64,18 +69,30 @@ export class ApiService {
         return response;
     }
 
-    static async GetSwitchState( name:string){
+    static async GetSwitchState(name: string) {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function() {
-          if(this.readyState === 4) {
-            console.log(this.responseText);
-          }
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
         });
 
         xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
         xhr.send();
+    }
+
+    static async listenForItemChange(store: Store<any, any>, listenForEvents: (store: Store<any>, event: MessageEvent<string>) => void) {
+        var connection = new EventSource('//localhost:8080/rest/events/');
+
+        // Log errors
+        connection.onerror = function (error) {
+            console.log('WebSocket Error ' + error);
+        };
+
+        // Log messages from the server
+        connection.onmessage = (event) => listenForEvents(store, event);
     }
 
 }

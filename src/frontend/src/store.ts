@@ -1,5 +1,7 @@
 import { createStore } from "redux"
 import { rootReducer } from "./reducer/rootReducer"
+import { itemUpdater } from "./reducer/actions/ItemActions";
+import { ApiService } from "./Utils/ApiService";
 
 export const loadState = () => {
   try {
@@ -26,6 +28,8 @@ const storedState = loadState();
 export const configureStoreAsync = async () => {
   let store = createStore(await rootReducer(), storedState);
   store.subscribe(updateStoredState);
+
+  ApiService.listenForItemChange(store, itemUpdater);
   return store;
  };
 
