@@ -60,7 +60,7 @@ export default function ControlledOpenSelect() {
   const classes = useStyles();
   const classesText = useStylesText();
   const classesButton = useStyles();
- /* const [typ, setTyp] = React.useState<string | number>('');*/
+  /* const [typ, setTyp] = React.useState<string | number>('');*/
   const [typ, setTyp] = React.useState<string | number>('');
   const [art, setArt] = React.useState<string | number>('');
   const [detail, setDetail] = React.useState<string | number>('');
@@ -69,11 +69,6 @@ export default function ControlledOpenSelect() {
   const [openDetail, setOpenDetail] = React.useState(false);
   const [name, setName] = React.useState<string>("");
 
-  const dispatch = useDispatch();
-  const onAddRoom = (room: RoomState) => {
-        dispatch(addRoom(room));
-  }
-  
 
   const handleChangeTyp = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTyp(event.target.value as number);
@@ -110,7 +105,23 @@ export default function ControlledOpenSelect() {
   const handleOpenDetail = () => {
     setOpenDetail(true);
   };
-  
+
+  const dispatch = useDispatch();
+
+  const onAddRoom = (room: RoomState) => {
+    dispatch(addRoom(room));
+  }
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onAddRoom({
+      name: "Test",
+      icon: "",
+      cardSize: RoomCardSize.SMALL,
+      sensors: undefined
+    });
+  }
+
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -154,7 +165,7 @@ export default function ControlledOpenSelect() {
         </Select>
       </FormControl>
       <br></br>
-      
+
       <FormControl className={classes.formControl}>
         <InputLabel id="detail-select-label">Raum/Szene</InputLabel>
         <Select
@@ -176,8 +187,8 @@ export default function ControlledOpenSelect() {
       </FormControl>
 
 
-    
-      
+
+
 
 
       <form className={classesText.root} noValidate autoComplete="off">

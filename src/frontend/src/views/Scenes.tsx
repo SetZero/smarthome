@@ -9,7 +9,6 @@ interface SceneProps { }
 export const Scenes : React.FC<SceneProps> = ({}) => {
 
     const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state.scenesReducer.scenes);
-
     const dispatch = useDispatch();
 
     return (

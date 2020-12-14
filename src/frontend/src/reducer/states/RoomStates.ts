@@ -15,7 +15,7 @@ export interface RoomState {
     name: string;
     icon: string;
     cardSize: RoomCardSize;
-    sensors: Array<Sensors> | undefined
+    sensors?: Array<Sensors>;
 }
 
 export interface RoomsState {
@@ -37,6 +37,7 @@ const initialState = {
 export const roomsReducer = (state: RoomsState = initialState, action: Action) => {
     switch (action.type) {
         case "ADD_ROOM": {
+            console.log(state)
             return { ...state, rooms: [...state.rooms, action.payload] };
         }
         default:
