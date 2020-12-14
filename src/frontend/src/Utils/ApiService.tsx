@@ -64,23 +64,18 @@ export class ApiService {
         return response;
     }
 
-
-
-
-    static async GetSwitchState(name: string) {
+    static async GetSwitchState( name:string){
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                console.log(this.responseText);
-            }
+        xhr.addEventListener("readystatechange", function() {
+          if(this.readyState === 4) {
+            console.log(this.responseText);
+          }
         });
 
         xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
-
         xhr.send();
-
     }
 
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import { SceneState } from './states/SceneStates';
+import { SceneState } from '../reducer/states/SceneStates';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -6,9 +6,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { RoomCardSize, RoomState } from '../reducer/states/RoomStates';
-import { addRoom } from '../reducer/actions/roomActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux"
+import { Rooms } from './Rooms';
+import { addRoom } from '../reducer/actions/RoomActions'
+import { RoomState, RoomCardSize } from '../reducer/states/RoomStates'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,6 +67,7 @@ export default function ControlledOpenSelect() {
   const [openTyp, setOpen] = React.useState(false);
   const [openArt, setOpenArt] = React.useState(false);
   const [openDetail, setOpenDetail] = React.useState(false);
+  const [name, setName] = React.useState<string>("");
 
 
   const handleChangeTyp = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -77,6 +79,10 @@ export default function ControlledOpenSelect() {
   const handleChangeDetail = (event: React.ChangeEvent<{ value: unknown }>) => {
     setDetail(event.target.value as number);
   };
+
+  const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
+    setName(event.target.value as string);
+  }
 
   const handleCloseTyp = () => {
     setOpen(false);
@@ -186,10 +192,13 @@ export default function ControlledOpenSelect() {
 
 
       <form className={classesText.root} noValidate autoComplete="off">
-        <TextField id="standard-basic" label="Name" />
+        <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
 
-      <Button variant="outlined" onClick={onClick}>Hinzufügen</Button>
+      <Button variant="outlined" onClick= {(e) => { 
+        let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
+        onAddRoom(room);
+      }}>Hinzufügen</Button>
 
     </div>
   );

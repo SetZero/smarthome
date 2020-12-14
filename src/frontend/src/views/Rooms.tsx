@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { StateType } from "../reducer/rootReducer";
-import { addRoom } from "../reducer/actions/roomActions";
+import { addRoom } from "../reducer/actions/RoomActions";
 
 interface RoomProps { }
 //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
 
 export const Rooms: React.FC<RoomProps> = ({ }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
+    const dispatch = useDispatch();
     return (
         <Container>
             <Grid container spacing={3}

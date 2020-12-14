@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
 
 import { roomsReducer, RoomsState } from "./states/RoomStates";
-import { itemReducer, ItemList } from "./states/ItemState";
+import { scenesReducer, ScenesState } from "./states/SceneStates";
 
 export interface StateType {
     roomsReducer: RoomsState
     itemsReducer: ItemList
+    scenesReducer : ScenesState
 }
 
 export const rootReducer = async () => {
