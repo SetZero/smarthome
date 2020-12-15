@@ -5,7 +5,6 @@ import { RoomCard } from "./RoomCard";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { StateType } from "../reducer/rootReducer";
 import { addRoom } from "../reducer/actions/RoomActions";
-import AddButton from "./AddScreen/AddButton";
 import { SingleRoom } from "./SingleRoom";
 import { useState } from "react";
 
@@ -21,31 +20,28 @@ export const Rooms: React.FC<RoomProps> = ({ isNew}) => {
 
     var [showSelectedRoom,setShowSelectedRoom ]  =useState(false);
 
+
     console.log(showSelectedRoom);
 
     if(showSelectedRoom){
         return (<Container className="flexGrow">
             <SingleRoom />
-            <AddButton />
         </Container>
         )
     }
     else{
         return (
-            <div>
-                <Container>
-                    <Grid container spacing={3}
-                        direction="row"
-                        justify="center"
-                        alignItems="center">
-                            Test:{String(showSelectedRoom)}
-                        {rooms.map((element, i) => {
-                            return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom}/>)
-                        })}
-                    </Grid>
-                </Container>
-                <AddButton />
-            </div>
+            <Container>
+                <Grid container spacing={3}
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                        
+                    {rooms.map((element, i) => {
+                        return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom}/>)
+                    })}
+                </Grid>
+            </Container>
         )
 
     }

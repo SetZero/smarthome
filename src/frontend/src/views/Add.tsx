@@ -10,7 +10,7 @@ export class Add extends React.Component<AddProps> {
     render() {
         return (
             <div>
-                <AddItem />
+                <AddRoom />
             </div>
         )
     }
