@@ -50,6 +50,7 @@ export default function AddScene() {
   return (
     <div>
       <div><h1>Szene Hinzufügen</h1></div>
+      <div>Parent Element: Raum/GesamtSzene</div>
 
       
       <form className={classesText.root} noValidate autoComplete="off">

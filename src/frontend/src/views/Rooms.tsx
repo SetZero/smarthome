@@ -7,45 +7,53 @@ import { StateType } from "../reducer/rootReducer";
 import { addRoom } from "../reducer/actions/RoomActions";
 import { SingleRoom } from "./SingleRoom";
 import { useState } from "react";
+import { AddButton, ElementType } from './AddScreen/AddButton';
 
-interface RoomProps { isNew:string}
+interface RoomProps { isNew: string }
 //, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
 
-export const Rooms: React.FC<RoomProps> = ({ isNew}) => {
+export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
     const onAddRoom = (room: RoomState) => {
         dispatch(addRoom(room));
     }
 
-    var [showSelectedRoom,setShowSelectedRoom ]  =useState(false);
+    var [showSelectedRoom, setShowSelectedRoom] = useState(false);
 
 
     console.log(showSelectedRoom);
 
-    if(showSelectedRoom){
-        return (<Container className="flexGrow">
-            <SingleRoom />
-        </Container>
+    if (showSelectedRoom) {
+        return (
+            <div>
+                <Container className="flexGrow">
+                    <SingleRoom />
+                </Container>
+                <AddButton  type={ElementType.ROOM}/>
+            </div>
         )
     }
-    else{
+    else {
         return (
-            <Container>
-                <Grid container spacing={3}
-                    direction="row"
-                    justify="center"
-                    alignItems="center">
-                        
-                    {rooms.map((element, i) => {
-                        return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom}/>)
-                    })}
-                </Grid>
-            </Container>
+            <div>
+                <Container>
+                    <Grid container spacing={3}
+                        direction="row"
+                        justify="center"
+                        alignItems="center">
+
+                        {rooms.map((element, i) => {
+                            return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} />)
+                        })}
+                    </Grid>
+                </Container>
+                <AddButton  type={ElementType.ROOM}/>
+            </div>
         )
 
     }
-    
+
 
 
 }

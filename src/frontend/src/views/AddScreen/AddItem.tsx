@@ -97,7 +97,7 @@ export default function AddItem() {
   return (
     <div>
       <div><h1>Gerät Hinzufügen</h1></div>
-      <div>hier soll der Raum oder die Szene angezeigt werden von wo aus Hinzufügen aufgerufen wurde vlt mit props</div>
+      <div>Parent Element: Raum/Szene</div>
 
       
       <form className={classesText.root} noValidate autoComplete="off">

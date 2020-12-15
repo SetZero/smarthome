@@ -61,7 +61,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
                 <BottomNavigationAction label="Raum" icon={<MeetingRoomIcon />} value={CurrentView.SingleRoom} />
-                <BottomNavigationAction label="Hinzufügen" icon={<AddIcon />} value={CurrentView.Add} />
+                <BottomNavigationAction label="Add Item" icon={<AddIcon />} value={CurrentView.Add} />
             </BottomNavigation>
         </div>)
     }

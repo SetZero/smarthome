@@ -3,7 +3,7 @@ import SceneButtons from './SceneButtons';
 import { SceneState } from '../reducer/states/SceneStates';
 import { useDispatch, useSelector } from 'react-redux'
 import { StateType } from "../reducer/rootReducer";
-import AddButton from './AddScreen/AddButton';
+import { AddButton, ElementType } from './AddScreen/AddButton';
 
 interface SceneProps { }
 
@@ -17,7 +17,7 @@ export const Scenes : React.FC<SceneProps> = ({}) => {
             {scenes.map((element, i) => {
                 return (<SceneButtons sceneState={element} />)
             })}
-            <AddButton />
+            <AddButton type={ElementType.SCENE}/>
         </div>
     )
 }
