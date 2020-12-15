@@ -19,10 +19,19 @@ const useStylesText = makeStyles((theme: Theme) =>
     },
   }),
 );
-
+const useStylesButton = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }),
+);
 
 export default function AddScene() {
   const classesText = useStylesText();
+  const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
@@ -40,17 +49,21 @@ export default function AddScene() {
 
   return (
     <div>
-      <div>Szene Hinzufügen</div>
+      <div><h1>Szene Hinzufügen</h1></div>
 
       
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
 
-      <Button variant="outlined" onClick= {(e) => { 
+      <div className={classesButton.root}>
+        <Button variant="contained" color="primary" onClick= {(e) => { 
         let scene = { name: name, url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg" };
         onAddScene(scene);
-      }}>Hinzufügen</Button>
+        }}>
+          Hinzufügen
+        </Button>
+      </div>
 
     </div>
   );

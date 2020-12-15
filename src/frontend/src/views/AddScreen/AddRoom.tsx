@@ -6,6 +6,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { addRoom } from '../../reducer/actions/RoomActions'
 import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
+import { FormControl } from '@material-ui/core';
+import { RadioGroup } from '@material-ui/core';
+import { FormLabel } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
+import { Radio } from '@material-ui/core';
 
 
 const useStylesText = makeStyles((theme: Theme) =>
@@ -18,13 +23,28 @@ const useStylesText = makeStyles((theme: Theme) =>
     },
   }),
 );
+const useStylesButton = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }),
+);
 
 
 export default function AddRoom() {
   const classesText = useStylesText();
+  const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
-  const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
-  const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
+  //const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
+  //const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
+  const [value, setValue] = React.useState("1");
+
+  const handleChangeOptions = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+  };
 
 
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
@@ -40,17 +60,37 @@ export default function AddRoom() {
 
   return (
     <div>
-      <div>Raum Hinzufügen</div>
+      <div><h1>Raum Hinzufügen</h1></div>
 
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Darstellungsgröße</FormLabel>
+        <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChangeOptions}>
+          <FormControlLabel value="1" control={<Radio />} label="Klein" />
+          <FormControlLabel value="2" control={<Radio />} label="Mittel" />
+          <FormControlLabel value="3" control={<Radio />} label="Groß" />
+        </RadioGroup>
+      </FormControl>
       
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
 
-      <Button variant="outlined" onClick= {(e) => { 
+      <div className={classesButton.root}>
+        <Button variant="contained" color="primary" onClick= {(e) => { 
         let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
+
+        if (value=="2"){
+          room.cardSize = RoomCardSize.MEDIUM;
+        }
+        else if (value=="3") {
+          room.cardSize = RoomCardSize.LARGE;
+        }
         onAddRoom(room);
-      }}>Hinzufügen</Button>
+      }}>
+      Hinzufügen
+    </Button>
+  </div>
+    
 
     </div>
   );

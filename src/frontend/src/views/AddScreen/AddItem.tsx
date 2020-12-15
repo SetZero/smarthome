@@ -35,6 +35,16 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const useStylesButton = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }),
+);
+
 const useStylesText = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -49,6 +59,7 @@ const useStylesText = makeStyles((theme: Theme) =>
 
 export default function AddItem() {
   const classesList = useStyles();
+  const classesButton = useStylesButton();
   const classesText = useStylesText();
   const [list, setList] = React.useState<string | number>('');
   const [openList, setOpenList] = React.useState(false);
@@ -56,7 +67,7 @@ export default function AddItem() {
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
-  var choosenItem: number;
+  const [choosenItem, setChoosenItem] = React.useState<number>(0);
 
 
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
@@ -72,13 +83,11 @@ export default function AddItem() {
 
   const handleChangeList = (event: React.ChangeEvent<{ value: unknown }>) => {
     setList(event.target.value as number);
-    choosenItem = (event.target.value as number)
-    console.log(event.target.value)
+    setChoosenItem(event.target.value as number)    
     
   };
   const handleCloseList = () => {
-    setOpenList(false);
-    console.log(choosenItem);
+    setOpenList(false);    
   };
 
   const handleOpenList = () => {
@@ -87,7 +96,7 @@ export default function AddItem() {
 
   return (
     <div>
-      <div>Gerät Hinzufügen</div>
+      <div><h1>Gerät Hinzufügen</h1></div>
       <div>hier soll der Raum oder die Szene angezeigt werden von wo aus Hinzufügen aufgerufen wurde vlt mit props</div>
 
       
@@ -96,7 +105,7 @@ export default function AddItem() {
       </form>
       <div>
       <FormControl className={classesList.formControl}>
-        <InputLabel id="art-select-label">Gerät Hinzufügen</InputLabel>
+        <InputLabel id="art-select-label">Gerät wählen</InputLabel>
         <Select
           labelId="art-select-label"
           id="art-select"
@@ -119,11 +128,14 @@ export default function AddItem() {
       <br></br>
       </div>
 
-      <Button variant="outlined" onClick= {(e) => { 
-        //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
-        onAddItem(items[choosenItem]);
-      }}>Hinzufügen</Button>
-      
+      <div className={classesButton.root}>
+        <Button variant="contained" color="primary" onClick= {(e) => { 
+          //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
+          onAddItem(items[choosenItem]);
+        }}>
+          Hinzufügen
+        </Button>
+      </div>
     </div>
   );
 }
