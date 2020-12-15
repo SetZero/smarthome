@@ -2,7 +2,7 @@ import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, Ico
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { itemStateChange } from "../reducer/actions/itemActions";
+import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
 import { Item, ItemState } from "../reducer/states/ItemState";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
@@ -97,6 +97,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ }) => {
                                         name="unused"
                                         inputProps={{ 'aria-label': 'secondary-checkbox' }}
                                         onChange={(event, state) => onItemToggle(event, state, e)}
+                                        checked={e.state === ItemState.ON ?? false}
                                     />
                                 </Grid>
                             </Grid>

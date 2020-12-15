@@ -1,0 +1,10 @@
+Strategies {
+	everyMinute : "0 * * * * ?"
+	everyHour 	: "0 0 * * * ?"
+	everyDay	: "0 0 0 * * ?"
+	default = everyChange
+}
+Items {
+	// persist everything when the value is updated, just a default, and restore them from database on startup
+	* : strategy = everyChange, restoreOnStartup
+}
