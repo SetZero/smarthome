@@ -1,9 +1,9 @@
-import { ItemAction } from "../actions/itemActions";
 import { ApiService } from "../../Utils/ApiService";
 import { rejects } from "assert";
 import { Reducer } from "redux";
 import { Url } from "url";
 import { act } from "react-dom/test-utils";
+import { ItemAction } from "../actions/ItemActions";
 
 export enum RoomCardSize {
     SMALL = 1,
@@ -12,7 +12,7 @@ export enum RoomCardSize {
 }
 
 export enum ItemState {
-    ON, OFF
+    ON = "ON", OFF = "OFF"
 }
 
 export interface Item {
@@ -42,12 +42,20 @@ export let itemReducer = async () => {
                         ApiService.switchStateChange(action.payload.state, action.payload.link);
                         return state;
                     }
+                    case "STATE_CHANGE_WITHOUT_REST": {
+                        console.log("State:", action.payload.state);
+                        //ApiService.switchStateChange(action.payload.state, action.payload.link);
+                        let deepCopy: Item[] = JSON.parse(JSON.stringify(state.items));
+                        let element = deepCopy.find(element => element.link.split('/').slice(-1)[0] === action.payload.label);
+                        if (element) element.state = action.payload.state;
+                        return { ...state, items: [...deepCopy] };
+                    }
                     default:
                         return state;
                 }
             }
             resolve(reducer);
         }).catch(() => reject("Unable to convert Item result to JSON"))
-        ).catch(() => reject("Unable to contact Backend"));
+        ).catch((e) => reject("Unable to contact Backend, Reason: " + JSON.stringify(e)));
     });
 };
