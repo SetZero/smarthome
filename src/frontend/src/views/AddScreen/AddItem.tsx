@@ -9,7 +9,7 @@ import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
-import { ItemState } from '../../reducer/states/ItemState';
+import { Item, ItemState } from '../../reducer/states/ItemState';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,6 +56,7 @@ export default function AddItem() {
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
+  var choosenItem: number;
 
 
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
@@ -63,15 +64,21 @@ export default function AddItem() {
   }
   const dispatch = useDispatch();
   
-  const onAddItem = (item: ItemState) => {
+  const onAddItem = (item:Item) => {
     //dispatch(addItem(item));
+    console.log(items)
+    console.log(item)
   }
 
   const handleChangeList = (event: React.ChangeEvent<{ value: unknown }>) => {
     setList(event.target.value as number);
+    choosenItem = (event.target.value as number)
+    console.log(event.target.value)
+    
   };
   const handleCloseList = () => {
     setOpenList(false);
+    console.log(choosenItem);
   };
 
   const handleOpenList = () => {
@@ -113,10 +120,10 @@ export default function AddItem() {
       </div>
 
       <Button variant="outlined" onClick= {(e) => { 
-        let item = { name: name, url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg" };
-        //onAddItem(item);
+        //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
+        onAddItem(items[choosenItem]);
       }}>Hinzufügen</Button>
-
+      
     </div>
   );
 }

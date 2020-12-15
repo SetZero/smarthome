@@ -26,12 +26,13 @@ export const Rooms: React.FC<RoomProps> = ({ isNew}) => {
     if(showSelectedRoom){
         return (<Container className="flexGrow">
             <SingleRoom />
+            <AddButton />
         </Container>
         )
     }
     else{
         return (
-            
+            <div>
                 <Container>
                     <Grid container spacing={3}
                         direction="row"
@@ -43,8 +44,8 @@ export const Rooms: React.FC<RoomProps> = ({ isNew}) => {
                         })}
                     </Grid>
                 </Container>
-                
-           
+                <AddButton />
+            </div>
         )
 
     }

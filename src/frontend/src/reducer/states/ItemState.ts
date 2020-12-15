@@ -3,7 +3,7 @@ import { rejects } from "assert";
 import { Reducer } from "redux";
 import { Url } from "url";
 import { act } from "react-dom/test-utils";
-import { ItemAction } from "../actions/ItemActions";
+import { ItemAction } from "../actions/itemActions";
 
 export enum RoomCardSize {
     SMALL = 1,
@@ -16,9 +16,9 @@ export enum ItemState {
 }
 
 export interface Item {
-    link: string
     label: string
     state: ItemState
+    link: string
 }
 
 export interface ItemList {

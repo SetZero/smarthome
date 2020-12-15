@@ -1,6 +1,6 @@
 import { createStore } from "redux"
 import { rootReducer } from "./reducer/rootReducer"
-import { itemUpdater } from "./reducer/actions/ItemActions";
+import { itemUpdater } from "./reducer/actions/itemActions";
 import { ApiService } from "./Utils/ApiService"
 
 export const loadState = () => {
