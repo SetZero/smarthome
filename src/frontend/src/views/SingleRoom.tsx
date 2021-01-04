@@ -97,6 +97,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ }) => {
                                         name="unused"
                                         inputProps={{ 'aria-label': 'secondary-checkbox' }}
                                         onChange={(event, state) => onItemToggle(event, state, e)}
+                                        checked={e.state === ItemState.ON ?? false}
                                     />
                                 </Grid>
                             </Grid>

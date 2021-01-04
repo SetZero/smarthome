@@ -1,8 +1,8 @@
 import { ScenesState, SceneState } from "../states/SceneStates";
 
-export type Action = {type: "ADD_ROOM", payload: SceneState};
+export type Action = {type: "ADD_SCENE", payload: SceneState};
 
-export const addRoom = (room: SceneState): Action => ({
-    type: "ADD_ROOM",
-    payload: room
+export const addScene = (scene: SceneState): Action => ({
+    type: "ADD_SCENE",
+    payload: scene
 });
