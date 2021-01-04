@@ -1,13 +1,15 @@
-import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, Container, IconButton } from "@material-ui/core"
+import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, Container, IconButton, Menu, MenuItem } from "@material-ui/core"
 import React from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { MainView } from "./MainView";
 import { SingleRoom } from './SingleRoom';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useDispatch } from "react-redux";
+import { removeRoom } from "../reducer/actions/RoomActions";
 
 interface RoomCardProps {
     info: RoomState,
     showRoomFunction: (selectedRoom: boolean) => void
-    //currentView:number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,6 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 140
         }
     }));
+
+    //Configuration for the 3 dot menu
+const options = [
+    'Raum löschen',
+    'Raum bearbeiten'
+];
+const ITEM_HEIGHT = 48;
+var isDotSelected = false;
 
 export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) => {
     let sizeXS: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
@@ -48,27 +58,75 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
             break;
     }
 
+    //Link anchor Element for 3 Dot-Menu
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const dispatch = useDispatch();
+    const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+        isDotSelected = true;
+        //dispatch(removeRoom(info));
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    function handleClickOnOption(option:string) {
+        console.log("OPTION",option);
+        console.log("NAME",info.name);
+        dispatch(removeRoom(info));
+        handleClose();
+    };
+
+    const handleClickOnCard = (event: React.MouseEvent<HTMLElement>) => {
+        if(isDotSelected){
+            isDotSelected = false;
+        }   
+        else{
+            showRoomFunction(false); 
+        }
+            
+    }
+
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
             <Card className={classes.fullHeightCard}>
-                <CardActionArea onClick={() => { showRoomFunction(true) }}>
+                <CardActionArea onClick={handleClickOnCard }>
                     <CardMedia
                         className={classes.media}
                         image="https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg"
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                           // onClick={handleClick}
-                        >
 
-                        </IconButton>
                         <Typography gutterBottom variant="h5" component="h2">
                             {info.name}
                             <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
+                            <IconButton
+                                aria-label="more"
+                                aria-controls="long-menu"
+                                aria-haspopup="true"
+                                onClick={HandleClick}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="long-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}>
+                                {options.map((option) => (
+                                    <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
+                                      {option}
+                                    </MenuItem>
+                                  ))}
+                            </Menu>
                         </Typography>
                     </CardContent>
                 </CardActionArea>

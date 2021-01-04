@@ -40,6 +40,21 @@ export const roomsReducer = (state: RoomsState = initialState, action: Action) =
             console.log(state)
             return { ...state, rooms: [...state.rooms, action.payload] };
         }
+        case "REMOVE_ROOM": {
+            console.log("RemoveRoom",state)
+            console.log(action.payload.name)
+            var found = false;
+            for(var i =0; i<state.rooms.length;i++){
+                if(state.rooms[i].name ==action.payload.name){
+                    found =true;
+                    continue;
+                }
+                if(found ==true)    
+                    state.rooms[i-1] = state.rooms[i];
+            }
+            state.rooms.pop();
+            return state;
+        }
         default:
             return state;
     }

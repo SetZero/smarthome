@@ -1,7 +1,7 @@
 import { createStore } from "redux"
 import { rootReducer } from "./reducer/rootReducer"
-import { itemUpdater } from "./reducer/actions/ItemActions";
-import { ApiService } from "./Utils/ApiService";
+import { itemUpdater } from "./reducer/actions/itemActions";
+import { ApiService } from "./Utils/ApiService"
 
 export const loadState = () => {
   try {
@@ -16,6 +16,7 @@ export const loadState = () => {
 };
 
 export const updateStoredState = () => {
+    console.log("Updating State");
     // TODO: delta between stored and to store state, don't just store the whole thing completly
     try {
       //TODO: store

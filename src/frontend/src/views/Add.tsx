@@ -1,5 +1,7 @@
 import React from 'react';
-import AddSelection from './AddSelection';
+import AddRoom from './AddScreen/AddRoom';
+import AddScene from './AddScreen/AddScene';
+import AddItem from './AddScreen/AddItem';
 
 interface AddProps { }
 
@@ -8,7 +10,7 @@ export class Add extends React.Component<AddProps> {
     render() {
         return (
             <div>
-                <AddSelection />
+                <AddItem />
             </div>
         )
     }
