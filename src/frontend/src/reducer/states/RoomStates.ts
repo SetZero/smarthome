@@ -45,17 +45,17 @@ export const roomsReducer = (state: RoomsState = initialState, action: Action) =
         case "REMOVE_ROOM": {
             console.log("RemoveRoom",state)
             console.log(action.payload.name)
-            var found = false;
+            /*var found = false;
             for(var i =0; i<state.rooms.length;i++){
                 if(state.rooms[i].name ==action.payload.name){
                     found =true;
                     continue;
                 }
-                if(found ==true)    
+                if(found ==true)
                     state.rooms[i-1] = state.rooms[i];
             }
-            state.rooms.pop();
-            return state;
+            state.rooms.pop();*/
+            return {...state, rooms: state.rooms.filter(e => e.name !== action.payload.name)};
         }
         default:
             return state;

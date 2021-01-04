@@ -3,7 +3,7 @@ import { rejects } from "assert";
 import { Reducer } from "redux";
 import { Url } from "url";
 import { act } from "react-dom/test-utils";
-import { ItemAction } from "../actions/itemActions";
+import { ItemAction } from "../actions/ItemActions";
 
 export enum RoomCardSize {
     SMALL = 1,

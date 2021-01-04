@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { StateType } from '../../reducer/rootReducer';
-import { addItem } from '../../reducer/actions/itemActions';
+import { addItem } from '../../reducer/actions/ItemActions';
 import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';

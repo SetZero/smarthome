@@ -1,7 +1,7 @@
 import { request } from "http";
 import { Action, Store } from "redux";
 import { Url } from "url";
-import { ItemAction } from "../reducer/actions/itemActions";
+import { ItemAction } from "../reducer/actions/ItemActions";
 import { ItemState } from "../reducer/states/ItemState";
 
 export class ApiService {
