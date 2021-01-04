@@ -7,6 +7,7 @@ import { ItemState } from "../reducer/states/ItemState";
 export class ApiService {
 
     static itemURL: string = "http://localhost:8080/rest/items/";
+    static persistenceURL: string = "http://localhost:8080/rest/persistence/items/";
 
     // TODO: Add methods to write to stateUI
 
@@ -25,6 +26,38 @@ export class ApiService {
                 'Accept': 'application/json'
             }
         });
+    }
+
+    static async StoreState(state: string) {
+        const response = await fetch(this.itemURL + "stateUI/state", {
+            method: 'PUT',
+            body: state,
+            headers : {
+                'Content-Type' : 'text/plain',
+                'Accept' : 'application/json'
+            }
+        });
+
+    }
+
+    static async GetStoredState() {
+        const response = await fetch(this.persistenceURL + "stateUI", {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'text/plain'
+            }
+        });
+        var currentState;
+        try {
+            currentState =  await response.json();
+            return currentState.data[0]
+        } catch (err) {
+            console.log(err);
+            console.log("Couldn't read stored state");
+            console.log(JSON.stringify(currentState));
+        }
+
+        return undefined;
     }
 
     static async switchStateChange(onOff: ItemState, link: string) {
