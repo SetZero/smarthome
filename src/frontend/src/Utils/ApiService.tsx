@@ -8,6 +8,8 @@ export class ApiService {
 
     static itemURL: string = "http://localhost:8080/rest/items/";
 
+    // TODO: Add methods to write to stateUI
+
     static async ChangeSwitch(onOff: boolean, name: string) {
         var message;
         if (onOff)

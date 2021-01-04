@@ -34,6 +34,8 @@ const initialState = {
     ]
 };
 
+// TODO: Add events ADD_ITEM_TO_ROOM and REMOVE_ITEM_FROM_ROOM (include item)
+// TODO: Fix returned state
 export const roomsReducer = (state: RoomsState = initialState, action: Action) => {
     switch (action.type) {
         case "ADD_ROOM": {

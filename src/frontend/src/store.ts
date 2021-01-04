@@ -20,7 +20,7 @@ export const updateStoredState = () => {
     // TODO: delta between stored and to store state, don't just store the whole thing completly
     try {
       //TODO: store
-        //localStorage.setItem('state', JSON.stringify(store.getState()))
+      //localStorage.setItem('state', JSON.stringify(store.getState()))
     } catch {
     }
 }
