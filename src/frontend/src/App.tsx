@@ -1,13 +1,28 @@
+import { createMuiTheme,  MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
 import './App.css';
 import { MainView } from './views/MainView';
 
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#e0e0e0'
+    },
+    secondary: {
+      main: '#212121'
+    }
+  }
+});
+
+
 function App() {
 
   return (
-    <div className="App">
-      <MainView />
-    </div>
+    <MuiThemeProvider theme={theme} >
+      <div className='App'><MainView /></div>
+      </MuiThemeProvider>
   );
 }
 
