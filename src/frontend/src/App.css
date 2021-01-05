@@ -26,6 +26,18 @@ html, body, #root {
   text-align: center;
 }
 
+.BiggerText{
+  font-size: 3.0em;
+  color:#212121;
+  font-family: serif;
+}
+
+.Right{
+  position: absolute;
+  right: 0px;
+  width: 50px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

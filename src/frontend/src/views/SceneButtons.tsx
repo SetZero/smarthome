@@ -150,14 +150,11 @@ export default function ButtonBases({ sceneState }: ButtonBasesProps) {
           </Typography>
         </span>
 
-        
+      
 
-      </ButtonBase>
-
-
-
-      <div>
+      <div className="Right" >
         <IconButton
+          color="secondary"
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
@@ -186,7 +183,8 @@ export default function ButtonBases({ sceneState }: ButtonBasesProps) {
         </Menu>
       </div>
 
-
+      </ButtonBase>
+      
     </div>
   );
 }
