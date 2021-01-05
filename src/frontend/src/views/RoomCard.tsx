@@ -89,7 +89,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
                     <CardMedia
                         onClick={handleClickOnCard }
                         className={classes.media}
-                        image="https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg"
+                        image={info.url}
                         title="Contemplative Reptile"
                     />
                     <CardContent>

@@ -83,7 +83,7 @@ export default function AddRoom() {
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let room = { name: name, icon: url, cardSize: RoomCardSize.SMALL, sensors: [] };
+        let room = { name: name, url: url, cardSize: RoomCardSize.SMALL, sensors: [] };
 
         if (value=="2"){
           room.cardSize = RoomCardSize.MEDIUM;
