@@ -8,10 +8,10 @@ import { MainView } from './views/MainView';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#212121'
+      main: '#e0e0e0'
     },
     secondary: {
-      main: '#e0e0e0'
+      main: '#212121'
     }
   }
 });

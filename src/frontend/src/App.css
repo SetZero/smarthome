@@ -15,6 +15,7 @@ html, body, #root {
 
 .flexGrow {
   flex-grow: 1;
+  padding-bottom: 5em;
 }
 
 .App-logo {
@@ -37,6 +38,13 @@ html, body, #root {
   right: 0px;
   width: 50px;
 }
+
+.Stick{
+    width: '100%';
+    position: 'sticky';
+    bottom: 100;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

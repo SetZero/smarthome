@@ -2,7 +2,7 @@ import { Rooms } from './Rooms';
 import { SingleRoom } from './SingleRoom';
 import { Scenes } from './Scenes';
 import { Add } from './Add';
-import { BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
+import { AppBar, BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
 import AddIcon from '@material-ui/icons/Add';
@@ -53,7 +53,8 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             <Container className="flexGrow">
                 {showComponent}
             </Container>
-            <BottomNavigation
+            <AppBar position="fixed" color="primary" style={{top: "auto", bottom: 0}}>
+            <BottomNavigation className='Stick'
                 onChange={(c, v) => { this.handleChange(c, v) }}
                 showLabels
                 value={this.state.currentView}
@@ -63,6 +64,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 <BottomNavigationAction label="Raum" icon={<MeetingRoomIcon />} value={CurrentView.SingleRoom} />
                 <BottomNavigationAction label="Add Item" icon={<AddIcon />} value={CurrentView.Add} />
             </BottomNavigation>
+            </AppBar>
         </div>)
     }
 }

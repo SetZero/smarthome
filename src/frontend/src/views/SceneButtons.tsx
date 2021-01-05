@@ -161,7 +161,7 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
 
       <div className="Right" >
         <IconButton
-          color="secondary"
+          color="primary"
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"

@@ -18,6 +18,9 @@ export const Scenes: React.FC<SceneProps> = ({ }) => {
     if(showChangeScene.name == ""){
         return (
             <div>
+                <div className="BiggerText">
+                        Szenen
+                    </div>
                 {scenes.map((element, i) => {
                     return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
                 })}
