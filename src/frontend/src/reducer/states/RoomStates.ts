@@ -13,7 +13,7 @@ export interface Sensors {
 
 export interface RoomState {
     name: string;
-    icon: string;
+    url: string;
     cardSize: RoomCardSize;
     sensors?: Array<Sensors>;
 }
@@ -24,13 +24,13 @@ export interface RoomsState {
 
 const initialState = {
     rooms: [
-        { name: "Bad", icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Küche", icon: "KitchenIcon", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Wohnzimmer", icon: "WeekendIcon", cardSize: RoomCardSize.MEDIUM, sensors: [{ name: "Temperature", value: "23.5°C" }] },
-        { name: "Briefkasten", icon: "WeekendIcon", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Büro", icon: "WeekendIcon", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Schlafzimmer", icon: "WeekendIcon", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Garage", icon: "WeekendIcon", cardSize: RoomCardSize.SMALL, sensors: [] }
+        { name: "Bad", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
+        { name: "Küche", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
+        { name: "Wohnzimmer", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.MEDIUM, sensors: [{ name: "Temperature", value: "23.5°C" }] },
+        { name: "Briefkasten", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
+        { name: "Büro", url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
+        { name: "Schlafzimmer", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
+        { name: "Garage", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] }
     ]
 };
 

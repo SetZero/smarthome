@@ -77,7 +77,7 @@ export default function AddRoom() {
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
+        let room = { name: name, url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] };
 
         if (value=="2"){
           room.cardSize = RoomCardSize.MEDIUM;
