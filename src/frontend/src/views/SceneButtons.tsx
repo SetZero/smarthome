@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -97,13 +97,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ButtonBasesProps {
   sceneState: SceneState;
+  setShowChangeSceneFunction: (selectedScene: SceneState) => void
 }
 
-export default function ButtonBases({ sceneState }: ButtonBasesProps) {
+export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: ButtonBasesProps) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+ 
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -114,7 +116,12 @@ export default function ButtonBases({ sceneState }: ButtonBasesProps) {
   };
 
   function handleClickOnOption (option:string) {
-    dispatch(removeScene(sceneState));
+    if(option == 'Löschen')
+      dispatch(removeScene(sceneState));
+    if(option == 'Bearbeiten')
+      {
+        setShowChangeSceneFunction(sceneState);
+      }
     handleClose();
   };
 
