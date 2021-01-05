@@ -22,7 +22,7 @@ export const addItemToRoom = (itemRef: ItemRef, room: string): ItemRefAction => 
     payload: {ref: itemRef, roomName: room}
 });
 
-export const removeItemToRoom = (itemRef: ItemRef, room: string): ItemRefAction => ({
+export const removeItemFromRoom = (itemRef: ItemRef, room: string): ItemRefAction => ({
     type: "REMOVE_ITEM",
     payload: {ref: itemRef, roomName: room}
 });
