@@ -93,8 +93,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-
-                        <Typography gutterBottom variant="h5" component="h2">
+                        
+                        <Typography gutterBottom variant={info.name.length > 11 ? "h6":"h5"} component="h2">
                             {info.name}
                             <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
                             <IconButton
