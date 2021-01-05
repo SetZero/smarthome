@@ -33,6 +33,7 @@ export default function AddScene() {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
+  const [url, setUrl] = React.useState<string>("");
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
@@ -40,6 +41,9 @@ export default function AddScene() {
 
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
     setName(event.target.value as string);
+  }
+  const handleChangeTexturl = (event: React.ChangeEvent<{value : unknown }>) => {
+    setUrl(event.target.value as string);
   }
   const dispatch = useDispatch();
   
@@ -56,10 +60,13 @@ export default function AddScene() {
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
+      <form className={classesText.root} noValidate autoComplete="off">
+        <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
+      </form>
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let scene = { name: name, url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg" };
+        let scene = { name: name, url: url };
         onAddScene(scene);
         }}>
           Hinzufügen

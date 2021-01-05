@@ -41,12 +41,14 @@ export default function AddRoom() {
   //const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   //const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const [value, setValue] = React.useState("1");
+  const [url, setUrl] = React.useState<string>("");
 
   const handleChangeOptions = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
-
-
+  const handleChangeTexturl = (event: React.ChangeEvent<{value : unknown }>) => {
+    setUrl(event.target.value as string);
+  }
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
     setName(event.target.value as string);
   }
@@ -75,9 +77,13 @@ export default function AddRoom() {
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>
 
+      <form className={classesText.root} noValidate autoComplete="off">
+        <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
+      </form>
+
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let room = { name: name, icon: "BathtubIcon", cardSize: RoomCardSize.SMALL, sensors: [] };
+        let room = { name: name, icon: url, cardSize: RoomCardSize.SMALL, sensors: [] };
 
         if (value=="2"){
           room.cardSize = RoomCardSize.MEDIUM;
