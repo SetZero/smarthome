@@ -28,7 +28,6 @@ const options = [
     'Raum bearbeiten'
 ];
 const ITEM_HEIGHT = 48;
-var isDotSelected = false;
 
 export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) => {
     let sizeXS: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
@@ -64,7 +63,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
     const dispatch = useDispatch();
     const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-        isDotSelected = true;
         //dispatch(removeRoom(info));
     };
     const handleClose = () => {
@@ -78,20 +76,18 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
     };
 
     const handleClickOnCard = (event: React.MouseEvent<HTMLElement>) => {
-        if(isDotSelected){
-            isDotSelected = false;
-        }   
-        else{
-            showRoomFunction(false); 
-        }
+       
+            showRoomFunction(true); 
+        
             
     }
 
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
             <Card className={classes.fullHeightCard}>
-                <CardActionArea onClick={handleClickOnCard }>
+                <CardActionArea >
                     <CardMedia
+                        onClick={handleClickOnCard }
                         className={classes.media}
                         image="https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg"
                         title="Contemplative Reptile"
