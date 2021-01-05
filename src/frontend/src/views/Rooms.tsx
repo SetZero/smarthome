@@ -20,7 +20,7 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
     }
 
     var [showSelectedRoom, setShowSelectedRoom] = useState(false);
-
+    var [selectedRoom, setSelectedRoom] = useState("Test");
 
     console.log(showSelectedRoom);
 
@@ -28,7 +28,7 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
         return (
             <div>
                 <Container className="flexGrow">
-                    <SingleRoom />
+                    <SingleRoom roomName={selectedRoom}/>
                 </Container>
                 <AddButton  type={ElementType.ROOM}/>
             </div>
@@ -38,13 +38,16 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
         return (
             <div>
                 <Container>
+                    <div className="BiggerText">
+                        Räume
+                    </div>
                     <Grid container spacing={3}
                         direction="row"
                         justify="center"
                         alignItems="center">
 
                         {rooms.map((element, i) => {
-                            return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} />)
+                            return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} setRoomFunction={setSelectedRoom} />)
                         })}
                     </Grid>
                 </Container>

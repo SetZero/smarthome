@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import { SceneState } from '../reducer/states/SceneStates';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { removeScene } from '../reducer/actions/SceneActions';
+import { useDispatch } from 'react-redux';
+
+
+const options = [
+  'Löschen',
+  'Bearbeiten',
+];
+
+const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,46 +95,103 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ButtonBasesProps{
-  sceneState:SceneState;
+interface ButtonBasesProps {
+  sceneState: SceneState;
+  setShowChangeSceneFunction: (selectedScene: SceneState) => void
 }
 
-export default function ButtonBases({sceneState}:ButtonBasesProps) {
+export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: ButtonBasesProps) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+ 
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  function handleClickOnOption (option:string) {
+    if(option == 'Löschen')
+      dispatch(removeScene(sceneState));
+    if(option == 'Bearbeiten')
+      {
+        setShowChangeSceneFunction(sceneState);
+      }
+    handleClose();
+  };
 
   return (
-   
+
     <div className={classes.root} >
-     
-        <ButtonBase
-          focusRipple
-          key={sceneState.name}
-          className={classes.image}
-          focusVisibleClassName={classes.focusVisible}
+
+      <ButtonBase
+        focusRipple
+        key={sceneState.name}
+        className={classes.image}
+        focusVisibleClassName={classes.focusVisible}
+        style={{
+          width: '70%',
+        }}
+      >
+        <span
+          className={classes.imageSrc}
           style={{
-            width: '70%',
+            backgroundImage: `url(${sceneState.url})`,
+          }}
+        />
+        <span className={classes.imageBackdrop} />
+        <span className={classes.imageButton}>
+          <Typography
+            component="span"
+            variant="subtitle1"
+            color="inherit"
+            className={classes.imageTitle}
+          >
+            {sceneState.name}
+            <span className={classes.imageMarked} />
+          </Typography>
+        </span>
+
+      
+
+      <div className="Right" >
+        <IconButton
+          color="primary"
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '20ch',
+            },
           }}
         >
-          <span
-            className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${sceneState.url})`,
-            }}
-          />
-          <span className={classes.imageBackdrop} />
-          <span className={classes.imageButton}>
-            <Typography
-              component="span"
-              variant="subtitle1"
-              color="inherit"
-              className={classes.imageTitle}
-            >
-              {sceneState.name}
-              <span className={classes.imageMarked} />
-            </Typography>
-          </span>
-        </ButtonBase>
-    
+          {options.map((option) => (
+            <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => handleClickOnOption(option)}>
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
+      </div>
+
+      </ButtonBase>
+      
     </div>
   );
 }

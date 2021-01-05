@@ -27,8 +27,8 @@ export const updateStoredState = () => {
 }
 
 export const configureStoreAsync = async () => {
-  store = createStore(await rootReducer());
-  store = await storedState;
+  store = createStore(await rootReducer(), await storedState);
+  // store = await storedState;
   store.subscribe(updateStoredState);
 
   // TODO: listen to updates, but don't update our changes

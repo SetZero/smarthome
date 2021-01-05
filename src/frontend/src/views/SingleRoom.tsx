@@ -1,4 +1,4 @@
-import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider } from "@material-ui/core"
+import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +9,10 @@ import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { ApiService } from "../Utils/ApiService";
 
 interface SingleRoomProps {
+    roomName:string
 }
 
-export const SingleRoom: React.FC<SingleRoomProps> = ({ }) => {
+export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
 
     const dispatch = useDispatch();
@@ -25,6 +26,25 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ }) => {
         onItemStateChange(item);
     }
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+        //dispatch(removeRoom(info));
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    function handleClickOnOption(option:string) {
+        console.log("OPTION",option);
+       // console.log("NAME",info.name);
+        //dispatch(removeRoom(info));
+        handleClose();
+    };
+
+    const options = [
+        'Raum bearbeiten'
+    ];
     return (
         <div>
             <Container maxWidth="sm">
@@ -32,20 +52,39 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ }) => {
                     <Grid container alignItems="center" justify="space-around" spacing={2}>
                         <Grid item sm={8} xs={10}>
                             <Typography variant="h4" component="h3">
-                                {/*this.state.name*/}
+                                {roomName}
                             </Typography>
                         </Grid>
                         <Grid item xs={2} sm={2}>
                             <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
                         </Grid>
                         <Grid item xs={2} sm={2}>
-                            <IconButton
+                        <IconButton
                                 aria-label="more"
                                 aria-controls="long-menu"
                                 aria-haspopup="true"
+                                onClick={HandleClick}
                             >
                                 <MoreVertIcon />
                             </IconButton>
+                            <Menu
+                                id="long-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: 40 * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}>
+                                {options.map((option) => (
+                                    <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
+                                      {option}
+                                    </MenuItem>
+                                  ))}
+                            </Menu>
                         </Grid>
                     </Grid>
                     <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>

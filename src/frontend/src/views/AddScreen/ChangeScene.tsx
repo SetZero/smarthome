@@ -7,7 +7,8 @@ import { addRoom } from '../../reducer/actions/RoomActions'
 import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
 import { SceneState } from '../../reducer/states/SceneStates';
-import { addScene } from '../../reducer/actions/SceneActions';
+import { addScene, changeScene } from '../../reducer/actions/SceneActions';
+import { Scenes } from '../Scenes';
 
 const useStylesText = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,17 +29,22 @@ const useStylesButton = makeStyles((theme: Theme) =>
     },
   }),
 );
+interface ChangeSceneProps {
+  sceneState: SceneState,
+  setShowChangeSceneFunction: (selectedScene: SceneState) => void
+}
 
-export default function AddScene() {
+
+export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps)  {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
-  const [name, setName] = React.useState<string>("");
-  const [url, setUrl] = React.useState<string>("");
+  const [name, setName] = React.useState<string>(sceneState.name);
+  const [url, setUrl] = React.useState<string>(sceneState.url);
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
 
-
+  
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
     setName(event.target.value as string);
   }
@@ -47,18 +53,20 @@ export default function AddScene() {
   }
   const dispatch = useDispatch();
   
-  const onAddScene = (scene: SceneState) => {
-    dispatch(addScene(scene));
+  const onChangeScene = (scene: SceneState) => {
+    var newScene:SceneState = {name: name, url:url};
+    dispatch(changeScene(scene,newScene));
+    setShowChangeSceneFunction({name:"",url:""});
   }
 
   return (
     <div>
-      <div><h1>Szene Hinzufügen</h1></div>
-      <div>Parent Element: Raum/GesamtSzene</div>
+      <div><h1>Szene Ändern</h1></div>
+      <div>{sceneState.name}</div>
 
       
       <form className={classesText.root} noValidate autoComplete="off">
-        <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
+        <TextField id="standard-basic" label="Name" value={name} defaultValue = {sceneState.name} onChange={handleChangeText} />
       </form>
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
@@ -66,10 +74,9 @@ export default function AddScene() {
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let scene = { name: name, url: url };
-        onAddScene(scene);
+          onChangeScene(sceneState);
         }}>
-          Hinzufügen
+          Ändern
         </Button>
       </div>
 
