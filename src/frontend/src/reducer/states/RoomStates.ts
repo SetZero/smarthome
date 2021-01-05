@@ -41,19 +41,22 @@ export const roomsReducer = (state: RoomsState = initialState, action: Action) =
             return { ...state, rooms: [...state.rooms, action.payload] };
         }
         case "REMOVE_ROOM": {
+            let tempState= JSON.parse(JSON.stringify(state));
             console.log("RemoveRoom",state)
             console.log(action.payload.name)
             var found = false;
-            for(var i =0; i<state.rooms.length;i++){
-                if(state.rooms[i].name ==action.payload.name){
+            for(var i =0; i<tempState.rooms.length;i++){
+                if(tempState.rooms[i].name ==action.payload.name){
                     found =true;
                     continue;
                 }
                 if(found ==true)    
-                    state.rooms[i-1] = state.rooms[i];
+                    tempState.rooms[i-1] = tempState.rooms[i];
             }
-            state.rooms.pop();
-            return state;
+            tempState.rooms.pop();
+            console.log("TempStat: ",tempState);
+            console.log("rooms: ",state.rooms)
+            return { ...state, ...tempState };
         }
         default:
             return state;
