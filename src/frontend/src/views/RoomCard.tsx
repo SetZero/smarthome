@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-    //Configuration for the 3 dot menu
+//Configuration for the 3 dot menu
 const options = [
     'Raum löschen',
     'Raum bearbeiten'
@@ -70,66 +70,66 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
     const handleClose = () => {
         setAnchorEl(null);
     };
-    function handleClickOnOption(option:string) {
-        console.log("OPTION",option);
-        console.log("NAME",info.name);
+    function handleClickOnOption(option: string) {
+        console.log("OPTION", option);
+        console.log("NAME", info.name);
         dispatch(removeRoom(info));
         handleClose();
     };
 
     const handleClickOnCard = (event: React.MouseEvent<HTMLElement>) => {
-        if(isDotSelected){
+        if (isDotSelected) {
             isDotSelected = false;
-        }   
-        else{
-            showRoomFunction(false); 
         }
-            
+        else {
+            showRoomFunction(false);
+        }
+
     }
 
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
             <Card className={classes.fullHeightCard}>
-                <CardActionArea onClick={handleClickOnCard }>
+                <CardActionArea onClick={handleClickOnCard}>
                     <CardMedia
                         className={classes.media}
                         image="https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg"
                         title="Contemplative Reptile"
                     />
-                    <CardContent>
-
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {info.name}
-                            <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
-                            <IconButton
-                                aria-label="more"
-                                aria-controls="long-menu"
-                                aria-haspopup="true"
-                                onClick={HandleClick}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                                id="long-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={open}
-                                onClose={handleClose}
-                                PaperProps={{
-                                    style: {
-                                        maxHeight: ITEM_HEIGHT * 4.5,
-                                        width: '20ch',
-                                    },
-                                }}>
-                                {options.map((option) => (
-                                    <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
-                                      {option}
-                                    </MenuItem>
-                                  ))}
-                            </Menu>
-                        </Typography>
-                    </CardContent>
                 </CardActionArea>
+                <CardContent>
+
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {info.name}
+                        <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={HandleClick}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: '20ch',
+                                },
+                            }}>
+                            {options.map((option) => (
+                                <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Typography>
+                </CardContent>
             </Card>
         </Grid>
     )

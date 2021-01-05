@@ -1,0 +1,61 @@
+{
+  "HeizungSZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Dimmer",
+      "tags": [],
+      "label": "HSZ"
+    }
+  },
+  "DeckenlampeSZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [],
+      "label": "DLSZ"
+    }
+  },
+  "LampeWZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [],
+      "label": "LWZ"
+    }
+  },
+  "HeizungWZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Dimmer",
+      "tags": [],
+      "label": "HWZ"
+    }
+  },
+  "FernseherWZ": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [],
+      "itemType": "Switch",
+      "tags": [],
+      "label": "FWZ"
+    }
+  },
+  "stateUI": {
+    "class": "org.eclipse.smarthome.core.items.ManagedItemProvider$PersistedItem",
+    "value": {
+      "groupNames": [
+        "string"
+      ],
+      "itemType": "String",
+      "tags": [
+        "string"
+      ],
+      "label": "string",
+      "category": "string"
+    }
+  }
+}
