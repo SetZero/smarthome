@@ -1,6 +1,12 @@
-import { RoomsState, RoomState } from "../states/RoomStates";
+import { ItemRef, RoomsState, RoomState } from "../states/RoomStates";
 
-export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM"|"ADD_ITEM", payload: RoomState};
+export interface ItemRefRoom {
+    ref: ItemRef;
+    roomName: string
+}
+
+export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM", payload: RoomState};
+export type ItemRefAction = {type: "ADD_ITEM"|"REMOVE_ITEM", payload: ItemRefRoom}
 
 export const addRoom = (room: RoomState): Action => ({
     type: "ADD_ROOM",
@@ -11,7 +17,12 @@ export const removeRoom = (room: RoomState): Action => ({
     payload: room
 });
 
-export const addItem = (room: RoomState): Action => ({
+export const addItemToRoom = (itemRef: ItemRef, room: string): ItemRefAction => ({
     type: "ADD_ITEM",
-    payload: room
+    payload: {ref: itemRef, roomName: room}
+});
+
+export const removeItemToRoom = (itemRef: ItemRef, room: string): ItemRefAction => ({
+    type: "REMOVE_ITEM",
+    payload: {ref: itemRef, roomName: room}
 });
