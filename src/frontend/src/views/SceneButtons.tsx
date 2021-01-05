@@ -3,6 +3,18 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import { SceneState } from '../reducer/states/SceneStates';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+
+const options = [
+  'Löschen',
+  'Bearbeiten',
+];
+
+const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,46 +93,93 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ButtonBasesProps{
-  sceneState:SceneState;
+interface ButtonBasesProps {
+  sceneState: SceneState;
 }
 
-export default function ButtonBases({sceneState}:ButtonBasesProps) {
+export default function ButtonBases({ sceneState }: ButtonBasesProps) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
-   
+
     <div className={classes.root} >
-     
-        <ButtonBase
-          focusRipple
-          key={sceneState.name}
-          className={classes.image}
-          focusVisibleClassName={classes.focusVisible}
+
+      <ButtonBase
+        focusRipple
+        key={sceneState.name}
+        className={classes.image}
+        focusVisibleClassName={classes.focusVisible}
+        style={{
+          width: '70%',
+        }}
+      >
+        <span
+          className={classes.imageSrc}
           style={{
-            width: '70%',
+            backgroundImage: `url(${sceneState.url})`,
+          }}
+        />
+        <span className={classes.imageBackdrop} />
+        <span className={classes.imageButton}>
+          <Typography
+            component="span"
+            variant="subtitle1"
+            color="inherit"
+            className={classes.imageTitle}
+          >
+            {sceneState.name}
+            <span className={classes.imageMarked} />
+          </Typography>
+        </span>
+
+        
+
+      </ButtonBase>
+
+
+
+      <div>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '20ch',
+            },
           }}
         >
-          <span
-            className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${sceneState.url})`,
-            }}
-          />
-          <span className={classes.imageBackdrop} />
-          <span className={classes.imageButton}>
-            <Typography
-              component="span"
-              variant="subtitle1"
-              color="inherit"
-              className={classes.imageTitle}
-            >
-              {sceneState.name}
-              <span className={classes.imageMarked} />
-            </Typography>
-          </span>
-        </ButtonBase>
-    
+          {options.map((option) => (
+            <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
+      </div>
+
+
     </div>
   );
 }
