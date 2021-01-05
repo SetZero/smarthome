@@ -7,6 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { removeScene } from '../reducer/actions/SceneActions';
+import { useDispatch } from 'react-redux';
 
 
 const options = [
@@ -99,6 +101,7 @@ interface ButtonBasesProps {
 
 export default function ButtonBases({ sceneState }: ButtonBasesProps) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -110,6 +113,10 @@ export default function ButtonBases({ sceneState }: ButtonBasesProps) {
     setAnchorEl(null);
   };
 
+  function handleClickOnOption (option:string) {
+    dispatch(removeScene(sceneState));
+    handleClose();
+  };
 
   return (
 
@@ -172,7 +179,7 @@ export default function ButtonBases({ sceneState }: ButtonBasesProps) {
           }}
         >
           {options.map((option) => (
-            <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+            <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => handleClickOnOption(option)}>
               {option}
             </MenuItem>
           ))}
