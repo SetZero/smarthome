@@ -10,6 +10,7 @@ import { removeRoom } from "../reducer/actions/RoomActions";
 interface RoomCardProps {
     info: RoomState,
     showRoomFunction: (selectedRoom: boolean) => void
+    setRoomFunction: (selectedRoom: string) => void
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +30,7 @@ const options = [
 ];
 const ITEM_HEIGHT = 48;
 
-export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) => {
+export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setRoomFunction }) => {
     let sizeXS: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeSM: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeMD: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
@@ -77,9 +78,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction }) =>
 
     const handleClickOnCard = (event: React.MouseEvent<HTMLElement>) => {
        
-            showRoomFunction(true); 
-        
-            
+        showRoomFunction(true); 
+        setRoomFunction(info.name);        
     }
 
     return (
