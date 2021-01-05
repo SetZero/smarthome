@@ -61,16 +61,17 @@ export let roomsReducer = async () => {
                         return {...state, rooms: newRooms};
                     }
                     case "ADD_ITEM": {
-                        let oldState = JSON.parse(JSON.stringify(state))
+                        let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
                         state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.push({link: ref})
                         return {oldState, rooms: state.rooms};
                     }
-                    /*case "REMOVE_ITEM": {
+                    case "REMOVE_ITEM": {
+                        let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
-                        let newRooms = state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.filter(e => e.link !== ref);
-                        return {...state, rooms: newRooms};
-                    }*/
+                        state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.filter(e => e.link !== ref);
+                        return {oldState, rooms: state.rooms};
+                    }
                     default:
                         return state;
                 }
