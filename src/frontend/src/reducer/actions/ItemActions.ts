@@ -36,6 +36,14 @@ export let itemUpdater = (store: Store<any>, event: MessageEvent<string>) => {
     let item = topic.match(/items\/(.*?)\//)?.[1] ?? "";
     let type = topic.match(/items\/.*?\/(.*?)$/)?.[1] ?? "";
 
+    // TODO: listen to updates to stateUI, but don't update when the changes were made from this instance,
+    // otherwise this will lead to a recursion without any breaks!
+    // Don't touch if you don't want to use up all your ram
+    if (item.includes("stateUI")) {
+        // console.log("stateUI was updated returning");
+        return;
+    }
+
     switch (type) {
         case "state":
             let payload: HabMqttPayload = JSON.parse(message.payload);

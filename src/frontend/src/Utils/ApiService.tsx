@@ -9,8 +9,6 @@ export class ApiService {
     static itemURL: string = "http://localhost:8080/rest/items/";
     static persistenceURL: string = "http://localhost:8080/rest/persistence/items/";
 
-    // TODO: Add methods to write to stateUI
-
     static async ChangeSwitch(onOff: boolean, name: string) {
         var message;
         if (onOff)
@@ -49,8 +47,8 @@ export class ApiService {
         });
         var currentState;
         try {
-            currentState =  await response.json();
-            return currentState.data[0]
+            currentState = JSON.parse(await (response.json().then(persistedState => persistedState.data[0].state)));
+            return currentState;
         } catch (err) {
             console.log(err);
             console.log("Couldn't read stored state");
@@ -58,6 +56,11 @@ export class ApiService {
         }
 
         return undefined;
+    }
+
+    static async GetAllRooms() {
+        const storedRoomsReducer = (await ApiService.GetStoredState()).roomsReducer;
+        return storedRoomsReducer;
     }
 
     static async switchStateChange(onOff: ItemState, link: string) {
@@ -101,7 +104,12 @@ export class ApiService {
             headers: { 'Accept': 'application/json' },
 
         });
-        return response;
+        // For now ignore stateUI item
+        // TODO: maybe add some sort of prefix for special items
+        const filteredItems = (await response.json().then((ele : any) => {
+            return  { items : ele.filter((item : any) => item.name != "stateUI")};
+        }));
+        return filteredItems;
     }
 
     static async GetSwitchState(name: string) {

@@ -1,4 +1,9 @@
 import { Action } from "../actions/RoomActions";
+import { ApiService } from "../../Utils/ApiService";
+import { rejects } from "assert";
+import { Reducer } from "redux";
+import { Url } from "url";
+import { act } from "react-dom/test-utils";
 
 export enum RoomCardSize {
     SMALL = 1,
@@ -36,21 +41,37 @@ const initialState = {
 
 // TODO: Add events ADD_ITEM_TO_ROOM and REMOVE_ITEM_FROM_ROOM (include item)
 // TODO: Fix returned state
-export const roomsReducer = (state: RoomsState = initialState, action: Action) => {
-    switch (action.type) {
-        case "ADD_ROOM": {
-            console.log(state)
-            return { ...state, rooms: [...state.rooms, action.payload] };
-        }
-        case "REMOVE_ROOM": {
-            let newRooms = state.rooms.filter(e => e.name !== action.payload.name);
-            state.rooms = newRooms;
-            return {...state, rooms: newRooms};
-        }
-        case "ADD_ITEM": {
-            return state;
-        }
-        default:
-            return state;
-    }
-}
+export let roomsReducer = async () => {
+    return new Promise<Reducer<any, Action>>((resolve, reject) => {
+        ApiService.GetAllRooms().then((readState: any) => {
+            if (readState === undefined) {
+                readState = {};
+            }
+            if (readState.rooms === undefined) {
+                readState.rooms = [];
+            }
+            const reducer = (state: RoomsState = readState, action: Action) => {
+                console.log("Current state" + JSON.stringify(state));
+                switch (action.type) {
+                    case "ADD_ROOM": {
+                        return { ...state, rooms: [...state.rooms, action.payload] };
+                    }
+                    case "REMOVE_ROOM": {
+                        let newRooms = state.rooms.filter(e => e.name !== action.payload.name);
+                        state.rooms = newRooms;
+                        return {...state, rooms: newRooms};
+                    }
+                    case "ADD_ITEM": {
+                        return state;
+                    }
+                    default:
+                        return state;
+                }
+            }
+            resolve(reducer);
+        }).catch((e) => {
+            console.log(e);
+            reject("Unable to convert room result to JSON")
+        })
+    });
+};
