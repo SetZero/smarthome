@@ -91,6 +91,39 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                         image={info.url}
                         title="Contemplative Reptile"
                     />
+                    <CardContent>
+                        
+                        <Typography gutterBottom variant={info.name.length > 11 ? "h6":"h5"} component="h2">
+                            {info.name}
+                            <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
+                            <IconButton
+                                aria-label="more"
+                                aria-controls="long-menu"
+                                aria-haspopup="true"
+                                onClick={HandleClick}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="long-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}>
+                                {options.map((option) => (
+                                    <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
+                                      {option}
+                                    </MenuItem>
+                                  ))}
+                            </Menu>
+                        </Typography>
+                    </CardContent>
                 </CardActionArea>
                 <CardContent>
 
