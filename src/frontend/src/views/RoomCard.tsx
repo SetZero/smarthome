@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //Configuration for the 3 dot menu
 const options = [
-    'Raum löschen',
-    'Raum bearbeiten'
+    'Raum löschen'
 ];
 const ITEM_HEIGHT = 48;
 
