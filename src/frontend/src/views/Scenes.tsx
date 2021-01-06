@@ -15,7 +15,7 @@ export const Scenes: React.FC<SceneProps> = ({ }) => {
     var state:SceneState = { name: "", url: "" };
     var [showChangeScene, setShowChangeScene] = useState(state);
 
-    if(showChangeScene.name == ""){
+    if(showChangeScene.name === ""){
         return (
             <div>
                 <div className="BiggerText">

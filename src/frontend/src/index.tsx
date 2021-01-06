@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <LinearProgress />
     <Backdrop open={true}>
-      <CircularProgress color="inherit" />
+      <h2>Loading...</h2>
     </Backdrop>
   </React.StrictMode>,
   document.getElementById('root')
