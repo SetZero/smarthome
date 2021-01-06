@@ -2,10 +2,9 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addRoom } from '../../reducer/actions/RoomActions'
 import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
-import { StateType } from '../../reducer/rootReducer';
 import { FormControl } from '@material-ui/core';
 import { RadioGroup } from '@material-ui/core';
 import { FormLabel } from '@material-ui/core';
@@ -39,7 +38,6 @@ export default function AddRoom() {
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
   //const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
-  //const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const [value, setValue] = React.useState("1");
   const [url, setUrl] = React.useState<string>("");
 

@@ -1,8 +1,6 @@
 import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, Container, IconButton, Menu, MenuItem } from "@material-ui/core"
 import React from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
-import { MainView } from "./MainView";
-import { SingleRoom } from './SingleRoom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch } from "react-redux";
 import { removeRoom } from "../reducer/actions/RoomActions";
@@ -91,7 +89,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant={info.name.length > 11 ? "h6":"h5"} component="h2">
+                        <Typography gutterBottom variant={info.name.length > 9 ? "h6":"h5"} component="h2">
                             {info.name}
                             <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
                             <IconButton

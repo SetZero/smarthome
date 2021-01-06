@@ -31,6 +31,7 @@ html, body, #root {
   font-size: 3.0em;
   color:#212121;
   font-family: serif;
+  padding-bottom: 0.5em;
 }
 
 .Right{
