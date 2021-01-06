@@ -14,6 +14,7 @@ interface RoomProps { isNew: string }
 
 export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
+    console.log(rooms);
     const dispatch = useDispatch();
     const onAddRoom = (room: RoomState) => {
         dispatch(addRoom(room));

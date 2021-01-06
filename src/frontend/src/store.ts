@@ -1,33 +1,22 @@
 import { createStore } from "redux"
 import { rootReducer } from "./reducer/rootReducer"
-import { itemUpdater } from "./reducer/actions/itemActions";
+import { itemUpdater } from "./reducer/actions/ItemActions";
 import { ApiService } from "./Utils/ApiService"
 
-export const loadState = () => {
-  try {
-    const storedState = localStorage.getItem('state');
-    if (storedState === null) {
-      return undefined;
-    }
-    return JSON.parse(storedState);
-  } catch (err) {
-    return undefined;
-  }
-};
+var store : any = null;
 
 export const updateStoredState = () => {
     console.log("Updating State");
-    // TODO: delta between stored and to store state, don't just store the whole thing completly
     try {
-      //TODO: store
-        //localStorage.setItem('state', JSON.stringify(store.getState()))
+      ApiService.StoreState(JSON.stringify(store.getState()));
+      console.log("Updated state of UI");
     } catch {
-    }
+    } 
 }
 
-const storedState = loadState();
 export const configureStoreAsync = async () => {
-  let store = createStore(await rootReducer(), storedState);
+  store = createStore(await rootReducer());
+  // store = await storedState;
   store.subscribe(updateStoredState);
 
   ApiService.listenForItemChange(store, itemUpdater);

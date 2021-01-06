@@ -2,10 +2,9 @@ import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, Ico
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { itemStateChange } from "../reducer/actions/itemActions";
+import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
 import { Item, ItemState } from "../reducer/states/ItemState";
-import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import { ApiService } from "../Utils/ApiService";
 
 interface SingleRoomProps {
@@ -14,6 +13,10 @@ interface SingleRoomProps {
 
 export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
+    const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
+    console.log(rooms);
+    const currentRoom = rooms.find(e => e.name === roomName);
+    console.log(currentRoom);
 
     const dispatch = useDispatch();
 
@@ -122,7 +125,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                                 </Typography>
                         </Grid>
                     </Grid>
-                    {items.map(e => {
+                    {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link) !== undefined).map(e => {
                         return (
                             <Grid container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
                                 <Grid item sm={8} xs={10}>
