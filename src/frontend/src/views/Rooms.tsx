@@ -10,7 +10,6 @@ import { useState } from "react";
 import { AddButton, ElementType } from './AddScreen/AddButton';
 
 interface RoomProps { isNew: string }
-//, "Küche", "Wohnzimmer", "Briefkasten", "Büro", "Schlafzimmer", "Garage"
 
 export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
