@@ -31,7 +31,7 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
                 <Container className="flexGrow">
                     <SingleRoom roomName={selectedRoom}/>
                 </Container>
-                <AddButton  type={ElementType.ROOM}/>
+                
             </div>
         )
     }
@@ -51,8 +51,9 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
                             return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} setRoomFunction={setSelectedRoom} />)
                         })}
                     </Grid>
+                    <AddButton  type={ElementType.ROOM} parentName={"test"}/>
                 </Container>
-                <AddButton  type={ElementType.ROOM}/>
+                
             </div>
         )
 

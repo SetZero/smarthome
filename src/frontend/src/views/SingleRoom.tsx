@@ -6,6 +6,7 @@ import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
 import { Item, ItemState } from "../reducer/states/ItemState";
 import { ApiService } from "../Utils/ApiService";
+import { AddButton, ElementType } from "./AddScreen/AddButton";
 
 interface SingleRoomProps {
     roomName:string
@@ -154,6 +155,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                         </Grid>
                     </Grid>
                 </Paper>
+                <AddButton type={ElementType.ITEM} parentName={roomName}/>
             </Container>
         </div>
     );
