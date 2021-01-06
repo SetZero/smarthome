@@ -4,7 +4,6 @@ import { Scenes } from './Scenes';
 import { AppBar, BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
-import AddIcon from '@material-ui/icons/Add';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import React from 'react';
 

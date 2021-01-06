@@ -13,6 +13,8 @@ export interface Item {
     label: string
     state: ItemState
     link: string
+    type: string
+    name:string
 }
 
 export interface ItemList {
@@ -28,7 +30,7 @@ export let itemReducer = async () => {
         ApiService.GetAllItems().then((el: any) => {
             const initialState = { 
                 items: el.items
-                .map((item: Item) => { return { label: item.label, state: item.state, link: item.link } }) 
+                .map((item: Item) => { return { label: item.label, state: item.state, link: item.link, type: item.type, name:item.name} }) 
             };
             const reducer = (state: ItemList = initialState, action: ItemAction) => {
                 switch (action.type) {
