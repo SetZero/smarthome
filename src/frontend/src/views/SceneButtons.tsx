@@ -157,14 +157,11 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
           </Typography>
         </span>
 
-        
+      
 
-      </ButtonBase>
-
-
-
-      <div>
+      <div className="Right" >
         <IconButton
+          color="primary"
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
@@ -193,7 +190,8 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
         </Menu>
       </div>
 
-
+      </ButtonBase>
+      
     </div>
   );
 }

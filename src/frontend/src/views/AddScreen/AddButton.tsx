@@ -44,7 +44,7 @@ export const AddButton: React.FC<AddButtonProps> = ({ type }) => {
 
   return (
     <div className={classes.root}>
-      <Fab color="primary"
+      <Fab color="secondary"
         aria-label="add"
         onClick={(e) => handleClick(type, e)}>
         <AddIcon />

@@ -38,6 +38,9 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
         return (
             <div>
                 <Container>
+                    <div className="BiggerText">
+                        Räume
+                    </div>
                     <Grid container spacing={3}
                         direction="row"
                         justify="center"
