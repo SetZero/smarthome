@@ -9,16 +9,15 @@ import { ApiService } from "../Utils/ApiService";
 import { AddButton, ElementType } from "./AddScreen/AddButton";
 
 interface SingleRoomProps {
-    roomName:string
+    roomName: string
 }
 
-export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
+export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     console.log(rooms);
     const currentRoom = rooms.find(e => e.name === roomName);
     console.log(currentRoom);
-
     const dispatch = useDispatch();
 
     const onItemStateChange = (item: Item) => {
@@ -39,16 +38,22 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    function handleClickOnOption(option:string) {
-        console.log("OPTION",option);
-       // console.log("NAME",info.name);
-        //dispatch(removeRoom(info));
+    function handleClickOnOption(option: string) {
+
         handleClose();
     };
 
     const options = [
         'Raum bearbeiten'
     ];
+
+    items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Dimmer') !== undefined).map(e => {
+        console.log("Dimmer :" + e.label);
+    });
+    items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Switch') !== undefined).map(e => {
+        console.log("Lampe :" + e.label);
+    });
+
     return (
         <div>
             <div className="BiggerText">
@@ -64,7 +69,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                         </Grid>
                         
                         <Grid item xs={2} sm={2}>
-                        <IconButton
+                            <IconButton
                                 aria-label="more"
                                 aria-controls="long-menu"
                                 aria-haspopup="true"
@@ -86,53 +91,18 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                                 }}>
                                 {options.map((option) => (
                                     <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
-                                      {option}
+                                        {option}
                                     </MenuItem>
-                                  ))}
+                                ))}
                             </Menu>
                         </Grid>
                     </Grid>
-                    <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
-                        <Grid item sm={4} xs={10}>
-                            <Typography variant="h5" component="h6">
-                                Temperatur
-                                    </Typography>
-                        </Grid>
-                        <Grid item sm={6} xs={6}>
-                            <LinearProgress variant="determinate" value={25} />
-                        </Grid>
-                        <Grid item sm={2} xs={2}>
-                            <Typography>
-                                23°C
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
-                        <Grid item sm={4} xs={10}>
-                            <Typography variant="h5" component="h6">
-                                Heizung
-                                </Typography>
-                        </Grid>
-                        <Grid item sm={6} xs={6}>
-                            <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
-                                onChange={(e, val) => {
-                                    ApiService.ChangeDimmer(val + '', "HeizungWZ");
-                                }}
-
-                            />
-                        </Grid>
-                        <Grid item sm={2} xs={2}>
-                            <Typography>
-                                20°C
-                                </Typography>
-                        </Grid>
-                    </Grid>
-                    {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link) !== undefined).map(e => {
+                    {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Switch') !== undefined).map(e => {
                         return (
                             <Grid container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
                                 <Grid item sm={8} xs={10}>
                                     <Typography variant="h5" component="h6">
-                                        {e.label}
+                                        {e.name}
                                     </Typography>
 
                                 </Grid>
@@ -147,6 +117,30 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                             </Grid>
                         )
                     })}
+                    {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Dimmer') !== undefined).map(e => {
+                        return (
+                            <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                                <Grid item sm={4} xs={10}>
+                                    <Typography variant="h5" component="h6">
+                                        {e.name}
+                                </Typography>
+                                </Grid>
+                                <Grid item sm={6} xs={6}>
+                                    <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
+                                        onChange={(ev, val) => {
+                                            ApiService.ChangeDimmer(val + '', e.name);
+                                        }}
+
+                                    />
+                                </Grid>
+                                <Grid item sm={2} xs={2}>
+                                    <Typography>
+                                        {e.state}
+                                </Typography>
+                                </Grid>
+                            </Grid>
+                        )
+                    })}
 
                     <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
                         <Grid item sm={12}>
@@ -156,7 +150,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
                         </Grid>
                     </Grid>
                 </Paper>
-                <AddButton type={ElementType.ITEM} parentName={roomName}/>
+                <AddButton type={ElementType.ITEM} parentName={roomName} />
             </Container>
         </div>
     );
