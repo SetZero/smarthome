@@ -59,12 +59,24 @@ export class ApiService {
     }
 
     static async GetAllRooms() {
-        const storedRoomsReducer = (await ApiService.GetStoredState()).roomsReducer;
+        let storedRoomsReducer = (await ApiService.GetStoredState()).roomsReducer;
+        if (storedRoomsReducer === undefined) {
+            storedRoomsReducer = {};
+        }
+        if (storedRoomsReducer.rooms === undefined) {
+            storedRoomsReducer.rooms = [];
+        }
         return storedRoomsReducer;
     }
 
     static async GetAllScenes() {
-        const storedScenesReducer = (await ApiService.GetStoredState()).scenesReducer;
+        let storedScenesReducer = (await ApiService.GetStoredState()).scenesReducer;
+        if (storedScenesReducer  === undefined) {
+            storedScenesReducer = {};
+        }
+        if (storedScenesReducer.scenes === undefined) {
+            storedScenesReducer.scenes = [];
+        }
         return storedScenesReducer;
     }
 
