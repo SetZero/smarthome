@@ -51,17 +51,18 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName}) => {
     ];
     return (
         <div>
+            <div className="BiggerText">
+                        {roomName}
+                    </div>
             <Container maxWidth="sm">
                 <Paper variant="outlined" elevation={3}>
                     <Grid container alignItems="center" justify="space-around" spacing={2}>
                         <Grid item sm={8} xs={10}>
                             <Typography variant="h4" component="h3">
-                                {roomName}
+                                
                             </Typography>
                         </Grid>
-                        <Grid item xs={2} sm={2}>
-                            <Switch name="unused" inputProps={{ 'aria-label': 'secondary-checkbox' }} />
-                        </Grid>
+                        
                         <Grid item xs={2} sm={2}>
                         <IconButton
                                 aria-label="more"

@@ -40,9 +40,6 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>(sceneState.name);
   const [url, setUrl] = React.useState<string>(sceneState.url);
-  const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
-  const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
-  const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
 
   
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {

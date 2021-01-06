@@ -4,12 +4,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { StateType } from '../../reducer/rootReducer';
-import { addItem } from '../../reducer/actions/ItemActions';
 import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
-import { Item, ItemState } from '../../reducer/states/ItemState';
+import { Item } from '../../reducer/states/ItemState';
 import { addItemToRoom } from '../../reducer/actions/RoomActions';
 
 interface AddItemProps {
@@ -67,12 +66,9 @@ export default function AddItem({parentName}:AddItemProps) {
   const classesButton = useStylesButton();
   const classesText = useStylesText();
   const [list, setList] = React.useState<string | number>('');
-  const [room, setRoom] = React.useState<string | number>('');
   const [openList, setOpenList] = React.useState(false);
   const [name, setName] = React.useState<string>("");
-  const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
-  const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
   const [choosenItem, setChoosenItem] = React.useState<number>(0);
 
 
