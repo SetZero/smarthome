@@ -43,7 +43,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 showComponent = <Add />;
                 break;
             case CurrentView.SingleRoom:
-                showComponent = <SingleRoom roomName="Test"/>;
+                showComponent = <SingleRoom roomName="t2"/>;
                 break;
             default:
                 showComponent = <div />;

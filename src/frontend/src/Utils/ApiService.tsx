@@ -63,6 +63,11 @@ export class ApiService {
         return storedRoomsReducer;
     }
 
+    static async GetAllScenes() {
+        const storedScenesReducer = (await ApiService.GetStoredState()).scenesReducer;
+        return storedScenesReducer;
+    }
+
     static async switchStateChange(onOff: ItemState, link: string) {
         if (!link.startsWith(ApiService.itemURL))
             link = ApiService.itemURL + link;

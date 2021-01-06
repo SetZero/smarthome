@@ -1,4 +1,4 @@
-import { Action } from "../actions/RoomActions";
+import { Action, ItemRefAction } from "../actions/RoomActions";
 import { ApiService } from "../../Utils/ApiService";
 import { rejects } from "assert";
 import { Reducer } from "redux";
@@ -11,16 +11,15 @@ export enum RoomCardSize {
     LARGE = 3
 }
 
-export interface Sensors {
-    name: string;
-    value: string;
+export interface ItemRef {
+    link: string;
 }
 
 export interface RoomState {
     name: string;
     url: string;
     cardSize: RoomCardSize;
-    sensors?: Array<Sensors>;
+    sensors?: Array<ItemRef>;
 }
 
 export interface RoomsState {
@@ -31,7 +30,7 @@ const initialState = {
     rooms: [
         { name: "Bad", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
         { name: "Küche", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
-        { name: "Wohnzimmer", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.MEDIUM, sensors: [{ name: "Temperature", value: "23.5°C" }] },
+        { name: "Wohnzimmer", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.MEDIUM, sensors: [{ link: "Temperature"}] },
         { name: "Briefkasten", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
         { name: "Büro", url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
         { name: "Schlafzimmer", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg", cardSize: RoomCardSize.SMALL, sensors: [] },
@@ -50,7 +49,7 @@ export let roomsReducer = async () => {
             if (readState.rooms === undefined) {
                 readState.rooms = [];
             }
-            const reducer = (state: RoomsState = readState, action: Action) => {
+            const reducer = (state: RoomsState = readState, action: Action|ItemRefAction) => {
                 console.log("Current state" + JSON.stringify(state));
                 switch (action.type) {
                     case "ADD_ROOM": {
@@ -62,7 +61,16 @@ export let roomsReducer = async () => {
                         return {...state, rooms: newRooms};
                     }
                     case "ADD_ITEM": {
-                        return state;
+                        let oldState = JSON.parse(JSON.stringify(state));
+                        let ref = action.payload.ref.link;
+                        state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.push({link: ref})
+                        return {oldState, rooms: state.rooms};
+                    }
+                    case "REMOVE_ITEM": {
+                        let oldState = JSON.parse(JSON.stringify(state));
+                        let ref = action.payload.ref.link;
+                        state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.filter(e => e.link !== ref);
+                        return {oldState, rooms: state.rooms};
                     }
                     default:
                         return state;
