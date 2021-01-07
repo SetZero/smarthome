@@ -26,6 +26,10 @@ export enum ElementType {
   SCENE = "SCENE", ROOM = "ROOM", ITEM = "ITEM"
 }
 
+export enum ParentType {
+  SCENE = "SCENE", ROOM = "ROOM", NOPARENT = "NOPARENT"
+}
+
 interface AddButtonProps { 
   type: ElementType,
   parentName:string
@@ -75,7 +79,7 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName }) => {
             <AddScene />
           )}
           {type == ElementType.ITEM && (
-            <AddItem parentName={parentName} />
+            <AddItem parentName={parentName} parentType={ParentType.ROOM} />
           )}
         </div>
       </Menu>

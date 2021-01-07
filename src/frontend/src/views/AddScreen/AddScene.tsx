@@ -8,6 +8,7 @@ import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
 import { SceneState } from '../../reducer/states/SceneStates';
 import { addScene } from '../../reducer/actions/SceneActions';
+import { AddButton } from './AddButton';
 
 const useStylesText = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,8 +37,7 @@ export default function AddScene() {
   const [url, setUrl] = React.useState<string>("");
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
-
-
+  const tempPic = "https://www.poynter.org/wp-content/uploads/2019/07/shutterstock_264132746.jpg"
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
     setName(event.target.value as string);
   }
@@ -63,8 +63,14 @@ export default function AddScene() {
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let scene = { name: name, url: url };
-        onAddScene(scene);
+          let pic=url;
+          if (url.length<3){
+            pic=tempPic;
+          }
+          let scene = { name: name, url: pic };
+          onAddScene(scene);
+          setName("");
+          setUrl("");
         }}>
           Hinzufügen
         </Button>

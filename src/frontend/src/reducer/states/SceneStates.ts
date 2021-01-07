@@ -1,4 +1,5 @@
-import { Action } from "../actions/SceneActions";
+import { Scenes } from './../../views/Scenes';
+import { Action, ItemRefAction } from "../actions/SceneActions";
 import { ItemRef } from "./RoomStates";
 
 export interface SceneState {
@@ -12,6 +13,7 @@ export interface ScenesState {
 }
 
 
+
 // TODO: add action id to the states
 const initialState = {
         scenes: [
@@ -22,7 +24,7 @@ const initialState = {
 }
 
 // TODO: UPDATE_ACTION_ID
-export const scenesReducer = (state: ScenesState  = initialState, action: Action) => {
+export const scenesReducer = (state: ScenesState  = initialState, action: Action|ItemRefAction) => {
     switch(action.type) {
         case "ADD_SCENE": {
             return {...state, scenes: [...state.scenes, action.payload]};
@@ -59,6 +61,21 @@ export const scenesReducer = (state: ScenesState  = initialState, action: Action
             console.log("TempStat: ",tempState);
             console.log("scenes: ",state.scenes)
             return { ...state, ...tempState };
+        }
+        case "ADD_ITEM": {
+            let oldState = JSON.parse(JSON.stringify(state));
+            let ref = action.payload.ref.link;
+            state.scenes.find(e => e.name === action.payload.sceneName)?.sensors?.push({link: ref})
+            return {oldState, scenes: state.scenes};
+        }
+        case "REMOVE_ITEM": {
+            let oldState = JSON.parse(JSON.stringify(state));
+            let ref = action.payload.ref.link;
+            let selectedScene = state.scenes.find(e => e.name === action.payload.sceneName);
+            if(selectedScene && selectedScene.sensors) {
+                selectedScene.sensors = selectedScene?.sensors?.filter(e => e.link !== ref);
+            }
+            return {oldState, scenes: state.scenes};
         }
         default:
             return state;

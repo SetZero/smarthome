@@ -10,10 +10,14 @@ import { InputLabel } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import { Item } from '../../reducer/states/ItemState';
 import { addItemToRoom } from '../../reducer/actions/RoomActions';
+import { ParentType } from './AddButton';
+import { addItemToScene } from '../../reducer/actions/SceneActions';
 
 interface AddItemProps {
   parentName:string
+  parentType:ParentType
 }
+
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,7 +65,7 @@ const useStylesText = makeStyles((theme: Theme) =>
 );
 
 
-export default function AddItem({parentName}:AddItemProps) {
+export default function AddItem({parentName, parentType}:AddItemProps) {
   const classesList = useStyles();
   const classesButton = useStylesButton();
   const classesText = useStylesText();
@@ -98,8 +102,8 @@ export default function AddItem({parentName}:AddItemProps) {
 
   return (
     <div>
-      <div><h1>Gerät Hinzufügen</h1></div>
-      <div>Raum: {parentName}</div>
+      <div className="BiggerText">Gerät Hinzufügen</div>
+      <div className="BiggerText">{parentName}</div>
 
 
       <form className={classesText.root} noValidate autoComplete="off">
@@ -135,9 +139,16 @@ export default function AddItem({parentName}:AddItemProps) {
           //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
           //onAddItem(items[choosenItem]);
           // TODO: Change this from hardcoded:
-          //const parentName = "t2";
           const item = items[choosenItem];
-          dispatch(addItemToRoom({link: item.link}, parentName));
+          if (parentType==ParentType.ROOM){
+            dispatch(addItemToRoom({link: item.link}, parentName));
+          }else if(parentType==ParentType.SCENE){
+            dispatch(addItemToScene({link: item.link}, parentName));
+          }
+          
+          setName("");
+          setList(-1);
+
         }}>
           Hinzufügen
         </Button>

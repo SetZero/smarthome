@@ -179,6 +179,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                                 </Button>
                         </Grid>
                     </Grid>
+
                 </Paper>
                 <AddButton type={ElementType.ITEM} parentName={roomName} />
             </Container>
