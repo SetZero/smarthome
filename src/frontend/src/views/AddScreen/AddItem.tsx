@@ -105,11 +105,6 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
     <div>
       <div className="BiggerText">Gerät Hinzufügen</div>
       <div className="BiggerText">{parentName}</div>
-
-
-      <form className={classesText.root} noValidate autoComplete="off">
-        <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
-      </form>
       <div>
         <FormControl className={classesList.formControl}>
           <InputLabel id="art-select-label">Gerät wählen</InputLabel>
