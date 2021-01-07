@@ -16,6 +16,7 @@ import { addItemToScene } from '../../reducer/actions/SceneActions';
 interface AddItemProps {
   parentName:string
   parentType:ParentType
+  closeAnchorFunction: (close: any) => void
 }
 
 
@@ -65,7 +66,7 @@ const useStylesText = makeStyles((theme: Theme) =>
 );
 
 
-export default function AddItem({parentName, parentType}:AddItemProps) {
+export default function AddItem({parentName, parentType, closeAnchorFunction}:AddItemProps) {
   const classesList = useStyles();
   const classesButton = useStylesButton();
   const classesText = useStylesText();
@@ -145,10 +146,9 @@ export default function AddItem({parentName, parentType}:AddItemProps) {
           }else if(parentType==ParentType.SCENE){
             dispatch(addItemToScene({link: item.link}, parentName));
           }
-          
           setName("");
           setList(-1);
-
+          closeAnchorFunction(false);
         }}>
           Hinzufügen
         </Button>
