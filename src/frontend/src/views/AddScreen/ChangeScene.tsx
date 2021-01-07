@@ -60,7 +60,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   const dispatch = useDispatch();
 
   const onChangeScene = (scene: SceneState) => {
-    var newScene: SceneState = { name: name, url: url };
+    var newScene: SceneState = { name: name, url: url, sensors: scene.sensors };
     dispatch(changeScene(scene, newScene));
     setShowChangeSceneFunction({ name: "", url: "" });
   }
