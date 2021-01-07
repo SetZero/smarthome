@@ -41,12 +41,6 @@ const initialState = {
 export let roomsReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllRooms().then((readState: any) => {
-            if (readState === undefined) {
-                readState = {};
-            }
-            if (readState.rooms === undefined) {
-                readState.rooms = [];
-            }
             const reducer = (state: RoomsState = readState, action: Action|ItemRefAction) => {
                 console.log("Current state" + JSON.stringify(state));
                 switch (action.type) {

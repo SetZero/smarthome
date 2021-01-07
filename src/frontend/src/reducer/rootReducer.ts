@@ -13,5 +13,6 @@ export interface StateType {
 export const rootReducer = async () => {
     const itemsReducer = await itemReducer();
     const roomsReducerAwaited = await roomsReducer();
-    return combineReducers({ roomsReducer : roomsReducerAwaited, itemsReducer, scenesReducer });
+    const scenesReducerAwaited = await scenesReducer();
+    return combineReducers({ roomsReducer : roomsReducerAwaited, itemsReducer, scenesReducer: scenesReducerAwaited });
 };
