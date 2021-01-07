@@ -141,14 +141,6 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                             </Grid>
                         )
                     })}
-
-                    <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
-                        <Grid item sm={12}>
-                            <Button>
-                                Actions
-                                </Button>
-                        </Grid>
-                    </Grid>
                 </Paper>
                 <AddButton type={ElementType.ITEM} parentName={roomName} />
             </Container>
