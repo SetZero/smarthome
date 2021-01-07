@@ -84,7 +84,7 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentTy
             <AddScene closeAnchorFunction={setAnchorEl}/>
           )}
           {type == ElementType.ITEM && (
-            <AddItem parentName={parentName} parentType={ParentType.ROOM} closeAnchorFunction={setAnchorEl}/>
+            <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl}/>
           )}
         </div>
       </Menu>

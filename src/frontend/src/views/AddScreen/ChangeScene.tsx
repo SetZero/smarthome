@@ -36,11 +36,11 @@ const useStylesButton = makeStyles((theme: Theme) =>
 );
 interface ChangeSceneProps {
   sceneState: SceneState,
-  setShowChangeSceneFunction: (selectedScene: SceneState) => void; 
+  setShowChangeSceneFunction: (selectedScene: SceneState) => void;
 }
 
 
-export default function ChangeScene({ sceneState, setShowChangeSceneFunction}: ChangeSceneProps) {
+export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>(sceneState.name);
@@ -105,38 +105,39 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction}: C
         )
       })}
       {items.filter(e => currentScene?.sensors?.find(f => f.link === e.link && e.type == 'Dimmer') !== undefined).map(e => {
-                        return (
-                            <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2}>
-                                <Grid item sm={3} xs={4}>
-                                    <Typography variant="h5" component="h6">
-                                        {e.name}
-                                    </Typography>
-                                </Grid>
-                                <Grid item sm={6} xs={6}>
-                                    <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
-                                        onChange={(ev, val) => {
-                                            ApiService.ChangeDimmer(val + '', e.name);
-                                        }}
+        return (
+          <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2}>
+            <Grid item sm={3} xs={4}>
+              <Typography variant="h5" component="h6">
+                {e.name}
+              </Typography>
+            </Grid>
+            <Grid item sm={6} xs={6}>
+              <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
+                onChange={(ev, val) => {
+                  ApiService.ChangeDimmer(val + '', e.name);
+                }}
 
-                                    />
-                                </Grid>
-                                <Grid item sm={1} xs={2}>
-                                    <Typography>
-                                        {e.state}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        )
-                    })}
+              />
+            </Grid>
+            <Grid item sm={1} xs={2}>
+              <Typography>
+                {e.state}
+              </Typography>
+            </Grid>
+          </Grid>
+        )
+      })}
       <div className={classesButton.root}>
+        <AddButton type={ElementType.ITEM} parentName={sceneState.name} parentType={ParentType.SCENE} />
         <Button variant="contained" color="primary" onClick={(e) => {
           onChangeScene(sceneState);
         }}>
           Ändern
         </Button>
-        <AddButton type={ElementType.ITEM} parentName={sceneState.name} parentType={ParentType.SCENE}/>
+
       </div>
-      
+
 
     </div>
   );
