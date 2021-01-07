@@ -77,17 +77,16 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
 
   return (
     <div>
-      <div><h1>Szene Ändern</h1></div>
-      <div>{sceneState.name}</div>
+      <div><h1>{sceneState.name}</h1></div>
       <Container maxWidth="sm">
         <Paper variant="outlined" elevation={3}>
           <Grid container alignItems="center" justify="space-around" spacing={2}>
-            <Grid item sm={10} xs={10}>
+            <Grid className="Left" item sm={10} xs={10}>
               <form className={classesText.root} noValidate autoComplete="off">
                 <TextField id="standard-basic" label="Name" value={name} defaultValue={sceneState.name} onChange={handleChangeText} />
               </form>
             </Grid>
-            <Grid item sm={10} xs={10}>
+            <Grid className="Left" item sm={10} xs={10}>
               <form className={classesText.root} noValidate autoComplete="off">
                 <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
               </form>

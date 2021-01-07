@@ -208,15 +208,6 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
       </div>
 
       </ButtonBase>
-
-      <div className={classesButton.root}>
-        <Button variant="contained" color="primary" onClick= {(e) => { 
-          
-          console.log(scenes);
-        }}>
-          SceneTest
-        </Button>
-        </div>
     </div>
   );
 }
