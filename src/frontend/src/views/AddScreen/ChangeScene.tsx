@@ -81,12 +81,12 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
       <Container maxWidth="sm">
         <Paper variant="outlined" elevation={3}>
           <Grid container alignItems="center" justify="space-around" spacing={2}>
-            <Grid className="Left" item sm={10} xs={10}>
+            <Grid item sm={10} xs={10}>
               <form className={classesText.root} noValidate autoComplete="off">
                 <TextField id="standard-basic" label="Name" value={name} defaultValue={sceneState.name} onChange={handleChangeText} />
               </form>
             </Grid>
-            <Grid className="Left" item sm={10} xs={10}>
+            <Grid item sm={10} xs={10}>
               <form className={classesText.root} noValidate autoComplete="off">
                 <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
               </form>
@@ -126,7 +126,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                       {e.name}
                     </Typography>
                   </Grid>
-                  <Grid item sm={6} xs={6}>
+                  <Grid item sm={5} xs={6}>
                     <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
                       onChange={(ev, val) => {
                         ApiService.ChangeDimmer(val + '', e.name);
