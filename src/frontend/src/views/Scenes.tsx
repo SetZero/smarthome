@@ -24,7 +24,7 @@ export const Scenes: React.FC<SceneProps> = ({ }) => {
                 {scenes.map((element, i) => {
                     return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
                 })}
-                <AddButton type={ElementType.SCENE}/>
+                <AddButton type={ElementType.SCENE} parentName={"test2"}/>
             </div>
         )
     }

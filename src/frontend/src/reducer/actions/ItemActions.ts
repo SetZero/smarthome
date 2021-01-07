@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { Store } from "redux";
 import { Item, ItemState } from "../states/ItemState";
 
@@ -50,7 +49,9 @@ export let itemUpdater = (store: Store<any>, event: MessageEvent<string>) => {
             store.dispatch(_itemStateChangeWithoutRest({
                 link: item,
                 label: item,
-                state: payload.value
+                state: payload.value, 
+                type: item,
+                name: item
             }));
             break;
         default:

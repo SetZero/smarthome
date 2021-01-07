@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Menu } from '@material-ui/core';
 import AddScene from './AddScene';
 import AddRoom from './AddRoom';
+import AddItem from './AddItem';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,9 +26,13 @@ export enum ElementType {
   SCENE = "SCENE", ROOM = "ROOM", ITEM = "ITEM"
 }
 
-interface AddButtonProps { type: ElementType }
+interface AddButtonProps { 
+  type: ElementType,
+  parentName:string
+}
 
-export const AddButton: React.FC<AddButtonProps> = ({ type }) => {
+
+export const AddButton: React.FC<AddButtonProps> = ({ type, parentName }) => {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -68,6 +73,9 @@ export const AddButton: React.FC<AddButtonProps> = ({ type }) => {
           )}
           {type == ElementType.SCENE && (
             <AddScene />
+          )}
+          {type == ElementType.ITEM && (
+            <AddItem parentName={parentName} />
           )}
         </div>
       </Menu>

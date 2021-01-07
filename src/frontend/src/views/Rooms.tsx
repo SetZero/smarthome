@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
@@ -30,7 +30,7 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
                 <Container className="flexGrow">
                     <SingleRoom roomName={selectedRoom}/>
                 </Container>
-                <AddButton  type={ElementType.ROOM}/>
+                
             </div>
         )
     }
@@ -50,8 +50,9 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
                             return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} setRoomFunction={setSelectedRoom} />)
                         })}
                     </Grid>
+                    <AddButton  type={ElementType.ROOM} parentName={"test"}/>
                 </Container>
-                <AddButton  type={ElementType.ROOM}/>
+                
             </div>
         )
 

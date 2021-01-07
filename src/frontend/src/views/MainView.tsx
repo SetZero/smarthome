@@ -1,19 +1,14 @@
 import { Rooms } from './Rooms';
-import { SingleRoom } from './SingleRoom';
 import { Scenes } from './Scenes';
-import { Add } from './Add';
 import { AppBar, BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
-import AddIcon from '@material-ui/icons/Add';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import React from 'react';
 
 enum CurrentView {
     Room,
     Scene,
-    SingleRoom,
-    Add
 }
 
 interface MainViewProps { }
@@ -39,12 +34,6 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             case CurrentView.Scene:
                 showComponent = <Scenes />;
                 break;
-            case CurrentView.Add:
-                showComponent = <Add />;
-                break;
-            case CurrentView.SingleRoom:
-                showComponent = <SingleRoom roomName="t2"/>;
-                break;
             default:
                 showComponent = <div />;
         }
@@ -61,8 +50,6 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             >
                 <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                 <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
-                <BottomNavigationAction label="Raum" icon={<MeetingRoomIcon />} value={CurrentView.SingleRoom} />
-                <BottomNavigationAction label="Add Item" icon={<AddIcon />} value={CurrentView.Add} />
             </BottomNavigation>
             </AppBar>
         </div>)

@@ -34,7 +34,6 @@ export default function AddScene() {
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
   const [url, setUrl] = React.useState<string>("");
-  const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
 
@@ -54,9 +53,7 @@ export default function AddScene() {
   return (
     <div>
       <div><h1>Szene Hinzufügen</h1></div>
-      <div>Parent Element: Raum/GesamtSzene</div>
-
-      
+    
       <form className={classesText.root} noValidate autoComplete="off">
         <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
       </form>

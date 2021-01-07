@@ -1,8 +1,5 @@
 import { ApiService } from "../../Utils/ApiService";
-import { rejects } from "assert";
 import { Reducer } from "redux";
-import { Url } from "url";
-import { act } from "react-dom/test-utils";
 import { ItemAction } from "../actions/ItemActions";
 
 export enum ItemState {
@@ -13,6 +10,8 @@ export interface Item {
     label: string
     state: ItemState
     link: string
+    type: string
+    name:string
 }
 
 export interface ItemList {
@@ -28,7 +27,7 @@ export let itemReducer = async () => {
         ApiService.GetAllItems().then((el: any) => {
             const initialState = { 
                 items: el.items
-                .map((item: Item) => { return { label: item.label, state: item.state, link: item.link } }) 
+                .map((item: Item) => { return { label: item.label, state: item.state, link: item.link, type: item.type, name:item.name} }) 
             };
             const reducer = (state: ItemList = initialState, action: ItemAction) => {
                 switch (action.type) {
