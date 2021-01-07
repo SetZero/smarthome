@@ -31,9 +31,11 @@ const useStylesButton = makeStyles((theme: Theme) =>
     },
   }),
 );
+interface AddRoomProps {
+  closeAnchorFunction: (close: any) => void
+}
 
-
-export default function AddRoom() {
+export default function AddRoom({closeAnchorFunction}:AddRoomProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
@@ -51,11 +53,12 @@ export default function AddRoom() {
     setName(event.target.value as string);
   }
 
-
+  const tempPic = "https://static.schoener-wohnen.de/bilder/5b/e1/62339/full_teaser/wohntipps-wohnzimmer-fritz-hansen-sofa-lune.jpg"
   const dispatch = useDispatch();
 
   const onAddRoom = (room: RoomState) => {
     dispatch(addRoom(room));
+    closeAnchorFunction(false);
   }
 
   return (
@@ -81,7 +84,13 @@ export default function AddRoom() {
 
       <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick= {(e) => { 
-        let room = { name: name, url: url, cardSize: RoomCardSize.SMALL, sensors: [] };
+          let pic = url;
+        if (url.length<3){
+          pic=tempPic;
+         }
+
+        let room = { name: name, url: pic, cardSize: RoomCardSize.SMALL, sensors: [] };
+        
 
         if (value=="2"){
           room.cardSize = RoomCardSize.MEDIUM;
@@ -90,6 +99,8 @@ export default function AddRoom() {
           room.cardSize = RoomCardSize.LARGE;
         }
         onAddRoom(room);
+        setName("");
+        setUrl("")
       }}>
       Hinzufügen
     </Button>

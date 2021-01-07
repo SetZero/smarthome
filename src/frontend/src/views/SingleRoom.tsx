@@ -1,6 +1,6 @@
 import { Paper, Container, Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
-import React from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
@@ -22,7 +22,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
     const currentRoom = rooms.find(e => e.name === roomName);
     console.log(currentRoom);
     const dispatch = useDispatch();
-    var isChangeRoom = true;
+    var [isChangeRoom, setIsChangeRoom] = useState(false);
 
     const onItemStateChange = (item: Item) => {
         dispatch(itemStateChange(item));
@@ -43,16 +43,17 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
         setAnchorEl(null);
     };
     function handleClickOnOption(option: string) {
-        isChangeRoom = true;
+        setIsChangeRoom(true);
         handleClose();
     };
 
-    function handleClickOnDeleteItemInRoom(e:Item){
-        var ref:ItemRef = { link: e.link}
-        dispatch(removeItemFromRoom(ref, roomName));
+    async function handleClickOnDeleteItemInRoom(e: Item) {
+        var ref: ItemRef = { link: e.link };
+        await dispatch(removeItemFromRoom(ref, roomName));
+
     }
 
-    const options = [
+    var options = [
         'Raum bearbeiten'
     ];
 
@@ -62,22 +63,22 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
     items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Switch') !== undefined).map(e => {
         console.log("Lampe :" + e.label);
     });
-    
-    dispatch(removeItemFromRoom({ link: "http://localhost:8080/rest/items/HeizungWZ" },roomName));
+
+    dispatch(removeItemFromRoom({ link: "http://localhost:8080/rest/items/HeizungWZ" }, roomName));
     return (
         <div>
             <div className="BiggerText">
-                        {roomName}
-                    </div>
+                {roomName}
+            </div>
             <Container maxWidth="sm">
                 <Paper variant="outlined" elevation={3}>
                     <Grid container alignItems="center" justify="space-around" spacing={2}>
                         <Grid item sm={8} xs={10}>
                             <Typography variant="h4" component="h3">
-                                
+
                             </Typography>
                         </Grid>
-                        
+
                         <Grid item xs={2} sm={2}>
                             <IconButton
                                 aria-label="more"
@@ -111,19 +112,20 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                         return (
                             <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
 
-                                {isChangeRoom ? 
-                                    <IconButton aria-label="delete" onClick={() => handleClickOnDeleteItemInRoom(e)}>
-                                    <DeleteIcon />
-                                    </IconButton >:""
-                                    }
+                                {isChangeRoom ?
+                                    <IconButton aria-label="delete" onClick={() => {handleClickOnDeleteItemInRoom(e)} }>
+                                        <DeleteIcon />
+                                    </IconButton >
+                                    : ""
+                                }
 
-                                <Grid item sm={8} xs={10}>
+                                <Grid item sm={8} xs={8}>
                                     <Typography variant="h5" component="h6">
                                         {e.name}
                                     </Typography>
 
                                 </Grid>
-                                <Grid item sm={4} xs={6}>
+                                <Grid item sm={2} xs={2}>
                                     <Switch
                                         name="unused"
                                         inputProps={{ 'aria-label': 'secondary-checkbox' }}
@@ -137,15 +139,15 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                     {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Dimmer') !== undefined).map(e => {
                         return (
                             <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2}>
-                                {isChangeRoom ? 
+                                {isChangeRoom ?
                                     <IconButton aria-label="delete">
-                                    <DeleteIcon />
-                                    </IconButton>:""
-                                    }
-                                <Grid item sm={4} xs={10}>
+                                        <DeleteIcon />
+                                    </IconButton> : ""
+                                }
+                                <Grid item sm={3} xs={4}>
                                     <Typography variant="h5" component="h6">
                                         {e.name}
-                                </Typography>
+                                    </Typography>
                                 </Grid>
                                 <Grid item sm={6} xs={6}>
                                     <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
@@ -155,15 +157,21 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
 
                                     />
                                 </Grid>
-                                <Grid item sm={2} xs={2}>
+                                <Grid item sm={1} xs={2}>
                                     <Typography>
                                         {e.state}
-                                </Typography>
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         )
                     })}
-
+                    {isChangeRoom ?<div>
+                        <Button variant="contained" color="primary" onClick={(e) => {
+                            setIsChangeRoom(false);
+                        }}>
+                            Bearbeiten beenden
+                        </Button>
+                    </div>:""}
                     <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
                         <Grid item sm={12}>
                             <Button>
@@ -171,6 +179,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                                 </Button>
                         </Grid>
                     </Grid>
+
                 </Paper>
                 <AddButton type={ElementType.ITEM} parentName={roomName} />
             </Container>

@@ -1,9 +1,10 @@
-import { Action } from "../actions/SceneActions";
 import { ApiService } from "../../Utils/ApiService";
 import { rejects } from "assert";
 import { Reducer } from "redux";
 import { Url } from "url";
 import { act } from "react-dom/test-utils";
+import { Scenes } from './../../views/Scenes';
+import { Action, ItemRefAction } from "../actions/SceneActions";
 import { ItemRef } from "./RoomStates";
 
 export interface SceneState {
@@ -15,6 +16,7 @@ export interface SceneState {
 export interface ScenesState {
     scenes: SceneState[]
 }
+
 
 
 // TODO: add action id to the states
@@ -31,7 +33,7 @@ export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllScenes().then((readState: ScenesState) => {
             console.log("Current scenes state : " + JSON.stringify(readState));
-            const reducer = (state: ScenesState = readState, action: Action) => {
+            const reducer = (state: ScenesState = readState, action: Action | ItemRefAction) => {
                 switch(action.type) {
                     case "ADD_SCENE": {
                         return {...state, scenes: [...state.scenes, action.payload]};
@@ -68,6 +70,21 @@ export let scenesReducer = async () => {
                         console.log("TempStat: ",tempState);
                         console.log("scenes: ",state.scenes)
                         return { ...state, ...tempState };
+                    }
+                    case "ADD_ITEM": {
+                        let oldState = JSON.parse(JSON.stringify(state));
+                        let ref = action.payload.ref.link;
+                        state.scenes.find(e => e.name === action.payload.sceneName)?.sensors?.push({link: ref})
+                        return {oldState, scenes: state.scenes};
+                    }
+                    case "REMOVE_ITEM": {
+                        let oldState = JSON.parse(JSON.stringify(state));
+                        let ref = action.payload.ref.link;
+                        let selectedScene = state.scenes.find(e => e.name === action.payload.sceneName);
+                        if(selectedScene && selectedScene.sensors) {
+                            selectedScene.sensors = selectedScene?.sensors?.filter(e => e.link !== ref);
+                        }
+                        return {oldState, scenes: state.scenes};
                     }
                     default:
                         return state;
