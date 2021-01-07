@@ -4,11 +4,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { addRoom } from '../../reducer/actions/RoomActions'
-import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
+import { RoomState, RoomCardSize, ItemRef } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
 import { SceneState } from '../../reducer/states/SceneStates';
 import { addScene, changeScene } from '../../reducer/actions/SceneActions';
 import { Scenes } from '../Scenes';
+import { AddButton, ElementType, ParentType } from './AddButton';
 
 const useStylesText = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>(sceneState.name);
   const [url, setUrl] = React.useState<string>(sceneState.url);
+  /*const [sensors, setSensors] = React.useState<Array<ItemRef>>(sceneState.sensors);*/
 
   
   const handleChangeText = (event: React.ChangeEvent<{value : unknown }>) => {
@@ -51,7 +53,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   const dispatch = useDispatch();
   
   const onChangeScene = (scene: SceneState) => {
-    var newScene:SceneState = {name: name, url:url};
+    var newScene:SceneState = {name: name, url:url/*, sensors:sensors*/};
     dispatch(changeScene(scene,newScene));
     setShowChangeSceneFunction({name:"",url:""});
   }
@@ -75,7 +77,9 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
         }}>
           Ändern
         </Button>
+        <AddButton type={ElementType.ITEM} parentName={sceneState.name} parentType={ParentType.SCENE}/>
       </div>
+      
 
     </div>
   );

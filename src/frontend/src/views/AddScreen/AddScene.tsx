@@ -67,7 +67,7 @@ export default function AddScene() {
           if (url.length<3){
             pic=tempPic;
           }
-          let scene = { name: name, url: pic };
+          let scene = { name: name, url: pic, sensors: [] };
           onAddScene(scene);
           setName("");
           setUrl("");

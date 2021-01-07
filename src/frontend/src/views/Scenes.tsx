@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SceneButtons from './SceneButtons';
 import { useDispatch, useSelector } from 'react-redux'
 import { StateType } from "../reducer/rootReducer";
-import { AddButton, ElementType } from './AddScreen/AddButton';
+import { AddButton, ElementType, ParentType } from './AddScreen/AddButton';
 import ChangeScene from './AddScreen/ChangeScene';
 import { SceneState } from '../reducer/states/SceneStates';
 
@@ -24,7 +24,7 @@ export const Scenes: React.FC<SceneProps> = ({ }) => {
                 {scenes.map((element, i) => {
                     return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
                 })}
-                <AddButton type={ElementType.SCENE} parentName={"test2"}/>
+                <AddButton type={ElementType.SCENE} parentName={"test2"} parentType={ParentType.NOPARENT}/>
             </div>
         )
     }

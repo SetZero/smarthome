@@ -6,7 +6,7 @@ import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
 import { Item, ItemState } from "../reducer/states/ItemState";
 import { ApiService } from "../Utils/ApiService";
-import { AddButton, ElementType } from "./AddScreen/AddButton";
+import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
 import { ItemRef } from "../reducer/states/RoomStates";
@@ -181,7 +181,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                     </Grid>
 
                 </Paper>
-                <AddButton type={ElementType.ITEM} parentName={roomName} />
+                <AddButton type={ElementType.ITEM} parentName={roomName} parentType={ParentType.ROOM} />
             </Container>
         </div>
     );
