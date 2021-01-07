@@ -7,6 +7,9 @@ import { StateType } from "../reducer/rootReducer";
 import { Item, ItemState } from "../reducer/states/ItemState";
 import { ApiService } from "../Utils/ApiService";
 import { AddButton, ElementType } from "./AddScreen/AddButton";
+import DeleteIcon from '@material-ui/icons/Delete';
+import { removeItemFromRoom } from "../reducer/actions/RoomActions";
+import { ItemRef } from "../reducer/states/RoomStates";
 
 interface SingleRoomProps {
     roomName: string
@@ -19,6 +22,7 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
     const currentRoom = rooms.find(e => e.name === roomName);
     console.log(currentRoom);
     const dispatch = useDispatch();
+    var isChangeRoom = true;
 
     const onItemStateChange = (item: Item) => {
         dispatch(itemStateChange(item));
@@ -39,9 +43,14 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
         setAnchorEl(null);
     };
     function handleClickOnOption(option: string) {
-
+        isChangeRoom = true;
         handleClose();
     };
+
+    function handleClickOnDeleteItemInRoom(e:Item){
+        var ref:ItemRef = { link: e.link}
+        dispatch(removeItemFromRoom(ref, roomName));
+    }
 
     const options = [
         'Raum bearbeiten'
@@ -53,7 +62,8 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
     items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Switch') !== undefined).map(e => {
         console.log("Lampe :" + e.label);
     });
-
+    
+    dispatch(removeItemFromRoom({ link: "http://localhost:8080/rest/items/HeizungWZ" },roomName));
     return (
         <div>
             <div className="BiggerText">
@@ -99,7 +109,14 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                     </Grid>
                     {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Switch') !== undefined).map(e => {
                         return (
-                            <Grid container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
+                            <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
+
+                                {isChangeRoom ? 
+                                    <IconButton aria-label="delete" onClick={() => handleClickOnDeleteItemInRoom(e)}>
+                                    <DeleteIcon />
+                                    </IconButton >:""
+                                    }
+
                                 <Grid item sm={8} xs={10}>
                                     <Typography variant="h5" component="h6">
                                         {e.name}
@@ -119,7 +136,12 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                     })}
                     {items.filter(e => currentRoom?.sensors?.find(f => f.link === e.link && e.type == 'Dimmer') !== undefined).map(e => {
                         return (
-                            <Grid container alignItems="center" justify="flex-start" item xs spacing={2}>
+                            <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2}>
+                                {isChangeRoom ? 
+                                    <IconButton aria-label="delete">
+                                    <DeleteIcon />
+                                    </IconButton>:""
+                                    }
                                 <Grid item sm={4} xs={10}>
                                     <Typography variant="h5" component="h6">
                                         {e.name}

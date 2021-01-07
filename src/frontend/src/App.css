@@ -39,7 +39,11 @@ html, body, #root {
   right: 0px;
   width: 50px;
 }
-
+.Left{
+  position: relative;
+  left: 20px;
+  text-align: left;
+}
 .Stick{
     width: '100%';
     position: 'sticky';
