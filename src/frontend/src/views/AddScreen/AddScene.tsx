@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -30,7 +30,11 @@ const useStylesButton = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function AddScene() {
+interface AddSceneProps {
+  closeAnchorFunction: (close: any) => void
+}
+
+export default function AddScene({closeAnchorFunction}:AddSceneProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
@@ -48,6 +52,7 @@ export default function AddScene() {
   
   const onAddScene = (scene: SceneState) => {
     dispatch(addScene(scene));
+    closeAnchorFunction(false);
   }
 
   return (

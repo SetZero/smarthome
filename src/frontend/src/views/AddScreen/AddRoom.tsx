@@ -31,9 +31,11 @@ const useStylesButton = makeStyles((theme: Theme) =>
     },
   }),
 );
+interface AddRoomProps {
+  closeAnchorFunction: (close: any) => void
+}
 
-
-export default function AddRoom() {
+export default function AddRoom({closeAnchorFunction}:AddRoomProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
@@ -56,6 +58,7 @@ export default function AddRoom() {
 
   const onAddRoom = (room: RoomState) => {
     dispatch(addRoom(room));
+    closeAnchorFunction(false);
   }
 
   return (
