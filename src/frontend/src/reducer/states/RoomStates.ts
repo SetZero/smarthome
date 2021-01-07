@@ -1,9 +1,7 @@
 import { Action, ItemRefAction } from "../actions/RoomActions";
 import { ApiService } from "../../Utils/ApiService";
-import { rejects } from "assert";
 import { Reducer } from "redux";
-import { Url } from "url";
-import { act } from "react-dom/test-utils";
+
 
 export enum RoomCardSize {
     SMALL = 1,
@@ -63,7 +61,10 @@ export let roomsReducer = async () => {
                     case "REMOVE_ITEM": {
                         let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
-                        state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.filter(e => e.link !== ref);
+                        let selectedRoom = state.rooms.find(e => e.name === action.payload.roomName);
+                        if(selectedRoom && selectedRoom.sensors) {
+                            selectedRoom.sensors = selectedRoom?.sensors?.filter(e => e.link !== ref);
+                        }
                         return {oldState, rooms: state.rooms};
                     }
                     default:
