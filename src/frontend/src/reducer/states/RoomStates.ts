@@ -49,7 +49,6 @@ export let roomsReducer = async () => {
                         let selectedRoomIndex = newRooms.findIndex(e => e.name === action.payload.roomName);
                         if(selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined) {
                             newRooms[selectedRoomIndex].sensors = newRooms[selectedRoomIndex]?.sensors?.filter(e => e.link != ref);
-                            console.log("Deleting item " + JSON.stringify(newRooms));
                         }
                         return { ... state, rooms: newRooms};
                     }
