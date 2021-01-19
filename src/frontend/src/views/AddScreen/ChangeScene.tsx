@@ -1,42 +1,16 @@
-import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
-import { addRoom } from '../../reducer/actions/RoomActions'
-import { RoomState, RoomCardSize, ItemRef } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
 import { SceneState } from '../../reducer/states/SceneStates';
-import { addScene, changeScene } from '../../reducer/actions/SceneActions';
-import { Scenes } from '../Scenes';
+import { changeScene } from '../../reducer/actions/SceneActions';
 import { AddButton, ElementType, ParentType } from './AddButton';
-import { Container, Grid, IconButton, Paper, Slider, Switch, Typography } from '@material-ui/core';
-import { Item, ItemState } from '../../reducer/states/ItemState';
-import { itemStateChange } from '../../reducer/actions/ItemActions';
+import { Grid, IconButton, Slider, Switch, Typography } from '@material-ui/core';
+import { ItemState } from '../../reducer/states/ItemState';
 import { updateAction, removeActionFromScene } from '../../reducer/actions/ActionActions';
-import { ApiService } from '../../Utils/ApiService';
 
-const useStylesText = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-    },
-  }),
-);
-const useStylesButton = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-  }),
-);
 interface ChangeSceneProps {
   sceneState: SceneState,
   setShowChangeSceneFunction: (selectedScene: SceneState) => void;
@@ -44,12 +18,11 @@ interface ChangeSceneProps {
 
 
 export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps) {
-  const classesText = useStylesText();
-  const classesButton = useStylesButton();
+  const actions = useSelector<StateType, StateType["actionsReducer"]["actions"]>((state) => state?.actionsReducer?.actions ?? []);
+  const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
+  const dispatch = useDispatch();
   const [name, setName] = React.useState<string>(sceneState.name);
   const [url, setUrl] = React.useState<string>(sceneState.url);
-  const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
-  /*const [sensors, setSensors] = React.useState<Array<ItemRef>>(sceneState.sensors);*/
 
   const handleChangeText = (event: React.ChangeEvent<{ value: unknown }>) => {
     setName(event.target.value as string);
@@ -59,37 +32,32 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
     setUrl(event.target.value as string);
   }
 
-  const dispatch = useDispatch();
-
   const onChangeScene = (scene: SceneState) => {
-    var newScene: SceneState = { name: name, url: url, sensors: scene.sensors };
+    const newScene: SceneState = { name: name, url: url, sensors: scene.sensors };
     dispatch(changeScene(scene, newScene));
   }
 
-  const onGoBack = (scene : SceneState) => {
+  const onGoBack = (sconst : SceneState) => {
     setShowChangeSceneFunction({ name: "", url: "" });
   }
 
-  const actions = useSelector<StateType, StateType["actionsReducer"]["actions"]>((state) => state?.actionsReducer?.actions ?? []);
-  const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
-  const currentScene = scenes.find(e => e.name === sceneState.name);
-
   return (
     <div>
-      <Typography variant="h4"> Szene <i>"{sceneState.name}"</i> bearbeiten </Typography>
-
-
       <Grid spacing={5}>
-        <Grid container>
-        <Grid item xs={8} alignItems="flex-end">
-            <TextField id="standard-basic" label="Name" value={name} defaultValue={sceneState.name} onChange={handleChangeText} />
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h4"> Szene {sceneState.name} bearbeiten </Typography>
+          </Grid>
         </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+              <TextField id="standard-basic" label="Name" value={name} defaultValue={sceneState.name} onChange={handleChangeText} />
+          </Grid>
         </Grid>
-        <Grid container alignItems="flex-end">
-        <Grid item xs={8}>
-              <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
-        </Grid>
-
+        <Grid container spacing={2} alignItems="flex-end">
+          <Grid item xs={8}>
+                <TextField id="url" label="Bild Url" value={url} onChange={handleChangeTexturl} />
+          </Grid>
           <Grid item xs={2}>
               <Button variant="contained" color="primary" onClick={(e) => {
                 onChangeScene(sceneState);
@@ -99,8 +67,10 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <Typography variant="h4"> Aktionen </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h4"> Aktionen </Typography>
+          </Grid>
         </Grid>
       {actions.filter(e => e.sceneName == sceneState.name && e.item != undefined && e.item.type == 'Switch' || e.item.type == 'Dimmer').map(e => {
                         return (
@@ -135,21 +105,22 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                                   : ""
                                 }
                                 { e.item.type == 'Dimmer' ?
-                                <Grid item xs={6}>
-                                    <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35} 
-                                    onChange={(ev, val) => {
-                                        // TODO: what is this datatype ??
-                                        e.item.state = parseInt(val + "");
-                                        dispatch(updateAction({ sceneName : sceneState.name, item : e.item}));
-                                    }}/>
-                                </Grid>
-                                : ""
-                                }
-                                { e.item.type == 'Dimmer' ?
-                                <Grid item xs={1}>
-                                    <Typography>
-                                        {e.item.state}
-                                    </Typography>
+                                <Grid item xs={7}>
+                                  <Grid container spacing={2}>
+                                  <Grid item xs={10}>
+                                      <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35} 
+                                      onChange={(ev, val) => {
+                                          // TODO: what is this datatype ??
+                                          e.item.state = parseInt(val + "");
+                                          dispatch(updateAction({ sceneName : sceneState.name, item : e.item}));
+                                      }}/>
+                                  </Grid>
+                                    <Grid item xs={2}>
+                                        <Typography>
+                                            {e.item.state}
+                                        </Typography>
+                                  </Grid>
+                                  </Grid>
                                 </Grid>
                                 : ""
                                 }
@@ -158,13 +129,11 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                         )})}
       
       </Grid>
-      <div className={classesButton.root}>
         <Button variant="contained" color="primary" onClick={(e) => {
           onGoBack(sceneState);
         }}>
           Zurück
         </Button>
-      </div>
 
       <AddButton type={ElementType.ACTION} parentName={sceneState.name} parentType={ParentType.SCENE} />
 

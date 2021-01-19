@@ -103,6 +103,15 @@ export class ApiService {
         } else {
             value = newState.toString();
         }
+
+        const response = await fetch(link, {
+            method: 'POST',
+            body: value,
+            headers: {
+                'Content-Type': 'text/plain',
+                'Accept': 'application/json'
+            }
+        });
     }
 
     static async switchStateChange(onOff: ItemState, link: string) {

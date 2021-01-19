@@ -46,34 +46,29 @@ export let scenesReducer = async () => {
                         return { ...state, ...tempState };
                     }
                     case "CHANGE_SCENE": {
-                        let tempState= JSON.parse(JSON.stringify(state));
                         console.log("ChangeScene",state)
                         console.log(action.payload.name)
-                        var found = false;
-                        for(var i =0; i<tempState.scenes.length;i++){
-                            if(tempState.scenes[i].name ==action.payload.name){
-                                tempState.scenes[i] = action.scene2;
-                                continue;
-                            }
+
+                        const resultIndex = state.scenes.findIndex(e => e.name == action.payload.name);
+
+                        if (resultIndex != undefined && state.scenes[resultIndex] != undefined) {
+                            state.scenes[resultIndex] = action.payload;
                         }
-                        console.log("TempStat: ",tempState);
-                        console.log("scenes: ",state.scenes)
-                        return { ...state, ...tempState };
+
+                        return { ... state, scenes: state.scenes };
                     }
                     case "ADD_ITEM": {
-                        let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
                         state.scenes.find(e => e.name === action.payload.sceneName)?.sensors?.push({link: ref})
-                        return {oldState, scenes: state.scenes};
+                        return { ... state, scenes: state.scenes};
                     }
                     case "REMOVE_ITEM": {
-                        let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
                         let selectedScene = state.scenes.find(e => e.name === action.payload.sceneName);
                         if(selectedScene && selectedScene.sensors) {
-                            selectedScene.sensors = selectedScene?.sensors?.filter(e => e.link !== ref);
+                            selectedScene.sensors = selectedScene?.sensors?.filter(e => e.link != ref);
                         }
-                        return {oldState, scenes: state.scenes};
+                        return  {... state, scenes: [ ... state.scenes]};
                     }
                     default:
                         return state;

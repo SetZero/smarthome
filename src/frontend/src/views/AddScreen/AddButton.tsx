@@ -58,40 +58,38 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentTy
   };
 
   return (
-    <div className={classes.root}>
-      <Fab color="secondary"
-        aria-label="add"
-        onClick={(e) => handleClick(type, e)}>
-        <AddIcon />
-      </Fab>
+      <div>
+      <div className="FloatingButtonBottomRight">
+        <Fab color="secondary"
+          aria-label="add"
+          onClick={(e) => handleClick(type, e)}>
+          <AddIcon />
+        </Fab>
+      </div>
+      <div className="PopUpButton">
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: 100 * 4.5,
-            width: '50ch',
-          },
-        }}
       >
-        <div className="CenterDiv">
-          {type == ElementType.ROOM && (
-            <AddRoom closeAnchorFunction={setAnchorEl}/>
-          )}
-          {type == ElementType.SCENE && (
-            <AddScene closeAnchorFunction={setAnchorEl}/>
-          )}
-          {type == ElementType.ITEM && (
-            <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl}/>
-          )}
-          { type == ElementType.ACTION && (
-            <AddAction parentName={parentName} parentType={ParentType.SCENE} closeAnchorFunction={setAnchorEl} />
-          )}
-        </div>
+      <div style={{padding : 20}}>
+      {type == ElementType.ROOM && (
+        <AddRoom closeAnchorFunction={setAnchorEl}/>
+      )}
+      {type == ElementType.SCENE && (
+        <AddScene closeAnchorFunction={setAnchorEl}/>
+      )}
+      {type == ElementType.ITEM && (
+        <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl}/>
+      )}
+      { type == ElementType.ACTION && (
+        <AddAction parentName={parentName} parentType={ParentType.SCENE} closeAnchorFunction={setAnchorEl} />
+      )}
+      </div>
       </Menu>
+      </div>
     </div>
   );
 }

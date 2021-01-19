@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch } from "react-redux"
@@ -39,7 +40,6 @@ export default function AddRoom({closeAnchorFunction}:AddRoomProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>("");
-  //const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
   const [value, setValue] = React.useState("1");
   const [url, setUrl] = React.useState<string>("");
 
@@ -63,7 +63,9 @@ export default function AddRoom({closeAnchorFunction}:AddRoomProps) {
 
   return (
     <div>
-      <div><h1>Raum Hinzufügen</h1></div>
+      <Typography variant="h4">
+        Raum Hinzufügen
+      </Typography>
 
       <FormControl component="fieldset">
         <FormLabel component="legend">Darstellungsgröße</FormLabel>

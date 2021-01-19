@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Typography } from "@material-ui/core";
 import SceneButtons from './SceneButtons';
 import { useDispatch, useSelector } from 'react-redux'
 import { StateType } from "../reducer/rootReducer";
@@ -11,28 +12,26 @@ interface SceneProps { }
 export const Scenes: React.FC<SceneProps> = ({ }) => {
 
     const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state.scenesReducer.scenes);
-    const dispatch = useDispatch();
-    var state:SceneState = { name: "", url: "" };
-    var [showChangeScene, setShowChangeScene] = useState(state);
+    let state:SceneState = { name: "", url: "" };
+    let [showChangeScene, setShowChangeScene] = useState(state);
 
-    if(showChangeScene.name === ""){
         return (
             <div>
-                <div className="BiggerText">
-                        Szenen
+                { showChangeScene.name === "" ?
+                  <div>
+                    <Typography variant="h2">
+                            Szenen
+                    </Typography>
+                    {scenes.map((element, i) => {
+                        return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
+                    })}
+                    <AddButton type={ElementType.SCENE} parentName={"test2"} parentType={ParentType.NOPARENT}/>
+                   </div>
+                    : 
+                    <div>
+                        <ChangeScene sceneState={showChangeScene} setShowChangeSceneFunction = {setShowChangeScene}></ChangeScene>
                     </div>
-                {scenes.map((element, i) => {
-                    return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
-                })}
-                <AddButton type={ElementType.SCENE} parentName={"test2"} parentType={ParentType.NOPARENT}/>
+                }
             </div>
-        )
-    }
-    else {
-        return (
-        <div>
-            <ChangeScene sceneState={showChangeScene} setShowChangeSceneFunction = {setShowChangeScene}></ChangeScene>
-        </div>
-    )}
-    
+        );
 }

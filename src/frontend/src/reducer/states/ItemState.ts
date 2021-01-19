@@ -35,10 +35,11 @@ export let itemReducer = async () => {
                         return state;
                     }
                     case "STATE_CHANGE_WITHOUT_REST": {
-                        console.log("State:", action.payload.state);
-                        let deepCopy: Item[] = JSON.parse(JSON.stringify(state.items));
+                        console.log("Update State:", action.payload.state);
+                        let deepCopy: Item[] = Array.from(state.items);
                         let element = deepCopy.find(element => element.link.split('/').slice(-1)[0] === action.payload.label);
-                        if (element) element.state = action.payload.state;
+                        if (element) 
+                            element.state = action.payload.state;
                         return { ...state, items: [...deepCopy] };
                     }
                     default:
