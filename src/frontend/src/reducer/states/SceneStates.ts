@@ -21,7 +21,7 @@ export interface ScenesState {
     scenes: SceneState[]
 }
 
-// TODO: UPDATE_ACTION_ID
+// TODO: Prevent duplicates
 export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllScenes().then((readState: ScenesState) => {
@@ -50,17 +50,18 @@ export let scenesReducer = async () => {
                         return { ...state, ...tempState };
                     }
                     case "CHANGE_SCENE": {
-                        console.log("ChangeScene",state)
+                        console.log("ChangeScene", state)
                         console.log(action.payload.name)
+                        let newScenes = Array.from(state.scenes);
 
-                        const resultIndex = state.scenes.findIndex(e => e.name == action.payload.name);
+                        const resultIndex = newScenes.findIndex(e => e.name == action.payload.name);
 
-                        if (resultIndex != undefined && state.scenes[resultIndex] != undefined) {
-                            state.scenes[resultIndex].name = action.payload.name;
-                            state.scenes[resultIndex].url = action.payload.url;
+                        if (resultIndex != undefined && newScenes[resultIndex] != undefined && action.scene2 != undefined) {
+                            newScenes[resultIndex].name = action.scene2.name;
+                            newScenes[resultIndex].url = action.scene2.url;
                         }
 
-                        return { ... state, scenes: state.scenes };
+                        return { ... state, scenes: newScenes };
                     }
                     case "ADD_ACTION_TO_SCENE" : {
                         let newScenes = Array.from(state.scenes);
