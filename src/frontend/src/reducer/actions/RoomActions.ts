@@ -5,7 +5,12 @@ export interface ItemRefRoom {
     roomName: string
 }
 
-export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM", payload: RoomState};
+export enum RoomDirection {
+    UP = "MOVE_ROOM_UP",
+    DOWN = "MOVE_ROOM_DOWN"
+}
+
+export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM"|"MOVE_ROOM_UP"|"MOVE_ROOM_DOWN", payload: RoomState};
 export type ItemRefAction = {type: "ADD_ITEM"|"REMOVE_ITEM", payload: ItemRefRoom}
 
 export const addRoom = (room: RoomState): Action => ({
@@ -14,6 +19,11 @@ export const addRoom = (room: RoomState): Action => ({
 });
 export const removeRoom = (room: RoomState): Action => ({
     type: "REMOVE_ROOM",
+    payload: room
+});
+
+export const changeRoomOrder = (room: RoomState, direction: RoomDirection): Action => ({
+    type: (direction as ("MOVE_ROOM_UP"|"MOVE_ROOM_DOWN")),
     payload: room
 });
 

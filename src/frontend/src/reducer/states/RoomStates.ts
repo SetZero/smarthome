@@ -1,6 +1,7 @@
 import { Action, ItemRefAction } from "../actions/RoomActions";
 import { ApiService } from "../../Utils/ApiService";
 import { Reducer } from "redux";
+import arrayMove from "array-move";
 
 
 export enum RoomCardSize {
@@ -41,7 +42,7 @@ export let roomsReducer = async () => {
                     case "ADD_ITEM": {
                         let ref = action.payload.ref.link;
                         state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.push({link: ref})
-                        return { ... state, rooms: state.rooms};
+                        return { ...state, rooms: state.rooms};
                     }
                     case "REMOVE_ITEM": {
                         let ref = action.payload.ref.link;
@@ -50,10 +51,20 @@ export let roomsReducer = async () => {
                         if(selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined) {
                             newRooms[selectedRoomIndex].sensors = newRooms[selectedRoomIndex]?.sensors?.filter(e => e.link != ref);
                         }
-                        return { ... state, rooms: newRooms};
+                        return { ...state, rooms: newRooms};
+                    }
+                    case "MOVE_ROOM_UP": {
+                        let index = state.rooms.findIndex(e => e.name === action.payload.name);
+                        let newRooms = arrayMove(state.rooms, index, index+1);
+                        return { ...state, rooms: newRooms};
+                    }
+                    case "MOVE_ROOM_DOWN": {
+                        let index = state.rooms.findIndex(e => e.name === action.payload.name);
+                        let newRooms = arrayMove(state.rooms, index, index-1);
+                        return { ...state, rooms: newRooms};
                     }
                     default : {
-                        return { ... state };
+                        return { ...state };
                     }
                 }
             }

@@ -3,7 +3,7 @@ import React from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch } from "react-redux";
-import { removeRoom } from "../reducer/actions/RoomActions";
+import { changeRoomOrder, removeRoom, RoomDirection } from "../reducer/actions/RoomActions";
 
 interface RoomCardProps {
     info: RoomState,
@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //Configuration for the 3 dot menu
 const options = [
-    'Raum löschen'
+    {name: 'Raum löschen', op: 'DELETE'},
+    {name: 'Raum nach unten verschieben', op: 'DOWN'},
+    {name: 'Raum nach oben verschieben', op: 'UP'},
 ];
 const ITEM_HEIGHT = 48;
 
@@ -76,7 +78,17 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
     function handleClickOnOption(option: string) {
         console.log("OPTION", option);
         console.log("NAME", info.name);
-        dispatch(removeRoom(info));
+        switch(option) {
+            case 'DELETE':
+                dispatch(removeRoom(info));
+                break;
+            case 'DOWN':
+                dispatch(changeRoomOrder(info, RoomDirection.DOWN));
+                break;
+            case 'UP':
+                dispatch(changeRoomOrder(info, RoomDirection.UP));
+                break;
+        }
         handleClose();
     };
 
@@ -121,8 +133,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                                 },
                             }}>
                             {options.map((option) => (
-                                <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
-                                    {option}
+                                <MenuItem key={option.name} onClick={() => handleClickOnOption(option.op)}>
+                                    {option.name}
                                 </MenuItem>
                             ))}
                         </Menu>
