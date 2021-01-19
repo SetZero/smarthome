@@ -4,7 +4,7 @@ import { Reducer } from "redux";
 import { Url } from "url";
 import { act } from "react-dom/test-utils";
 import { Scenes } from './../../views/Scenes';
-import { Action, ItemRefAction } from "../actions/SceneActions";
+import { Action } from "../actions/SceneActions";
 import { ItemRef } from "./RoomStates";
 
 export interface SceneState {
@@ -22,7 +22,7 @@ export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllScenes().then((readState: ScenesState) => {
             console.log("Current scenes state : " + JSON.stringify(readState));
-            const reducer = (state: ScenesState = readState, action: Action | ItemRefAction) => {
+            const reducer = (state: ScenesState = readState, action: Action) => {
                 switch(action.type) {
                     case "ADD_SCENE": {
                         return {...state, scenes: [...state.scenes, action.payload]};
@@ -56,19 +56,6 @@ export let scenesReducer = async () => {
                         }
 
                         return { ... state, scenes: state.scenes };
-                    }
-                    case "ADD_ITEM": {
-                        let ref = action.payload.ref.link;
-                        state.scenes.find(e => e.name === action.payload.sceneName)?.sensors?.push({link: ref})
-                        return { ... state, scenes: state.scenes};
-                    }
-                    case "REMOVE_ITEM": {
-                        let ref = action.payload.ref.link;
-                        let selectedScene = state.scenes.find(e => e.name === action.payload.sceneName);
-                        if(selectedScene && selectedScene.sensors) {
-                            selectedScene.sensors = selectedScene?.sensors?.filter(e => e.link != ref);
-                        }
-                        return  {... state, scenes: [ ... state.scenes]};
                     }
                     default:
                         return state;

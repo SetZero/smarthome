@@ -33,12 +33,6 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
   }
   const dispatch = useDispatch();
 
-  const onAddItem = (item: Item) => {
-    //dispatch(addItem(item));
-    console.log(items)
-    console.log(item)
-  }
-
   const handleChangeList = (event: React.ChangeEvent<{ value: unknown }>) => {
     setList(event.target.value as number);
     setChoosenItem(event.target.value as number)
@@ -87,23 +81,20 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
           </Grid>
         </FormControl>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={(e) => {
-              //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
-              //onAddItem(items[choosenItem]);
-              // TODO: Change this from hardcoded:
-              const item = items[choosenItem];
-              if (parentType==ParentType.ROOM){
-                dispatch(addItemToRoom({link: item.link}, parentName));
-              }else if(parentType==ParentType.SCENE){
-                dispatch(addActionToScene({sceneName : parentName, item : item}));
-              }
-              setName("");
-              setList(-1);
-              closeAnchorFunction(false);
-            }}>
-              Hinzufügen
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" onClick={(e) => {
+            const item = items[choosenItem];
+            if (parentType == ParentType.ROOM) {
+              dispatch(addItemToRoom({ link: item.link }, parentName));
+            } else if (parentType == ParentType.SCENE) {
+              dispatch(addActionToScene({ sceneName: parentName, item: item }));
+            }
+            setName("");
+            setList(-1);
+            closeAnchorFunction(false);
+          }}>
+            Hinzufügen
             </Button>
         </Grid>
 

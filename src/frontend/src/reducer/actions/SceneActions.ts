@@ -2,7 +2,6 @@ import { ItemRef } from "../states/RoomStates";
 import { ScenesState, SceneState } from "../states/SceneStates";
 
 export type Action = {type: "ADD_SCENE"|"REMOVE_SCENE"|"CHANGE_SCENE", payload: SceneState, scene2?:SceneState};
-export type ItemRefAction = {type: "ADD_ITEM"|"REMOVE_ITEM", payload: ItemRefScene}
 
 export interface ItemRefScene {
     ref: ItemRef;

@@ -104,7 +104,7 @@ export default function AddAction({parentName, parentType, closeAnchorFunction}:
             </Button>
           </Grid>
 
-    </Grid>
+      </Grid>
     </Grid>
   );
 }

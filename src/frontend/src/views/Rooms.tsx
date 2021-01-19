@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Container } from "@material-ui/core";
 import React from "react"
 import SingleRoom from "./SingleRoom";
 import { useSelector } from "react-redux"
@@ -12,20 +12,11 @@ interface RoomProps { isNew: string }
 export default function Rooms ({ isNew } : RoomProps) {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     let [showSelectedRoom, setShowSelectedRoom] = useState(false);
-    let [selectedRoom, setSelectedRoom] = useState("Test");
+    let [selectedRoom, setSelectedRoom] = useState("");
 
     if (showSelectedRoom) {
         return (
-            <div>
-                {rooms.map(element => {                        
-                    console.log("Updating");
-                    return (
-                        <Typography> Sensors : {JSON.stringify(element.sensors)} </Typography>
-                    );
-                })
-                }
             <SingleRoom roomName={selectedRoom}/>
-            </div>
         )
     }
     else {

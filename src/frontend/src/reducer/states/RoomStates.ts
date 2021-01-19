@@ -51,8 +51,9 @@ export let roomsReducer = async () => {
                         }
                         return { ... state, rooms: state.rooms};
                     }
-                    default:
-                        return state;
+                    default : {
+                        return { ... state };
+                    }
                 }
             }
             resolve(reducer);
