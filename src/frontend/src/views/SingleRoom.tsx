@@ -1,15 +1,13 @@
-import { Button, Switch, Grid, Typography, LinearProgress, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
+import { Button, Switch, Grid, Typography, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
+import DeleteIcon from '@material-ui/icons/Delete';
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
-import { Item, ItemState } from "../reducer/states/ItemState";
-import { ApiService } from "../Utils/ApiService";
+import { ItemState } from "../reducer/states/ItemState";
 import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
-import DeleteIcon from '@material-ui/icons/Delete';
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
-import { ItemRef } from "../reducer/states/RoomStates";
 
 interface SingleRoomProps {
     roomName: string

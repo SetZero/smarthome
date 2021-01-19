@@ -45,11 +45,13 @@ export let roomsReducer = async () => {
                     }
                     case "REMOVE_ITEM": {
                         let ref = action.payload.ref.link;
-                        let selectedRoom = state.rooms.find(e => e.name === action.payload.roomName);
-                        if(selectedRoom && selectedRoom.sensors) {
-                            selectedRoom.sensors = selectedRoom?.sensors?.filter(e => e.link !== ref);
+                        let newRooms = Array.from(state.rooms);
+                        let selectedRoomIndex = newRooms.findIndex(e => e.name === action.payload.roomName);
+                        if(selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined) {
+                            newRooms[selectedRoomIndex].sensors = newRooms[selectedRoomIndex]?.sensors?.filter(e => e.link != ref);
+                            console.log("Deleting item " + JSON.stringify(newRooms));
                         }
-                        return { ... state, rooms: state.rooms};
+                        return { ... state, rooms: newRooms};
                     }
                     default : {
                         return { ... state };

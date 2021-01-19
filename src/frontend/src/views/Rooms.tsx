@@ -1,6 +1,6 @@
-import { Grid, Typography, Container } from "@material-ui/core";
 import React from "react"
 import SingleRoom from "./SingleRoom";
+import { Grid, Typography, Container } from "@material-ui/core";
 import { useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
 import { StateType } from "../reducer/rootReducer";
