@@ -1,11 +1,9 @@
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { RoomCard } from "./RoomCard";
-import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
-import { StateType } from "../reducer/rootReducer";
-import { addRoom } from "../reducer/actions/RoomActions";
 import SingleRoom from "./SingleRoom";
+import { useSelector } from "react-redux"
+import { RoomCard } from "./RoomCard";
+import { StateType } from "../reducer/rootReducer";
 import { useState } from "react";
 import { AddButton, ElementType, ParentType } from './AddScreen/AddButton';
 
