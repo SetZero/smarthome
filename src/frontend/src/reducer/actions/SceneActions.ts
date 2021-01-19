@@ -22,12 +22,3 @@ export const changeScene = (scene: SceneState, sceneTwo:SceneState): Action => (
     payload: scene,
     scene2:sceneTwo
 });
-export const addItemToScene = (itemRef: ItemRef, scene: string): ItemRefAction => ({
-    type: "ADD_ITEM",
-    payload: {ref: itemRef, sceneName: scene}
-});
-
-export const removeItemFromScene = (itemRef: ItemRef, scene: string): ItemRefAction => ({
-    type: "REMOVE_ITEM",
-    payload: {ref: itemRef, sceneName: scene}
-});

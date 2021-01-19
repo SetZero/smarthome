@@ -13,13 +13,11 @@ import { addItemToRoom } from '../../reducer/actions/RoomActions';
 import { ParentType } from './AddButton';
 import { addActionToScene } from '../../reducer/actions/ActionActions';
 
-interface AddItemProps {
+interface AddActionProps {
   parentName:string
   parentType:ParentType
   closeAnchorFunction: (close: any) => void
 }
-
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,7 +64,7 @@ const useStylesText = makeStyles((theme: Theme) =>
 );
 
 
-export default function AddItem({parentName, parentType, closeAnchorFunction}:AddItemProps) {
+export default function AddAction({parentName, parentType, closeAnchorFunction}:AddActionProps) {
   const classesList = useStyles();
   const classesButton = useStylesButton();
   const classesText = useStylesText();
@@ -74,6 +72,7 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
   const [openList, setOpenList] = React.useState(false);
   const [name, setName] = React.useState<string>("");
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
+  const actions = useSelector<StateType, StateType["actionsReducer"]["actions"]>((state) => state?.actionsReducer?.actions ?? []);
   const [choosenItem, setChoosenItem] = React.useState<number>(0);
 
 
@@ -144,7 +143,7 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
           if (parentType==ParentType.ROOM){
             dispatch(addItemToRoom({link: item.link}, parentName));
           }else if(parentType==ParentType.SCENE){
-            dispatch(addActionToScene({sceneName : parentName, item : item}));
+            dispatch(addActionToScene({ sceneName : parentName, item : item}));
           }
           setName("");
           setList(-1);

@@ -17,17 +17,6 @@ export interface ScenesState {
     scenes: SceneState[]
 }
 
-
-
-// TODO: add action id to the states
-const initialState = {
-        scenes: [
-            /*{ name: "Morgenprogramm", url: "https://www.poynter.org/wp-content/uploads/2019/07/shutterstock_264132746.jpg" },
-            { name: "Abendprogramm", url: "https://content.thriveglobal.com/wp-content/uploads/2019/04/Sunset_in_Coquitlam.jpg" },
-            { name: "Urlaub", url: "https://www.dmjmaviation.com/wp-content/uploads/2018/05/caribbean-destination.jpg" }
-        */]
-}
-
 // TODO: UPDATE_ACTION_ID
 export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {

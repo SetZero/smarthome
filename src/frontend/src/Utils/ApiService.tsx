@@ -80,38 +80,38 @@ export class ApiService {
         return storedScenesReducer;
     }
 
-    static async switchStateChange(onOff: ItemState, link: string) {
+    static async GetAllActions() {
+        let storedActionsReducer = (await ApiService.GetStoredState()).actionsReducer;
+        if (storedActionsReducer  === undefined) {
+            storedActionsReducer = {};
+        }
+        if (storedActionsReducer.actions === undefined) {
+            storedActionsReducer.actions = [];
+        }
+        return storedActionsReducer;
+
+    }
+
+    static async setItemState(newState : ItemState | number, link: string) {
+        let value = "";
+
         if (!link.startsWith(ApiService.itemURL))
             link = ApiService.itemURL + link;
 
-        var message;
-        if (onOff === ItemState.ON)
-            message = "ON";
-        else
-            message = "OFF";
+        if (newState == ItemState.OFF || newState == ItemState.ON) {
+            value = newState;
+        } else {
+            value = newState.toString();
+        }
+    }
 
-        const response = await fetch(link, {
-            method: 'POST',
-            body: message,
-            headers: {
-                'Content-Type': 'text/plain',
-                'Accept': 'application/json'
-            }
-        });
+    static async switchStateChange(onOff: ItemState, link: string) {
+        return this.setItemState(onOff, link);
     }
 
 
-    static async ChangeDimmer(value: string, name: string) {
-        var message = '' + value;
-
-        const response = await fetch(this.itemURL + name, {
-            method: 'POST',
-            body: message,
-            headers: {
-                'Content-Type': 'text/plain',
-                'Accept': 'application/json'
-            }
-        });
+    static async ChangeDimmer(value: number, link: string) {
+        return this.setItemState(value, link);
     }
 
     //Funktioniert noch nicht. response liegt als Promise<response> vor soll aber json sein

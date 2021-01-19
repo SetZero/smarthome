@@ -56,7 +56,7 @@ export let roomsReducer = async () => {
                         let oldState = JSON.parse(JSON.stringify(state));
                         let ref = action.payload.ref.link;
                         state.rooms.find(e => e.name === action.payload.roomName)?.sensors?.push({link: ref})
-                        return {oldState, rooms: state.rooms};
+                        return { ... oldState, rooms: state.rooms};
                     }
                     case "REMOVE_ITEM": {
                         let oldState = JSON.parse(JSON.stringify(state));
@@ -65,7 +65,7 @@ export let roomsReducer = async () => {
                         if(selectedRoom && selectedRoom.sensors) {
                             selectedRoom.sensors = selectedRoom?.sensors?.filter(e => e.link !== ref);
                         }
-                        return {oldState, rooms: state.rooms};
+                        return {... oldState, rooms: state.rooms};
                     }
                     default:
                         return state;

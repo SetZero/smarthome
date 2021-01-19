@@ -28,7 +28,7 @@ export const Scenes: React.FC<SceneProps> = ({ }) => {
             </div>
         )
     }
-    else{
+    else {
         return (
         <div>
             <ChangeScene sceneState={showChangeScene} setShowChangeSceneFunction = {setShowChangeScene}></ChangeScene>

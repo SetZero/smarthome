@@ -152,7 +152,8 @@ export const SingleRoom: React.FC<SingleRoomProps> = ({ roomName }) => {
                                 <Grid item sm={6} xs={6}>
                                     <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
                                         onChange={(ev, val) => {
-                                            ApiService.ChangeDimmer(val + '', e.name);
+                                            // Why is number[] here
+                                            ApiService.ChangeDimmer(parseInt(val + ""), e.name);
                                         }}
 
                                     />

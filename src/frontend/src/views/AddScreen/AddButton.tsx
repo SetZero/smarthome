@@ -6,6 +6,7 @@ import { Menu } from '@material-ui/core';
 import AddScene from './AddScene';
 import AddRoom from './AddRoom';
 import AddItem from './AddItem';
+import AddAction from './AddAction';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export enum ElementType {
-  SCENE = "SCENE", ROOM = "ROOM", ITEM = "ITEM"
+  SCENE = "SCENE", ROOM = "ROOM", ITEM = "ITEM", ACTION = "ACTION"
 }
 
 export enum ParentType {
@@ -80,6 +81,9 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName }) => {
           )}
           {type == ElementType.ITEM && (
             <AddItem parentName={parentName} parentType={ParentType.ROOM} closeAnchorFunction={setAnchorEl}/>
+          )}
+          { type == ElementType.ACTION && (
+            <AddAction parentName={parentName} parentType={ParentType.SCENE} closeAnchorFunction={setAnchorEl} />
           )}
         </div>
       </Menu>
