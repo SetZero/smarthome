@@ -4,12 +4,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { StateType } from '../../reducer/rootReducer';
-import { SceneState } from '../../reducer/states/SceneStates';
-import { changeScene } from '../../reducer/actions/SceneActions';
+import { SceneState, ItemAction } from '../../reducer/states/SceneStates';
+import { changeScene, updateAction, removeActionFromScene } from '../../reducer/actions/SceneActions';
 import { AddButton, ElementType, ParentType } from './AddButton';
 import { Grid, IconButton, Slider, Switch, Typography } from '@material-ui/core';
 import { ItemState } from '../../reducer/states/ItemState';
-import { updateAction, removeActionFromScene } from '../../reducer/actions/ActionActions';
 
 interface ChangeSceneProps {
   sceneState: SceneState,
@@ -18,7 +17,6 @@ interface ChangeSceneProps {
 
 
 export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps) {
-  const actions = useSelector<StateType, StateType["actionsReducer"]["actions"]>((state) => state?.actionsReducer?.actions ?? []);
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
   const dispatch = useDispatch();
   const [name, setName] = React.useState<string>(sceneState.name);
@@ -33,12 +31,24 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   }
 
   const onChangeScene = (scene: SceneState) => {
-    const newScene: SceneState = { name: name, url: url, sensors: scene.sensors };
+    const newScene: SceneState = { name: name, url: url, actions: scene.actions };
     dispatch(changeScene(scene, newScene));
   }
 
+  const onActionChange = (action : ItemAction) => {
+    const currentScene = scenes.find(e => e.name == sceneState.name);
+    if (currentScene != undefined)
+      dispatch(updateAction(currentScene, action));
+  }
+
+  const onActionDelete = (action : ItemAction) => {
+    const currentScene = scenes.find(e => e.name == sceneState.name);
+    if (currentScene != undefined)
+      dispatch(removeActionFromScene(currentScene, action));
+  }
+
   const onGoBack = (sconst : SceneState) => {
-    setShowChangeSceneFunction({ name: "", url: "" });
+    setShowChangeSceneFunction({ name: "", url: "", actions : [] });
   }
 
   return (
@@ -72,13 +82,13 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
             <Typography variant="h4"> Aktionen </Typography>
           </Grid>
         </Grid>
-        {actions.filter(e => e.sceneName == sceneState.name && e.item != undefined && e.item.type == 'Switch' || e.item.type == 'Dimmer').map(e => {
+        {scenes.find(s => s.name == sceneState.name)?.actions.filter(e => e.item != undefined && (e.item.type == 'Switch' || e.item.type == 'Dimmer')).map(e => {
           return (
             <div>
               <Grid className="Left" container alignItems="center" justify="flex-start" spacing={2} key={e.item.link}>
                 <Grid item xs={1}>
                   <IconButton aria-label="delete" onClick={() => {
-                    dispatch(removeActionFromScene(e));
+                    onActionDelete(e);
                   }}>
                     <DeleteIcon />
                   </IconButton >
@@ -96,7 +106,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                       inputProps={{ 'aria-label': 'secondary-checkbox' }}
                       onChange={(event, state) => {
                         e.item.state = e.item.state === ItemState.ON ? ItemState.OFF : ItemState.ON;
-                        dispatch(updateAction({ sceneName: sceneState.name, item: e.item }))
+                        onActionChange(e);
                       }
                       }
                       checked={e.item.state === ItemState.ON ?? false}
@@ -112,7 +122,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                           onChange={(ev, val) => {
                             // TODO: what is this datatype ??
                             e.item.state = parseInt(val + "");
-                            dispatch(updateAction({ sceneName: sceneState.name, item: e.item }));
+                            onActionChange(e);
                           }} />
                       </Grid>
                       <Grid item xs={2}>

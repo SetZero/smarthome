@@ -6,23 +6,8 @@ import { Menu } from '@material-ui/core';
 import AddScene from './AddScene';
 import AddRoom from './AddRoom';
 import AddItem from './AddItem';
-import AddAction from './AddAction';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../reducer/rootReducer';
-
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-  }),
-);
 
 
 export enum ElementType {
@@ -41,8 +26,6 @@ interface AddButtonProps {
 
 
 export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentType }) => {
-
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [typ, setTyp] = React.useState<string>("");
   const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
@@ -50,7 +33,6 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentTy
 
   const handleClick = (typo: ElementType, event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log(rooms);
   };
 
   const handleClose = () => {
@@ -85,7 +67,7 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentTy
         <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl}/>
       )}
       { type == ElementType.ACTION && (
-        <AddAction parentName={parentName} parentType={ParentType.SCENE} closeAnchorFunction={setAnchorEl} />
+        <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl} />
       )}
       </div>
       </Menu>

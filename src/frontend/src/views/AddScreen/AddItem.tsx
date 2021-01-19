@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,10 +8,9 @@ import { FormControl } from '@material-ui/core';
 import { Select } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
-import { Item } from '../../reducer/states/ItemState';
 import { addItemToRoom } from '../../reducer/actions/RoomActions';
+import { addActionToScene } from '../../reducer/actions/SceneActions';
 import { ParentType } from './AddButton';
-import { addActionToScene } from '../../reducer/actions/ActionActions';
 
 interface AddItemProps {
   parentName:string
@@ -55,7 +53,8 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
           </Typography>
         </Grid>
         </Grid>
-          <FormControl>
+
+        <FormControl>
           <Grid container spacing={2}>
             <Grid alignItems="stretch" item xs={12}>
               <InputLabel id="art-select-label">Gerät</InputLabel>
@@ -81,14 +80,19 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
           </Grid>
         </FormControl>
 
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={(e) => {
+            //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
+            //onAddItem(items[choosenItem]);
+            // TODO: Change this from hardcoded:
             const item = items[choosenItem];
             if (parentType == ParentType.ROOM) {
               dispatch(addItemToRoom({ link: item.link }, parentName));
             } else if (parentType == ParentType.SCENE) {
-              dispatch(addActionToScene({ sceneName: parentName, item: item }));
+              // TODO: use real scene
+              dispatch(addActionToScene({ name: parentName, url: "", actions : [] }, { item: item }));
             }
             setName("");
             setList(-1);
@@ -98,7 +102,7 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
             </Button>
         </Grid>
 
-        </Grid>
+      </Grid>
     </Grid>
   );
 }

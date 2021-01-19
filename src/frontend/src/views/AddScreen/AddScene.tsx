@@ -72,7 +72,7 @@ export default function AddScene({closeAnchorFunction}:AddSceneProps) {
           if (url.length<3){
             pic=tempPic;
           }
-          let scene = { name: name, url: pic, sensors: [] };
+          let scene = { name: name, url: pic, actions: [] };
           onAddScene(scene);
           setName("");
           setUrl("");

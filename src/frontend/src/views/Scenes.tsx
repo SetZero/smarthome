@@ -12,7 +12,7 @@ interface SceneProps { }
 export const Scenes: React.FC<SceneProps> = ({ }) => {
 
     const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state.scenesReducer.scenes);
-    let state:SceneState = { name: "", url: "" };
+    let state : SceneState = { name: "", url: "", actions : [] };
     let [showChangeScene, setShowChangeScene] = useState(state);
 
         return (
