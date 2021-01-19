@@ -62,7 +62,7 @@ export let actionReducer = async () => {
                         let oldState : ActionList = {
                             actions : Array.from(state.actions)
                         }; 
-                        let newActions = state.actions.filter(e => e.sceneName != action.payload.sceneName || e.item.name == action.payload.item.name);
+                        let newActions = state.actions.filter(e => e.sceneName != action.payload.sceneName || e.item.name != action.payload.item.name);
                         return { ... oldState, actions : [ ... newActions ]};
                     }
                     default:
