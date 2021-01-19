@@ -32,6 +32,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
     let sizeSM: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeMD: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
     let sizeLG: 6 | 3 | 2 | 12 | 1 | 4 | 5 | 7 | 8 | 9 | 10 | 11;
+    let maxCharWidth;
     const classes = useStyles();
 
     switch (info.cardSize) {
@@ -40,18 +41,24 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
             sizeSM = 6;
             sizeMD = 3;
             sizeLG = 3;
+
+            maxCharWidth = 10;
             break;
         case RoomCardSize.MEDIUM:
             sizeXS = 12;
             sizeSM = 12;
             sizeMD = 9;
             sizeLG = 6;
+
+            maxCharWidth = 15;
             break;
         case RoomCardSize.LARGE:
             sizeXS = 12;
             sizeSM = 12;
             sizeMD = 12;
             sizeLG = 6;
+
+            maxCharWidth = 20;
             break;
     }
 
@@ -74,8 +81,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
     };
 
     const handleClickOnCard = (event: React.MouseEvent<HTMLElement>) => {
-        showRoomFunction(true); 
-        setRoomFunction(info.name);        
+        showRoomFunction(true);
+        setRoomFunction(info.name);
     }
 
     return (
@@ -83,44 +90,44 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
             <Card className={classes.fullHeightCard}>
                 <CardActionArea >
                     <CardMedia
-                        onClick={handleClickOnCard }
+                        onClick={handleClickOnCard}
                         className={classes.media}
                         image={info.url}
                         title="Contemplative Reptile"
                     />
-                    <CardContent>
-                        <Typography gutterBottom variant={info.name.length > 9 ? "h6":"h5"} component="h2">
-                            {info.name}
-                            <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
-                            <IconButton
-                                aria-label="more"
-                                aria-controls="long-menu"
-                                aria-haspopup="true"
-                                onClick={HandleClick}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                                id="long-menu"
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={open}
-                                onClose={handleClose}
-                                PaperProps={{
-                                    style: {
-                                        maxHeight: ITEM_HEIGHT * 4.5,
-                                        width: '20ch',
-                                    },
-                                }}>
-                                {options.map((option) => (
-                                    <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
-                                      {option}
-                                    </MenuItem>
-                                  ))}
-                            </Menu>
-                        </Typography>
-                    </CardContent>
                 </CardActionArea>
+                <CardContent>
+                    <Typography gutterBottom variant={info.name.length > 9 ? "h6" : "h5"} component="h2">
+                        {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
+                        <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={HandleClick}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: '20ch',
+                                },
+                            }}>
+                            {options.map((option) => (
+                                <MenuItem key={option} onClick={() => handleClickOnOption(option)}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Typography>
+                </CardContent>
             </Card>
         </Grid>
     )

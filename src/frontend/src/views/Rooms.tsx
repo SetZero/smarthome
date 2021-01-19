@@ -7,7 +7,7 @@ import { StateType } from "../reducer/rootReducer";
 import { addRoom } from "../reducer/actions/RoomActions";
 import { SingleRoom } from "./SingleRoom";
 import { useState } from "react";
-import { AddButton, ElementType } from './AddScreen/AddButton';
+import { AddButton, ElementType, ParentType } from './AddScreen/AddButton';
 
 interface RoomProps { isNew: string }
 
@@ -50,7 +50,7 @@ export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
                             return (<RoomCard info={element} key={i} showRoomFunction={setShowSelectedRoom} setRoomFunction={setSelectedRoom} />)
                         })}
                     </Grid>
-                    <AddButton  type={ElementType.ROOM} parentName={"test"}/>
+                    <AddButton  type={ElementType.ROOM} parentName={"test"} parentType={ParentType.NOPARENT}/>
                 </Container>
                 
             </div>

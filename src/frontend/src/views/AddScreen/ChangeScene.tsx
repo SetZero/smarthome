@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { addRoom } from '../../reducer/actions/RoomActions'
-import { RoomState, RoomCardSize } from '../../reducer/states/RoomStates'
+import { RoomState, RoomCardSize, ItemRef } from '../../reducer/states/RoomStates'
 import { StateType } from '../../reducer/rootReducer';
 import { SceneState } from '../../reducer/states/SceneStates';
 import { addScene, changeScene } from '../../reducer/actions/SceneActions';
 import { Scenes } from '../Scenes';
-import { Grid, Slider, Switch, Typography } from '@material-ui/core';
+import { AddButton, ElementType, ParentType } from './AddButton';
+import { Container, Grid, IconButton, Paper, Slider, Switch, Typography } from '@material-ui/core';
 import { Item, ItemState } from '../../reducer/states/ItemState';
 import { itemStateChange } from '../../reducer/actions/ItemActions';
 import { updateAction, removeActionFromScene } from '../../reducer/actions/ActionActions';
 import { ApiService } from '../../Utils/ApiService';
-import { AddButton, ElementType } from "./AddButton";
 
 const useStylesText = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,16 +39,17 @@ const useStylesButton = makeStyles((theme: Theme) =>
 );
 interface ChangeSceneProps {
   sceneState: SceneState,
-  setShowChangeSceneFunction: (selectedScene: SceneState) => void; 
+  setShowChangeSceneFunction: (selectedScene: SceneState) => void;
 }
 
 
-export default function ChangeScene({ sceneState, setShowChangeSceneFunction}: ChangeSceneProps) {
+export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps) {
   const classesText = useStylesText();
   const classesButton = useStylesButton();
   const [name, setName] = React.useState<string>(sceneState.name);
   const [url, setUrl] = React.useState<string>(sceneState.url);
-
+  const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
+  /*const [sensors, setSensors] = React.useState<Array<ItemRef>>(sceneState.sensors);*/
 
   const handleChangeText = (event: React.ChangeEvent<{ value: unknown }>) => {
     setName(event.target.value as string);
@@ -62,7 +62,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction}: C
   const dispatch = useDispatch();
 
   const onChangeScene = (scene: SceneState) => {
-    var newScene: SceneState = { name: name, url: url };
+    var newScene: SceneState = { name: name, url: url, sensors: scene.sensors };
     dispatch(changeScene(scene, newScene));
   }
 
@@ -166,7 +166,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction}: C
         </Button>
       </div>
 
-      <AddButton type={ElementType.ACTION} parentName={sceneState.name} />
+      <AddButton type={ElementType.ACTION} parentName={sceneState.name} parentType={ParentType.SCENE} />
 
     </div>
   );

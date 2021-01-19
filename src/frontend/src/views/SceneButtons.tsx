@@ -8,7 +8,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { removeScene } from '../reducer/actions/SceneActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { StateType } from '../reducer/rootReducer';
 
 
 const options = [
@@ -95,6 +97,16 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const useStylesButton = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }),
+);
+
 interface ButtonBasesProps {
   sceneState: SceneState;
   setShowChangeSceneFunction: (selectedScene: SceneState) => void
@@ -105,7 +117,12 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const classesButton = useStylesButton();
+  const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
  
+
+  
+
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -191,7 +208,6 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
       </div>
 
       </ButtonBase>
-      
     </div>
   );
 }
