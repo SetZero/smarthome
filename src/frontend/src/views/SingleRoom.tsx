@@ -1,4 +1,4 @@
-import { Button, Switch, Grid, Typography, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
+import { Button, Switch, Grid, Typography, TextField, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { useState } from "react"
@@ -8,9 +8,10 @@ import { StateType } from "../reducer/rootReducer";
 import { ItemState } from "../reducer/states/ItemState";
 import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
+import { RoomCardSize, RoomState } from "../reducer/states/RoomStates";
 
 interface SingleRoomProps {
-    roomName: string
+    roomName: string,
 }
 
 export default function SingleRoom({ roomName }: SingleRoomProps) {
@@ -20,11 +21,24 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
 
     const [isChangeRoom, setIsChangeRoom] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [state, setRoomProps] = React.useState<RoomState>({ name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] });
     const open = Boolean(anchorEl);
 
     const options = [
         'Raum bearbeiten'
     ];
+
+    const handleChangeText = (event: React.ChangeEvent<{ value: unknown }>) => {
+        let newState = state;
+        newState.name = event.target.value as string;
+        setRoomProps(newState);
+    }
+
+    const handleChangeTexturl = (event: React.ChangeEvent<{ value: unknown }>) => {
+        let newState = state;
+        newState.name = event.target.value as string;
+        setRoomProps(newState);
+    }
 
     const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -69,6 +83,29 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                         ))}
                     </Menu>
                 </Grid>
+                {isChangeRoom ?
+                    <Grid item xs={12}>
+                        <Grid container>
+                            <Grid container spacing={2}>
+                                <Grid item xs={8}>
+                                    <TextField id="standard-basic" label="Name" value={state.name} defaultValue={state.name} onChange={handleChangeText} />
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={2} alignItems="flex-end">
+                                <Grid item xs={8}>
+                                    <TextField id="url" label="Bild Url" value={state.url} onChange={handleChangeTexturl} />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Button variant="contained" color="primary" onClick={(e) => {
+                                        // TODO: Add save option here
+                                    }}>
+                                        Speichern
+                                </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    : ""}
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h4">
@@ -143,17 +180,17 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                             )
                         })}
                 <Grid item xs={12}>
-                {isChangeRoom ?
-                    <Button variant="contained" color="primary" onClick={(e) => {
-                        setIsChangeRoom(false);
-                    }}>
-                        Bearbeiten beenden
+                    {isChangeRoom ?
+                        <Button variant="contained" color="primary" onClick={(e) => {
+                            setIsChangeRoom(false);
+                        }}>
+                            Bearbeiten beenden
                         </Button>
-                    : ""
-                }
+                        : ""
+                    }
                 </Grid>
-                </Grid>
-                <AddButton type={ElementType.ITEM} parentName={roomName} parentType={ParentType.ROOM} />
+            </Grid>
+            <AddButton type={ElementType.ITEM} parentName={roomName} parentType={ParentType.ROOM} />
         </div>
     );
 }

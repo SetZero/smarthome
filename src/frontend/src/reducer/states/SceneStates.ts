@@ -32,7 +32,7 @@ export let scenesReducer = async () => {
                         return {...state, scenes: [...state.scenes, action.payload]};
                     }
                     case "REMOVE_SCENE": {
-                        let tempState= JSON.parse(JSON.stringify(state));
+                        let tempState = JSON.parse(JSON.stringify(state));
                         console.log("RemoveScene",state)
                         console.log(action.payload.name)
                         var found = false;
