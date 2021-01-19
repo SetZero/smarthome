@@ -72,67 +72,68 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
             <Typography variant="h4"> Aktionen </Typography>
           </Grid>
         </Grid>
-      {actions.filter(e => e.sceneName == sceneState.name && e.item != undefined && e.item.type == 'Switch' || e.item.type == 'Dimmer').map(e => {
-                        return (
-                          <div>
-                            <Grid className="Left" container alignItems="center" justify="flex-start" spacing={2} key={e.item.link}>
-                                <Grid item xs={1}>
-                                <IconButton aria-label="delete" onClick={() => {
-                                      dispatch(removeActionFromScene(e));
-                                  } }>
-                                        <DeleteIcon />
-                                </IconButton >
-                                </Grid>
+        {actions.filter(e => e.sceneName == sceneState.name && e.item != undefined && e.item.type == 'Switch' || e.item.type == 'Dimmer').map(e => {
+          return (
+            <div>
+              <Grid className="Left" container alignItems="center" justify="flex-start" spacing={2} key={e.item.link}>
+                <Grid item xs={1}>
+                  <IconButton aria-label="delete" onClick={() => {
+                    dispatch(removeActionFromScene(e));
+                  }}>
+                    <DeleteIcon />
+                  </IconButton >
+                </Grid>
 
-                                <Grid item xs={4}>
-                                    <Typography variant="h5" component="h6">
-                                        {e.item.name}
-                                    </Typography>
-                                </Grid>
-                                { e.item.type == 'Switch' ?
-                                <Grid item sm={2} xs={2}>
-                                    <Switch
-                                        name="unused"
-                                        inputProps={{ 'aria-label': 'secondary-checkbox' }}
-                                        onChange={(event, state) => 
-                                        { 
-                                          e.item.state = e.item.state === ItemState.ON ? ItemState.OFF : ItemState.ON;
-                                          dispatch(updateAction({ sceneName : sceneState.name, item : e.item}))}
-                                        }
-                                        checked={e.item.state === ItemState.ON ?? false}
-                                    />
-                                </Grid>
-                                  : ""
-                                }
-                                { e.item.type == 'Dimmer' ?
-                                <Grid item xs={7}>
-                                  <Grid container spacing={2}>
-                                  <Grid item xs={10}>
-                                      <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35} 
-                                      onChange={(ev, val) => {
-                                          // TODO: what is this datatype ??
-                                          e.item.state = parseInt(val + "");
-                                          dispatch(updateAction({ sceneName : sceneState.name, item : e.item}));
-                                      }}/>
-                                  </Grid>
-                                    <Grid item xs={2}>
-                                        <Typography>
-                                            {e.item.state}
-                                        </Typography>
-                                  </Grid>
-                                  </Grid>
-                                </Grid>
-                                : ""
-                                }
-                             </Grid>
-                          </div>
-                        )})}
-      
+                <Grid item xs={4}>
+                  <Typography variant="h5" component="h6">
+                    {e.item.name}
+                  </Typography>
+                </Grid>
+                {e.item.type == 'Switch' ?
+                  <Grid item sm={2} xs={2}>
+                    <Switch
+                      name="unused"
+                      inputProps={{ 'aria-label': 'secondary-checkbox' }}
+                      onChange={(event, state) => {
+                        e.item.state = e.item.state === ItemState.ON ? ItemState.OFF : ItemState.ON;
+                        dispatch(updateAction({ sceneName: sceneState.name, item: e.item }))
+                      }
+                      }
+                      checked={e.item.state === ItemState.ON ?? false}
+                    />
+                  </Grid>
+                  : ""
+                }
+                {e.item.type == 'Dimmer' ?
+                  <Grid item xs={7}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={10}>
+                        <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
+                          onChange={(ev, val) => {
+                            // TODO: what is this datatype ??
+                            e.item.state = parseInt(val + "");
+                            dispatch(updateAction({ sceneName: sceneState.name, item: e.item }));
+                          }} />
+                      </Grid>
+                      <Grid item xs={2}>
+                        <Typography>
+                          {e.item.state}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  : ""
+                }
+              </Grid>
+            </div>
+          )
+        })}
+
       </Grid>
-        <Button variant="contained" color="primary" onClick={(e) => {
-          onGoBack(sceneState);
-        }}>
-          Zurück
+      <Button variant="contained" color="primary" onClick={(e) => {
+        onGoBack(sceneState);
+      }}>
+        Zurück
         </Button>
 
       <AddButton type={ElementType.ACTION} parentName={sceneState.name} parentType={ParentType.SCENE} />

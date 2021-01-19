@@ -1,9 +1,8 @@
-import { Rooms } from './Rooms';
+import Rooms from './Rooms';
 import { Scenes } from './Scenes';
 import { AppBar, BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import React from 'react';
 
 enum CurrentView {
@@ -38,19 +37,19 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 showComponent = <div />;
         }
 
-        return (<div className="MainDiv">
+        return (<div>
             <Container className="flexGrow">
                 {showComponent}
             </Container>
-            <AppBar position="fixed" color="primary" style={{top: "auto", bottom: 0}}>
-            <BottomNavigation className='Stick'
-                onChange={(c, v) => { this.handleChange(c, v) }}
-                showLabels
-                value={this.state.currentView}
-            >
-                <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
-                <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
-            </BottomNavigation>
+            <AppBar position="fixed" style={{top: "auto", bottom: 0}}>
+                <BottomNavigation className='Stick'
+                    onChange={(c, v) => { this.handleChange(c, v) }}
+                    showLabels
+                    value={this.state.currentView}
+                >
+                    <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
+                    <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
+                </BottomNavigation>
             </AppBar>
         </div>)
     }

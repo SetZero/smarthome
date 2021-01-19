@@ -28,10 +28,6 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
         'Raum bearbeiten'
     ];
 
-    const onItemStateChange = (item: Item) => {
-        dispatch(itemStateChange(item));
-    }
-
     const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         //dispatch(removeRoom(info));
@@ -43,11 +39,6 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
         setIsChangeRoom(true);
         handleClose();
     };
-
-    const handleClickOnDeleteItemInRoom = (e: Item) => {
-        let ref: ItemRef = { link: e.link };
-        dispatch(removeItemFromRoom(ref, roomName));
-    }
 
     return (
         <div>
@@ -93,7 +84,8 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                             </Typography>
                 </Grid>
             </Grid>
-            {items.filter(currentSensor => {
+            {
+            items.filter(currentSensor => {
                 const thisRoom = rooms.find(r => r.name === roomName);
                 console.log("This room : " + JSON.stringify(thisRoom));
 
@@ -105,7 +97,10 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                         <Grid className="Left" container alignItems="center" justify="flex-start" item xs spacing={2} key={e.link}>
                             {isChangeRoom ?
                                 <Grid item xs={1}>
-                                    <IconButton aria-label="delete" onClick={() => { handleClickOnDeleteItemInRoom(e) }}>
+                                    <IconButton aria-label="delete" 
+                                    onClick={() => { 
+                                        dispatch(removeItemFromRoom({ link: e.link} , roomName)); 
+                                    }}>
                                         <DeleteIcon />
                                     </IconButton >
                                 </Grid>

@@ -45,11 +45,11 @@ export let roomsReducer = async () => {
                     }
                     case "REMOVE_ITEM": {
                         let ref = action.payload.ref.link;
-                        let selectedRoom = state.rooms.findIndex(e => e.name === action.payload.roomName);
-                        if(selectedRoom != undefined && state.rooms[selectedRoom] != undefined && state.rooms[selectedRoom].sensors != undefined) {
-                            state.rooms.splice(selectedRoom, 1)
+                        let selectedRoom = state.rooms.find(e => e.name === action.payload.roomName);
+                        if(selectedRoom && selectedRoom.sensors) {
+                            selectedRoom.sensors = selectedRoom?.sensors?.filter(e => e.link !== ref);
                         }
-                        return {... state, rooms: state.rooms};
+                        return { ... state, rooms: state.rooms};
                     }
                     default:
                         return state;

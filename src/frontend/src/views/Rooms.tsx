@@ -11,14 +11,23 @@ import { AddButton, ElementType, ParentType } from './AddScreen/AddButton';
 
 interface RoomProps { isNew: string }
 
-export const Rooms: React.FC<RoomProps> = ({ isNew }) => {
+export default function Rooms ({ isNew } : RoomProps) {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     let [showSelectedRoom, setShowSelectedRoom] = useState(false);
     let [selectedRoom, setSelectedRoom] = useState("Test");
 
     if (showSelectedRoom) {
         return (
+            <div>
+                {rooms.map(element => {                        
+                    console.log("Updating");
+                    return (
+                        <Typography> Sensors : {JSON.stringify(element.sensors)} </Typography>
+                    );
+                })
+                }
             <SingleRoom roomName={selectedRoom}/>
+            </div>
         )
     }
     else {
