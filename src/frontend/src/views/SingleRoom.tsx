@@ -10,7 +10,7 @@ import { ItemState } from "../reducer/states/ItemState";
 import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates";
-import { updateRoom } from "../reducer/actions/RoomActions"
+import { updateRoom, removeRoom } from "../reducer/actions/RoomActions"
 
 interface SingleRoomProps {
     roomName: string,
@@ -23,11 +23,16 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     const dispatch = useDispatch();
 
     const options = [
-        'Raum bearbeiten'
+        'Raum bearbeiten',
+        'Raum löschen'
     ];
 
+    const getCurrentRoom = () => {
+        return rooms.find(e => e.name == roomName);
+    }
+
     const initialRoomProps = () => {
-        const currentRoom = rooms.find(e => e.name == roomName);
+        const currentRoom = getCurrentRoom();
         if (currentRoom === undefined) {
             return { name : roomName, url : "", cardSize : RoomCardSize.SMALL, sensors : []};
         }
@@ -64,10 +69,9 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
 
     const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-        //dispatch(removeRoom(info));
     };
 
-    const handleGoBack = (event: React.MouseEvent<HTMLElement>) => {
+    const handleGoBack = (event?: React.MouseEvent<HTMLElement>) => {
         showRoomFunction(false);
     }
 
@@ -76,7 +80,15 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     };
 
     const handleClickOnOption = (option: string) => {
-        setIsChangeRoom(true);
+        if (option === 'Raum bearbeiten') {
+            setIsChangeRoom(true);
+        } else if (option === 'Raum löschen') {
+            handleGoBack();
+            const currentRoom = getCurrentRoom();
+            if (currentRoom !== undefined) {
+                dispatch(removeRoom(currentRoom));
+            }
+        }
         handleClose();
     };
 
