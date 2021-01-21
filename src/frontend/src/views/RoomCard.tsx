@@ -1,9 +1,10 @@
 import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, Container, IconButton, Menu, MenuItem } from "@material-ui/core"
-import React from "react"
+import React, { useState } from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch } from "react-redux";
 import { changeRoomOrder, removeRoom, RoomDirection } from "../reducer/actions/RoomActions";
+import { DeleteDialog } from "./DeleteDialog";
 
 interface RoomCardProps {
     info: RoomState,
@@ -68,6 +69,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch();
+    let [openRemoveDialog, setOpenRemoveDialog] = useState(false);
     const HandleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         //dispatch(removeRoom(info));
@@ -80,7 +82,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
         console.log("NAME", info.name);
         switch(option) {
             case 'DELETE':
-                dispatch(removeRoom(info));
+                //dispatch(removeRoom(info));
+                setOpenRemoveDialog(true);
                 break;
             case 'DOWN':
                 dispatch(changeRoomOrder(info, RoomDirection.DOWN));
@@ -97,8 +100,11 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
         setRoomFunction(info.name);
     }
 
+//
+
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
+            <DeleteDialog open={openRemoveDialog} setOpen={setOpenRemoveDialog} action={removeRoom(info)}/>
             <Card className={classes.fullHeightCard}>
                 <CardActionArea >
                     <CardMedia

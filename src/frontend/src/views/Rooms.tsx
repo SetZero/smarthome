@@ -18,6 +18,7 @@ export default function Rooms ({ stateTransfer } : RoomProps) {
     let [selectedRoom, setSelectedRoom] = useState("");
     stateTransfer.dispatcher = setShowSelectedRoom;
 
+    console.log(useSelector<StateType, StateType["roomsReducer"]>((state) => state?.roomsReducer));
     if (showSelectedRoom) {
         return (
             <SingleRoom roomName={selectedRoom} showRoomFunction={setShowSelectedRoom} />
