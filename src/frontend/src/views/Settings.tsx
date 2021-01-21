@@ -145,12 +145,19 @@ export default function Settings() {
                 <AccordionDetails>
                     <Container>
                         <Container>
-                            <Switch
-                                checked={darkTheme}
-                                onChange={handleThemeChange}
-                                name="checkedB"
-                                color="primary"
-                            />
+                            <Grid container item xs={12} spacing={2}>
+                                <Grid item xs={6} >
+                                    <Typography variant="h6"> Dunkles Thema verwenden </Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Switch
+                                        checked={darkTheme}
+                                        onChange={handleThemeChange}
+                                        name="checkedB"
+                                        color="primary"
+                                    />
+                                </Grid>
+                            </Grid>
                         </Container>
                     </Container>
                 </AccordionDetails>
