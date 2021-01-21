@@ -10,11 +10,12 @@ import { useDispatch } from 'react-redux';
 
 interface DeleteDialogProps {
   open: boolean,
-  action: Action
+  action: Action | undefined,
+  additionalAction?: () => any,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const DeleteDialog: React.FC<DeleteDialogProps> = ({ open, action, setOpen }) => {
+export const DeleteDialog: React.FC<DeleteDialogProps> = ({ open, action, setOpen, additionalAction }) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -22,8 +23,13 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({ open, action, setOpe
   };
 
   const handleDelete = () => {
-    dispatch(action);
-    handleClose();
+    if (action !== undefined) {
+      dispatch(action);
+      if(additionalAction !== undefined) {
+        additionalAction();
+      }
+      handleClose();
+    }
   }
 
   return (
