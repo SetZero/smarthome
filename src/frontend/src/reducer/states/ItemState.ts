@@ -15,9 +15,38 @@ export interface HabItem {
 }
 
 export interface Item extends HabItem {
-    max?: number
-    min?: number
+    max?: number | ItemState
+    min?: number | ItemState
+    ignoreRoomSwitch?: boolean
+    onState?: ItemState | number
+    offState?: ItemState | number
 }
+
+export const SwitchDefaults : Item = {
+    label : "",
+    link : "",
+    type : "Switch",
+    name : "",
+    state : ItemState.ON,
+    max : ItemState.ON,
+    min : ItemState.OFF,
+    ignoreRoomSwitch : false,
+    onState : ItemState.ON,
+    offState : ItemState.OFF
+};
+
+export const DimmerDefaults : Item = {
+    label : "",
+    link : "",
+    type : "Dimmer",
+    name : "",
+    state : 0,
+    max : 100,
+    min : 0,
+    ignoreRoomSwitch : false,
+    onState : 100,
+    offState : 100
+};
 
 export interface ItemList {
     items: Item[]
@@ -29,7 +58,16 @@ export let itemReducer = async () => {
             const initialState = { 
                 items: el.items
                 .map((item: Item) => { return { 
-                    label: item.label, state: item.state, link: item.link, type: item.type, name:item.name, max: item.max, min: item.min
+                    label: item.label, 
+                    state: item.state,
+                    link: item.link,
+                    type: item.type,
+                    name:item.name,
+                    max: item.max,
+                    min: item.min,
+                    ignoreRoomSwitch : item.ignoreRoomSwitch,
+                    onState : item.onState,
+                    offState : item.offState
                 } }) 
             };
             const reducer = (state: ItemList = initialState, action: ItemAction) => {
@@ -54,6 +92,8 @@ export let itemReducer = async () => {
 
                         if (newItems !== undefined && newItems[foundItem] !== undefined && newItem !== undefined) {
                             newItems[foundItem].max = newItem.max;
+                            newItems[foundItem].min = newItem.min;
+                            newItems[foundItem].ignoreRoomSwitch = newItem.ignoreRoomSwitch;
                             newItems[foundItem].min = newItem.min;
                         }
 

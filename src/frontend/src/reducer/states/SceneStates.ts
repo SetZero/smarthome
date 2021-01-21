@@ -5,10 +5,13 @@ import { Url } from "url";
 import { act } from "react-dom/test-utils";
 import { Scenes } from './../../views/Scenes';
 import { Action } from "../actions/SceneActions";
-import { Item } from "./ItemState";
+import { HabItem } from "./ItemState";
+
+export interface SmallItem extends HabItem {
+}
 
 export interface ItemAction {
-    item: Item
+    item: SmallItem
 }
 
 export interface SceneState {

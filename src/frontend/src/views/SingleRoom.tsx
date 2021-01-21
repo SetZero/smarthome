@@ -6,7 +6,7 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { itemStateChange } from "../reducer/actions/ItemActions";
 import { StateType } from "../reducer/rootReducer";
-import { ItemState } from "../reducer/states/ItemState";
+import { ItemState, DimmerDefaults } from "../reducer/states/ItemState";
 import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates";
@@ -79,6 +79,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
         setAnchorEl(null);
     };
 
+    // TODO: maybe add popup to confirm choice
     const handleClickOnOption = (option: string) => {
         if (option === 'Raum bearbeiten') {
             setIsChangeRoom(true);
@@ -207,8 +208,8 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                     }
 
                                     { e.type == "Dimmer" ? (() => {
-                                        const min = e.min !== undefined ? e.min : 0;
-                                        const max = e.max !== undefined ? e.max : 100;
+                                        const min = e.min as number !== undefined ? e.min as number : DimmerDefaults.min as number;
+                                        const max = e.max as number !== undefined ? e.max as number : DimmerDefaults.max as number;
                                         return (
                                         <Grid item xs={7}>
                                             <Grid container spacing={2}>

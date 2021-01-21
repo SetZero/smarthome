@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../reducer/rootReducer";
-import { ItemState } from "../reducer/states/ItemState";
+import { ItemState, DimmerDefaults, SwitchDefaults } from "../reducer/states/ItemState";
 import { itemUpdateInfo } from "../reducer/actions/ItemActions";
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
@@ -22,17 +22,21 @@ export default function Settings() {
         setItemRange(newValue as number[]);
     }
 
+    const GetCurrentItem = (itemName : string) => {
+        return items.find(e => e.name === itemName);
+    }
+
     const GetValueRangeOfItem = (itemName : string) => {
-        let currentItem = items.find(e => e.name === itemName);
+        let currentItem = GetCurrentItem(itemName);
         let min = 0;
         let max = 0;
 
         if (currentItem !== undefined) {
-            if (currentItem.min !== undefined) {
-                min = currentItem.min;
+            if (currentItem.min !== undefined && currentItem.min as number) {
+                min = currentItem.min as number;
             }
-            if (currentItem.max !== undefined) {
-                max = currentItem.max;
+            if (currentItem.max !== undefined && currentItem.max as number) {
+                max = currentItem.max as number;
             }
         }
 
@@ -41,14 +45,40 @@ export default function Settings() {
 
     const SelectedItem = (event: any, value : any) => {
         setCurrentItem(value as string);
-        setItemRange(GetValueRangeOfItem(value as string));
+        const currentItemInstance = GetCurrentItem(value as string);
+
+        if (currentItemInstance === undefined) {
+            return;
+        }
+
+        if (currentItemInstance.type === "Dimmer") {
+            setItemRange(GetValueRangeOfItem(value as string));
+            setIgnoreRoomSwitch((currentItemInstance.ignoreRoomSwitch === undefined ? DimmerDefaults.ignoreRoomSwitch : currentItemInstance.ignoreRoomSwitch) as boolean);
+            setOnAction((currentItemInstance.onState === undefined ? DimmerDefaults.onState : currentItemInstance.onState) as number);
+            setOffAction((currentItemInstance.offState === undefined ? DimmerDefaults.offState : currentItemInstance.onState) as number);
+        } else if (currentItemInstance.type === "Switch") {
+            setIgnoreRoomSwitch((currentItemInstance.ignoreRoomSwitch === undefined ? SwitchDefaults.ignoreRoomSwitch : currentItemInstance.ignoreRoomSwitch) as boolean);
+            setOnAction((currentItemInstance.onState === undefined ? SwitchDefaults.onState : currentItemInstance.onState) as ItemState);
+            setOffAction((currentItemInstance.offState === undefined ? SwitchDefaults.offState : currentItemInstance.onState) as ItemState);
+        }
     };
 
     const UpdateSelectedItemRange = (event: any) => {
-        dispatch(itemUpdateInfo({ name : CurrentItem, label : "", state : 0, link : "", type : "", min : itemRange[0], max : itemRange[1]}));
+        let updatedItem = GetCurrentItem(CurrentItem);
+
+        if (updatedItem === undefined) {
+            return;
+        }
+
+        updatedItem.min = itemRange[0];
+        updatedItem.max = itemRange[1];
+        dispatch(itemUpdateInfo(updatedItem));
     }
 
     const [itemRange, setItemRange] = React.useState<number[]>([0, 0]);
+    const [ignoreRoomSwitch, setIgnoreRoomSwitch] = React.useState<boolean>(true);
+    const [onAction, setOnAction] = React.useState<ItemState | number>(0);
+    const [offAction, setOffAction] = React.useState<ItemState | number>(0);
     const [CurrentItem, setCurrentItem] = React.useState<string>("");
 
     return (

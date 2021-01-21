@@ -63,11 +63,11 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
         let max = 0;
 
         if (currentItem !== undefined) {
-            if (currentItem.min !== undefined) {
-                min = currentItem.min;
+            if (currentItem.min !== undefined && currentItem.min as number) {
+                min = currentItem.min as number;
             }
-            if (currentItem.max !== undefined) {
-                max = currentItem.max;
+            if (currentItem.max !== undefined && currentItem.max as number) {
+                max = currentItem.max as number;
             }
         }
 
