@@ -26,18 +26,18 @@ export default function Settings() {
         setItemRange(newValue as number[]);
     }
 
-    const HandleIgnoreRoomSwitch = (event : any, state : any) => {
+    const HandleIgnoreRoomSwitch = (event: any, state: any) => {
         setIgnoreRoomSwitch(!ignoreRoomSwitch);
     }
 
-    const GetCurrentItem = (itemName : string) => {
+    const GetCurrentItem = (itemName: string) => {
         return items.find(e => e.name === itemName);
     }
 
-    const GetValueRangeOfItem = (itemName : string) => {
+    const GetValueRangeOfItem = (itemName: string) => {
         let currentItem = GetCurrentItem(itemName);
-        let min : ItemState | number;
-        let max : ItemState | number;
+        let min: ItemState | number;
+        let max: ItemState | number;
 
         if (currentItem === undefined) {
             return [0, 0];
@@ -73,7 +73,7 @@ export default function Settings() {
         return [min, max];
     }
 
-    const ReadDefaultValues = (selectedItem : string) => {
+    const ReadDefaultValues = (selectedItem: string) => {
         const currentItemInstance = GetCurrentItem(selectedItem);
 
         if (currentItemInstance === undefined) {
@@ -107,8 +107,8 @@ export default function Settings() {
         updatedItem.min = itemRange[0];
         updatedItem.max = itemRange[1];
         updatedItem.ignoreRoomSwitch = ignoreRoomSwitch;
-        updatedItem.onState =  onAction;
-        updatedItem.offState =  offAction;
+        updatedItem.onState = onAction;
+        updatedItem.offState = offAction;
         dispatch(itemUpdateInfo(updatedItem));
     }
 
@@ -117,6 +117,15 @@ export default function Settings() {
     const [onAction, setOnAction] = React.useState<number | ItemState>(0);
     const [offAction, setOffAction] = React.useState<number | ItemState>(0);
     const [CurrentItem, setCurrentItem] = React.useState<string>("");
+    const [darkTheme, setDarkTheme] = React.useState<boolean>(localStorage.getItem('ui-theme') === "dark" ? false : true);
+
+    const handleThemeChange = (event: any) => {
+        setDarkTheme(event.target.checked);
+        var event: any = new Event('themeChanged');
+
+        event.value = darkTheme ? "dark" : "light";
+        document.dispatchEvent(event);
+    }
 
     return (
         <Box p={2}>
@@ -134,9 +143,16 @@ export default function Settings() {
                     <Typography>Allgemein</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Keine Optionen vorhanden!
-                </Typography>
+                    <Container>
+                        <Container>
+                            <Switch
+                                checked={darkTheme}
+                                onChange={handleThemeChange}
+                                name="checkedB"
+                                color="primary"
+                            />
+                        </Container>
+                    </Container>
                 </AccordionDetails>
             </Accordion>
             <Accordion>
@@ -149,80 +165,80 @@ export default function Settings() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Container>
-                    <Container>
-                        <Autocomplete
-                            fullWidth={true}
-                            defaultValue=""
-                            options={GetAllItemNames()}
-                            renderInput={(params) => <TextField {...params} label="Geräte" variant="outlined" />}
-                            onChange={SelectedItem} />
-                    </Container>
-                    {
-                        items.filter(e => e.name === CurrentItem).map(e => {
-                            return (
-                                <Box mt={6} mb={2}>
-                                    <Grid container spacing={2}>
-                                        {e.type === "Dimmer" ?
-                                            <Grid container item xs={12} spacing={2}>
-                                                <Grid item xs={6} >
-                                                    <Typography variant="h6"> Gültigen Bereich wählen</Typography>
+                        <Container>
+                            <Autocomplete
+                                fullWidth={true}
+                                defaultValue=""
+                                options={GetAllItemNames()}
+                                renderInput={(params) => <TextField {...params} label="Geräte" variant="outlined" />}
+                                onChange={SelectedItem} />
+                        </Container>
+                        {
+                            items.filter(e => e.name === CurrentItem).map(e => {
+                                return (
+                                    <Box mt={6} mb={2}>
+                                        <Grid container spacing={2}>
+                                            {e.type === "Dimmer" ?
+                                                <Grid container item xs={12} spacing={2}>
+                                                    <Grid item xs={6} >
+                                                        <Typography variant="h6"> Gültigen Bereich wählen</Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Slider valueLabelDisplay="auto" aria-labelledby="range-slider" value={itemRange} onChange={HandleRangeChange} />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Slider valueLabelDisplay="auto" aria-labelledby="range-slider" value={itemRange} onChange={HandleRangeChange} />
-                                                </Grid>
-                                            </Grid>
-                                            : ""
-                                        }
-                                        <Grid item xs={6}>
-                                            <Typography variant="h6">
-                                                Raumschalter ignorieren
+                                                : ""
+                                            }
+                                            <Grid item xs={6}>
+                                                <Typography variant="h6">
+                                                    Raumschalter ignorieren
                                             </Typography>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Switch
-                                                name="unused"
-                                                onChange={HandleIgnoreRoomSwitch}
-                                                checked={ignoreRoomSwitch} />
-                                        </Grid>
-
-                                        {!ignoreRoomSwitch ?
-                                            <Grid item xs={12}>
-                                                <SingleValueSetting
-                                                    labelName="Anschaltwert"
-                                                    min={GetValueRangeOfItem(e.name)[0]}
-                                                    max={GetValueRangeOfItem(e.name)[1]}
-                                                    settingType={e.type}
-                                                    currentValue={onAction}
-                                                    updateSettingHandle={setOnAction} />
                                             </Grid>
-                                            : ""
-                                        }
-
-                                        {!ignoreRoomSwitch ?
-                                            <Grid item xs={12}>
-                                                <SingleValueSetting
-                                                    labelName="Ausschaltwert"
-                                                    min={GetValueRangeOfItem(e.name)[0]}
-                                                    max={GetValueRangeOfItem(e.name)[1]}
-                                                    settingType={e.type}
-                                                    currentValue={offAction}
-                                                    updateSettingHandle={setOffAction} />
+                                            <Grid item xs={6}>
+                                                <Switch
+                                                    name="unused"
+                                                    onChange={HandleIgnoreRoomSwitch}
+                                                    checked={ignoreRoomSwitch} />
                                             </Grid>
-                                            : ""
-                                        }
 
-                                        <Grid item xs={6} onClick={(e) => { ReadDefaultValues(CurrentItem); }}>
-                                            <Button variant="contained" color="secondary"> Zurücksetzen </Button>
+                                            {!ignoreRoomSwitch ?
+                                                <Grid item xs={12}>
+                                                    <SingleValueSetting
+                                                        labelName="Anschaltwert"
+                                                        min={GetValueRangeOfItem(e.name)[0]}
+                                                        max={GetValueRangeOfItem(e.name)[1]}
+                                                        settingType={e.type}
+                                                        currentValue={onAction}
+                                                        updateSettingHandle={setOnAction} />
+                                                </Grid>
+                                                : ""
+                                            }
+
+                                            {!ignoreRoomSwitch ?
+                                                <Grid item xs={12}>
+                                                    <SingleValueSetting
+                                                        labelName="Ausschaltwert"
+                                                        min={GetValueRangeOfItem(e.name)[0]}
+                                                        max={GetValueRangeOfItem(e.name)[1]}
+                                                        settingType={e.type}
+                                                        currentValue={offAction}
+                                                        updateSettingHandle={setOffAction} />
+                                                </Grid>
+                                                : ""
+                                            }
+
+                                            <Grid item xs={6} onClick={(e) => { ReadDefaultValues(CurrentItem); }}>
+                                                <Button variant="contained" color="secondary"> Zurücksetzen </Button>
+                                            </Grid>
+                                            <Grid item xs={6} onClick={UpdateSelectedItem}>
+                                                <Button variant="contained" color="primary"> Übernehmen </Button>
+                                            </Grid>
+                                            <Grid item xs={3} />
                                         </Grid>
-                                        <Grid item xs={6} onClick={UpdateSelectedItem}>
-                                            <Button variant="contained" color="primary"> Übernehmen </Button>
-                                        </Grid>
-                                        <Grid item xs={3} />
-                                    </Grid>
-                                </Box>
-                            )
-                        })
-                    }
+                                    </Box>
+                                )
+                            })
+                        }
                     </Container>
                 </AccordionDetails>
             </Accordion>
