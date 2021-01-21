@@ -24,7 +24,6 @@ export interface RoomState {
     url: string;
     cardSize: RoomCardSize;
     sensors?: Array<ItemRef>;
-    actions?: Array<RoomItemAction>;
 }
 
 export interface RoomsState {
