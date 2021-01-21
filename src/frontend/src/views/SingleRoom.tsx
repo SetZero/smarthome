@@ -9,6 +9,7 @@ import { ItemState } from "../reducer/states/ItemState";
 import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates";
+import { updateRoom } from "../reducer/actions/RoomActions"
 
 interface SingleRoomProps {
     roomName: string,
@@ -22,11 +23,27 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
     const [isChangeRoom, setIsChangeRoom] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [state, setRoomProps] = React.useState<RoomState>({ name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] });
+    const [oldState, setCurrentRoomProps] = React.useState<RoomState>({ name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] });
     const open = Boolean(anchorEl);
 
     const options = [
         'Raum bearbeiten'
     ];
+
+    const updateCurrentRoomProps = () => {
+        const currentRoom = rooms.find(e => e.name == state.name);
+        if (currentRoom == undefined) {
+            // Update wasn't succesfull
+            return;
+        }
+
+        setCurrentRoomProps(currentRoom);
+    }
+
+    const updateState = () => {
+        dispatch(updateRoom(oldState, state));
+        updateCurrentRoomProps();
+    }
 
     const handleChangeText = (event: React.ChangeEvent<{ value: unknown }>) => {
         let newState = state;
@@ -36,7 +53,7 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
 
     const handleChangeTexturl = (event: React.ChangeEvent<{ value: unknown }>) => {
         let newState = state;
-        newState.name = event.target.value as string;
+        newState.url = event.target.value as string;
         setRoomProps(newState);
     }
 
@@ -58,7 +75,7 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                 <Grid item xs={2} />
                 <Grid item xs={8}>
                     <Typography variant="h3" component="h3">
-                        {roomName}
+                        {oldState.name}
                     </Typography>
                 </Grid>
 
@@ -88,16 +105,17 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
                         <Grid container>
                             <Grid container spacing={2}>
                                 <Grid item xs={8}>
-                                    <TextField id="standard-basic" label="Name" value={state.name} defaultValue={state.name} onChange={handleChangeText} />
+                                    <TextField id="standard-basic" label="Name" onChange={(e) => { handleChangeText(e) }} />
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} alignItems="flex-end">
                                 <Grid item xs={8}>
-                                    <TextField id="url" label="Bild Url" value={state.url} onChange={handleChangeTexturl} />
+                                    <TextField id="url" label="Bild Url" onChange={(e) => { handleChangeTexturl(e); }} />
                                 </Grid>
                                 <Grid item xs={2}>
                                     <Button variant="contained" color="primary" onClick={(e) => {
                                         // TODO: Add save option here
+                                        updateState();
                                     }}>
                                         Speichern
                                 </Button>

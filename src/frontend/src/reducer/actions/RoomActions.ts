@@ -10,7 +10,7 @@ export enum RoomDirection {
     DOWN = "MOVE_ROOM_DOWN"
 }
 
-export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM"|"MOVE_ROOM_UP"|"MOVE_ROOM_DOWN", payload: RoomState};
+export type Action = {type: "ADD_ROOM"|"REMOVE_ROOM"|"UPDATE_ROOM"|"MOVE_ROOM_UP"|"MOVE_ROOM_DOWN", payload: RoomState, room2?: RoomState};
 export type ItemRefAction = {type: "ADD_ITEM"|"REMOVE_ITEM", payload: ItemRefRoom}
 
 export const addRoom = (room: RoomState): Action => ({
@@ -36,3 +36,9 @@ export const removeItemFromRoom = (itemRef: ItemRef, room: string): ItemRefActio
     type: "REMOVE_ITEM",
     payload: {ref: itemRef, roomName: room}
 });
+
+export const updateRoom = (room: RoomState, newRoom : RoomState): Action => ({
+    type: "UPDATE_ROOM",
+    payload: room,
+    room2: newRoom
+})
