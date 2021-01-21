@@ -175,18 +175,17 @@ export default function Settings() {
                                         }
                                         <Grid item xs={6}>
                                             <Typography variant="h6">
-                                                Raumschalter beachten
+                                                Raumschalter ignorieren
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Switch
                                                 name="unused"
-                                                inputProps={{ 'aria-label': 'secondary-checkbox' }}
                                                 onChange={HandleIgnoreRoomSwitch}
                                                 checked={ignoreRoomSwitch} />
                                         </Grid>
 
-                                        {ignoreRoomSwitch ?
+                                        {!ignoreRoomSwitch ?
                                             <Grid item xs={12}>
                                                 <SingleValueSetting
                                                     labelName="Anschaltwert"
@@ -199,7 +198,7 @@ export default function Settings() {
                                             : ""
                                         }
 
-                                        {ignoreRoomSwitch ?
+                                        {!ignoreRoomSwitch ?
                                             <Grid item xs={12}>
                                                 <SingleValueSetting
                                                     labelName="Ausschaltwert"

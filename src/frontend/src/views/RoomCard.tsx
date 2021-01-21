@@ -5,6 +5,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch } from "react-redux";
 import { changeRoomOrder, removeRoom, RoomDirection } from "../reducer/actions/RoomActions";
 import { DeleteDialog } from "./DeleteDialog";
+import RoomToggle from "../Utils/RoomUtils"
 
 interface RoomCardProps {
     info: RoomState,
@@ -24,9 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //Configuration for the 3 dot menu
 const options = [
-    {name: 'Raum löschen', op: 'DELETE'},
     {name: 'Nach oben', op: 'DOWN'},
     {name: 'Nach unten', op: 'UP'},
+    {name: 'Raum löschen', op: 'DELETE'},
 ];
 const ITEM_HEIGHT = 48;
 
@@ -100,8 +101,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
         setRoomFunction(info.name);
     }
 
-//
-
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
             <DeleteDialog open={openRemoveDialog} setOpen={setOpenRemoveDialog} action={removeRoom(info)}/>
@@ -117,7 +116,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                 <CardContent>
                     <Typography gutterBottom variant={info.name.length > 9 ? "h6" : "h5"} component="h2">
                         {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
-                        <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
+                        <RoomToggle roomName={info.name} />
                         <IconButton
                             aria-label="more"
                             aria-controls="long-menu"
