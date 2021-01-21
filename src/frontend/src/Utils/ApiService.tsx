@@ -7,7 +7,7 @@ export class ApiService {
     static persistenceURL: string = "http://localhost:8080/rest/persistence/items/";
 
     static async StoreState(state: string) {
-        const response = await fetch(this.itemURL + "stateUI/state", {
+        return await fetch(this.itemURL + "stateUI/state", {
             method: 'PUT',
             body: state,
             headers : {
@@ -84,7 +84,7 @@ export class ApiService {
             value = newState.toString();
         }
 
-        const response = await fetch(link, {
+        return await fetch(link, {
             method: 'POST',
             body: value,
             headers: {
@@ -134,7 +134,7 @@ export class ApiService {
 
             console.log("Max/min" + e.min + " " + e.max);
 
-            return { ... e, min : min, max : max };
+            return { ...e, min : min, max : max };
         });
 
         return { items: correctlySetItems };

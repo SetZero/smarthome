@@ -97,7 +97,7 @@ export let itemReducer = async () => {
                             newItems[foundItem].min = newItem.min;
                         }
 
-                        return { ...state, items: [ ... newItems ]};
+                        return { ...state, items: [ ...newItems ]};
                     }
                     case "STATE_CHANGE_WITHOUT_REST": {
                         // console.log("Update State:", action.payload.state);

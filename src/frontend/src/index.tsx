@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
 import { configureStoreAsync } from './store';
-import { LinearProgress, CircularProgress, Backdrop } from '@material-ui/core';
+import { LinearProgress, Backdrop } from '@material-ui/core';
 import { LoadingError } from './views/LoadingError';
 
 

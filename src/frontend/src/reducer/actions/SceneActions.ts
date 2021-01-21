@@ -1,5 +1,5 @@
 import { ItemRef } from "../states/RoomStates";
-import { ScenesState, SceneState, ItemAction } from "../states/SceneStates";
+import { SceneState, ItemAction } from "../states/SceneStates";
 
 export type Action = {type: 
 "ADD_SCENE"

@@ -1,12 +1,12 @@
-import React, { useEffect } from "react"
+import React from "react"
 import SingleRoom from "./SingleRoom";
-import { Grid, Typography, Container } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux"
 import { RoomCard } from "./RoomCard";
 import { StateType } from "../reducer/rootReducer";
 import { useState } from "react";
 import { AddButton, ElementType, ParentType } from './AddScreen/AddButton';
-import { CurrentView, MainView, StateHelper } from "./MainView";
+import { StateHelper } from "./MainView";
 
 interface RoomProps {
     stateTransfer: StateHelper

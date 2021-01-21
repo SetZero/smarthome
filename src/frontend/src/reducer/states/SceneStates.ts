@@ -1,9 +1,5 @@
 import { ApiService } from "../../Utils/ApiService";
-import { rejects } from "assert";
 import { Reducer } from "redux";
-import { Url } from "url";
-import { act } from "react-dom/test-utils";
-import { Scenes } from './../../views/Scenes';
 import { Action } from "../actions/SceneActions";
 import { HabItem } from "./ItemState";
 

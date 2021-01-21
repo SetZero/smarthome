@@ -1,13 +1,10 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Menu } from '@material-ui/core';
 import AddScene from './AddScene';
 import AddRoom from './AddRoom';
 import AddItem from './AddItem';
-import { useSelector } from 'react-redux';
-import { StateType } from '../../reducer/rootReducer';
 
 
 export enum ElementType {
@@ -27,8 +24,8 @@ interface AddButtonProps {
 
 export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentType }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [typ, setTyp] = React.useState<string>("");
-  const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
+  // const [typ, setTyp] = React.useState<string>("");
+  // const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
 
 
   const handleClick = (typo: ElementType, event: React.MouseEvent<HTMLButtonElement>) => {

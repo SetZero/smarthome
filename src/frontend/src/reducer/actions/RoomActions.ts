@@ -1,4 +1,4 @@
-import { ItemRef, RoomsState, RoomState } from "../states/RoomStates";
+import { ItemRef, RoomState } from "../states/RoomStates";
 
 export interface ItemRefRoom {
     ref: ItemRef;

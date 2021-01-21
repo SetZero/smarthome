@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const useStylesButton = makeStyles((theme: Theme) =>
+/*const useStylesButton = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       '& > *': {
@@ -106,7 +106,7 @@ const useStylesButton = makeStyles((theme: Theme) =>
       },
     },
   }),
-);
+);*/
 
 interface ButtonBasesProps {
   sceneState: SceneState;
@@ -118,7 +118,7 @@ export default function ButtonBases({ sceneState, setShowChangeSceneFunction }: 
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const classesButton = useStylesButton();
+  //const classesButton = useStylesButton();
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
 
 

@@ -39,7 +39,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
 
   const onActionChange = (action : ItemAction) => {
     const currentScene = scenes.find(e => e.name === sceneState.name);
-    if (currentScene != undefined)
+    if (currentScene !== undefined)
       dispatch(updateAction(currentScene, action));
   }
 

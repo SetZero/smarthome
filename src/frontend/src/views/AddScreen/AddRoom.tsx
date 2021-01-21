@@ -99,10 +99,10 @@ export default function AddRoom({ closeAnchorFunction }: AddRoomProps) {
             let room = { name: name, url: pic, cardSize: RoomCardSize.SMALL, sensors: [] };
 
 
-            if (value == "2") {
+            if (value === "2") {
               room.cardSize = RoomCardSize.MEDIUM;
             }
-            else if (value == "3") {
+            else if (value === "3") {
               room.cardSize = RoomCardSize.LARGE;
             }
             onAddRoom(room);
