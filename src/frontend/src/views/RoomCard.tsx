@@ -1,4 +1,4 @@
-import { Card, CardContent, Switch, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, IconButton, Menu, MenuItem } from "@material-ui/core"
+import { Card, CardContent, Typography, Grid, makeStyles, Theme, createStyles, CardMedia, CardActionArea, IconButton, Menu, MenuItem } from "@material-ui/core"
 import React, { useState } from "react"
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates"
 import MoreVertIcon from '@material-ui/icons/MoreVert';

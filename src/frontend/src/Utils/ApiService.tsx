@@ -1,7 +1,4 @@
-import { request } from "http";
-import { Action, Store } from "redux";
-import { Url } from "url";
-import { ItemAction } from "../reducer/actions/ItemActions";
+import { Store } from "redux";
 import { DimmerDefaults, ItemState, SwitchDefaults } from "../reducer/states/ItemState";
 
 export class ApiService {
@@ -143,7 +140,7 @@ export class ApiService {
             const onState = foundItemEq.onState === undefined ? DefaultValues.onState : foundItemEq.onState;
             const offState = foundItemEq.offState === undefined ? DefaultValues.offState : foundItemEq.offState;
 
-            return { ... e, min : min, max : max, ignoreRoomSwitch : ignoreRoomSwitch, onState : onState, offState : offState };
+            return { ...e, min : min, max : max, ignoreRoomSwitch : ignoreRoomSwitch, onState : onState, offState : offState };
         });
 
         return { items: correctlySetItems };
