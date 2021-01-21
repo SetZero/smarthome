@@ -1,4 +1,5 @@
 import { Action, ItemRefAction } from "../actions/RoomActions";
+import { Item } from "../states/ItemState"
 import { ApiService } from "../../Utils/ApiService";
 import { Reducer } from "redux";
 import arrayMove from "array-move";
@@ -14,11 +15,16 @@ export interface ItemRef {
     link: string;
 }
 
+export interface RoomItemAction {
+    item: Item;
+}
+
 export interface RoomState {
     name: string;
     url: string;
     cardSize: RoomCardSize;
     sensors?: Array<ItemRef>;
+    actions?: Array<RoomItemAction>;
 }
 
 export interface RoomsState {
@@ -38,6 +44,17 @@ export let roomsReducer = async () => {
                         let newRooms = state.rooms.filter(e => e.name !== action.payload.name);
                         state.rooms = newRooms;
                         return {...state, rooms: newRooms};
+                    }
+                    case "UPDATE_ROOM": {
+                        let newRooms = Array.from(state.rooms);
+                        let selectedRoomIndex = newRooms.findIndex(e => e.name === action.payload.name);
+                        if(selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined
+                            && action.room2 != undefined) {
+                            newRooms[selectedRoomIndex].name = action.room2.name;
+                            newRooms[selectedRoomIndex].url = action.room2.url;
+                        }
+
+                        return { ... state, rooms: newRooms};
                     }
                     case "ADD_ITEM": {
                         let ref = action.payload.ref.link;
