@@ -9,8 +9,8 @@ import { ItemState } from '../reducer/states/ItemState'
 interface SingleValueSettingProps {
     labelName: string
     settingType: string
-    min?: number
-    max?: number
+    min: number | ItemState
+    max: number | ItemState
     currentValue : number | ItemState
     updateSettingHandle: (newValue: ItemState | number) => void
 };
@@ -33,12 +33,13 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
             </Grid>
             {settingType === "Dimmer" ?
                 (() => {
+                    const asNumber = currentValue as number;
                     return (
                         <Grid container item xs={6}>
                             <Grid item xs={10}>
-                                <Slider defaultValue={currentValue as number}
-                                    aria-labelledby="discrete-slider"
-                                    min={min} max={max}
+                                <Slider aria-labelledby="discrete-slider"
+                                    value={asNumber}
+                                    min={min as number} max={max as number}
                                     onChange={(ev, val) => {
                                         updateSettingHandle(val as number);
                                     }} />

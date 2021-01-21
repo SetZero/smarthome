@@ -36,16 +36,38 @@ export default function Settings() {
 
     const GetValueRangeOfItem = (itemName : string) => {
         let currentItem = GetCurrentItem(itemName);
-        let min = 0;
-        let max = 0;
+        let min : ItemState | number;
+        let max : ItemState | number;
 
-        if (currentItem !== undefined) {
+        if (currentItem === undefined) {
+            return [0, 0];
+        }
+
+        if (currentItem.type === "Dimmer") {
             if (currentItem.min !== undefined && currentItem.min as number) {
                 min = currentItem.min as number;
+            } else {
+                min = DimmerDefaults.min as number;
             }
             if (currentItem.max !== undefined && currentItem.max as number) {
                 max = currentItem.max as number;
+            } else {
+                max = DimmerDefaults.max as number;
             }
+        } else if (currentItem.type === "Switch") {
+            if (currentItem.min !== undefined && currentItem.min as ItemState) {
+                min = currentItem.min as ItemState;
+            } else {
+                min = SwitchDefaults.min as ItemState;
+            }
+            if (currentItem.max !== undefined && currentItem.max as ItemState) {
+                max = currentItem.max as ItemState;
+            } else {
+                max = SwitchDefaults.max as ItemState;
+            }
+        } else {
+            min = 0;
+            max = 0;
         }
 
         return [min, max];
@@ -59,14 +81,14 @@ export default function Settings() {
         }
 
         if (currentItemInstance.type === "Dimmer") {
-            setItemRange(GetValueRangeOfItem(selectedItem));
+            setItemRange(GetValueRangeOfItem(selectedItem) as number[]);
             setIgnoreRoomSwitch((currentItemInstance.ignoreRoomSwitch === undefined ? DimmerDefaults.ignoreRoomSwitch : currentItemInstance.ignoreRoomSwitch) as boolean);
             setOnAction((currentItemInstance.onState === undefined ? DimmerDefaults.onState : currentItemInstance.onState) as number);
-            setOffAction((currentItemInstance.offState === undefined ? DimmerDefaults.offState : currentItemInstance.onState) as number);
+            setOffAction((currentItemInstance.offState === undefined ? DimmerDefaults.offState : currentItemInstance.offState) as number);
         } else if (currentItemInstance.type === "Switch") {
             setIgnoreRoomSwitch((currentItemInstance.ignoreRoomSwitch === undefined ? SwitchDefaults.ignoreRoomSwitch : currentItemInstance.ignoreRoomSwitch) as boolean);
             setOnAction((currentItemInstance.onState === undefined ? SwitchDefaults.onState : currentItemInstance.onState) as ItemState);
-            setOffAction((currentItemInstance.offState === undefined ? SwitchDefaults.offState : currentItemInstance.onState) as ItemState);
+            setOffAction((currentItemInstance.offState === undefined ? SwitchDefaults.offState : currentItemInstance.offState) as ItemState);
         }
     }
 
@@ -153,8 +175,8 @@ export default function Settings() {
                                         }
                                         <Grid item xs={6}>
                                             <Typography variant="h6">
-                                                Raumschalter ignorieren
-                                                    </Typography>
+                                                Raumschalter beachten
+                                            </Typography>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Switch
@@ -168,6 +190,8 @@ export default function Settings() {
                                             <Grid item xs={12}>
                                                 <SingleValueSetting
                                                     labelName="Anschaltwert"
+                                                    min={GetValueRangeOfItem(e.name)[0]}
+                                                    max={GetValueRangeOfItem(e.name)[1]}
                                                     settingType={e.type}
                                                     currentValue={onAction}
                                                     updateSettingHandle={setOnAction} />
@@ -179,6 +203,8 @@ export default function Settings() {
                                             <Grid item xs={12}>
                                                 <SingleValueSetting
                                                     labelName="Ausschaltwert"
+                                                    min={GetValueRangeOfItem(e.name)[0]}
+                                                    max={GetValueRangeOfItem(e.name)[1]}
                                                     settingType={e.type}
                                                     currentValue={offAction}
                                                     updateSettingHandle={setOffAction} />

@@ -2,7 +2,7 @@ import { request } from "http";
 import { Action, Store } from "redux";
 import { Url } from "url";
 import { ItemAction } from "../reducer/actions/ItemActions";
-import { ItemState } from "../reducer/states/ItemState";
+import { DimmerDefaults, ItemState, SwitchDefaults } from "../reducer/states/ItemState";
 
 export class ApiService {
 
@@ -132,12 +132,17 @@ export class ApiService {
                 return e;
             } 
 
-            const min = foundItemEq.min === undefined ? 0 : foundItemEq.min;
-            const max = foundItemEq.max === undefined ? 0 : foundItemEq.max;
+            const DefaultValues = e.type === "Dimmer" ? DimmerDefaults : SwitchDefaults;
+
+            const min = foundItemEq.min === undefined ? DefaultValues.min : foundItemEq.min;
+            const max = foundItemEq.max === undefined ? DefaultValues.max : foundItemEq.max;
+            const ignoreRoomSwitch = foundItemEq.ignoreRoomSwitch === undefined ? DefaultValues.ignoreRoomSwitch : foundItemEq.ignoreRoomSwitch;
+            const onState = foundItemEq.onState === undefined ? DefaultValues.onState : foundItemEq.onState;
+            const offState = foundItemEq.offState === undefined ? DefaultValues.offState : foundItemEq.offState;
 
             console.log("Max/min" + e.min + " " + e.max);
 
-            return { ... e, min : min, max : max };
+            return { ... e, min : min, max : max, ignoreRoomSwitch : ignoreRoomSwitch, onState : onState, offState : offState };
         });
 
         return { items: correctlySetItems };
