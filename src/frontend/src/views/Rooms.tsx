@@ -16,7 +16,7 @@ export default function Rooms ({ isNew } : RoomProps) {
 
     if (showSelectedRoom) {
         return (
-            <SingleRoom roomName={selectedRoom}/>
+            <SingleRoom roomName={selectedRoom} showRoomFunction={setShowSelectedRoom} />
         )
     }
     else {

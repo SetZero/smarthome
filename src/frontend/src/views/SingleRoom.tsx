@@ -1,6 +1,7 @@
 import { Button, Switch, Grid, Typography, TextField, IconButton, Slider, Menu, MenuItem } from "@material-ui/core"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { itemStateChange } from "../reducer/actions/ItemActions";
@@ -13,9 +14,10 @@ import { updateRoom } from "../reducer/actions/RoomActions"
 
 interface SingleRoomProps {
     roomName: string,
+    showRoomFunction: (showSelectedRoom: boolean) => void
 }
 
-export default function SingleRoom({ roomName }: SingleRoomProps) {
+export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomProps) {
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
@@ -61,9 +63,15 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
         setAnchorEl(event.currentTarget);
         //dispatch(removeRoom(info));
     };
+
+    const handleGoBack = (event: React.MouseEvent<HTMLElement>) => {
+        showRoomFunction(false);
+    }
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const handleClickOnOption = (option: string) => {
         setIsChangeRoom(true);
         handleClose();
@@ -72,7 +80,11 @@ export default function SingleRoom({ roomName }: SingleRoomProps) {
     return (
         <div>
             <Grid container spacing={4}>
-                <Grid item xs={2} />
+                <Grid item xs={2} >
+                    <IconButton onClick={handleGoBack}>
+                        <ArrowBackIcon />
+                    </IconButton>
+                </Grid>
                 <Grid item xs={8}>
                     <Typography variant="h3" component="h3">
                         {oldState.name}

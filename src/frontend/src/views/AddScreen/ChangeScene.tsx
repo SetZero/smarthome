@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from "react-redux"
 import { StateType } from '../../reducer/rootReducer';
@@ -47,7 +48,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
       dispatch(removeActionFromScene(currentScene, action));
   }
 
-  const onGoBack = (sconst : SceneState) => {
+  const handleGoBack = (event: React.MouseEvent<HTMLElement>) => {
     setShowChangeSceneFunction({ name: "", url: "", actions : [] });
   }
 
@@ -55,9 +56,15 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
     <div>
       <Grid spacing={5}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid item xs={2}>
+            <IconButton onClick={handleGoBack}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Grid>
+          <Grid item xs={8}>
             <Typography variant="h4"> Szene {sceneState.name} bearbeiten </Typography>
           </Grid>
+          <Grid item xs={2} />
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={8}>
@@ -140,12 +147,6 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
         })}
 
       </Grid>
-      <Button variant="contained" color="primary" onClick={(e) => {
-        onGoBack(sceneState);
-      }}>
-        Zurück
-        </Button>
-
       <AddButton type={ElementType.ACTION} parentName={sceneState.name} parentType={ParentType.SCENE} />
 
     </div>
