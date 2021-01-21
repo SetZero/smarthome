@@ -57,16 +57,16 @@ export const AddButton: React.FC<AddButtonProps> = ({ type, parentName, parentTy
         onClose={handleClose}
       >
       <div style={{padding : 20}}>
-      {type == ElementType.ROOM && (
+      {type === ElementType.ROOM && (
         <AddRoom closeAnchorFunction={setAnchorEl}/>
       )}
-      {type == ElementType.SCENE && (
+      {type === ElementType.SCENE && (
         <AddScene closeAnchorFunction={setAnchorEl}/>
       )}
-      {type == ElementType.ITEM && (
+      {type === ElementType.ITEM && (
         <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl}/>
       )}
-      { type == ElementType.ACTION && (
+      { type === ElementType.ACTION && (
         <AddItem parentName={parentName} parentType={parentType} closeAnchorFunction={setAnchorEl} />
       )}
       </div>

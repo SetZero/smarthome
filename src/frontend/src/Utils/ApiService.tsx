@@ -1,7 +1,4 @@
-import { request } from "http";
-import { Action, Store } from "redux";
-import { Url } from "url";
-import { ItemAction } from "../reducer/actions/ItemActions";
+import { Store } from "redux";
 import { ItemState } from "../reducer/states/ItemState";
 
 export class ApiService {
@@ -81,7 +78,7 @@ export class ApiService {
         if (!link.startsWith(ApiService.itemURL))
             link = ApiService.itemURL + link;
 
-        if (newState == ItemState.OFF || newState == ItemState.ON) {
+        if (newState === ItemState.OFF || newState === ItemState.ON) {
             value = newState;
         } else {
             value = newState.toString();
@@ -116,7 +113,7 @@ export class ApiService {
         // For now ignore stateUI item
         // TODO: maybe add some sort of prefix for special items
         const filteredItems = (await response.json().then((ele : any) => {
-            return ele.filter((item : any) => item.name != "stateUI");
+            return ele.filter((item : any) => item.name !== "stateUI");
         }));
 
         let storedItemsReducer = (await ApiService.GetStoredState()).itemsReducer;

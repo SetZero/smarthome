@@ -30,7 +30,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     ];
 
     const getCurrentRoom = () => {
-        return rooms.find(e => e.name == roomName);
+        return rooms.find(e => e.name === roomName);
     }
 
     const initialRoomProps = () => {
@@ -43,8 +43,8 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     }
 
     const updateCurrentRoomProps = () => {
-        const currentRoom = rooms.find(e => e.name == state.name);
-        if (currentRoom == undefined) {
+        const currentRoom = rooms.find(e => e.name === state.name);
+        if (currentRoom === undefined) {
             // Update wasn't succesfull
             return;
         }
@@ -222,7 +222,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         : ""
                                     }
 
-                                    { e.type == "Dimmer" ? (() => {
+                                    { e.type === "Dimmer" ? (() => {
                                         const min = e.min as number !== undefined ? e.min as number : DimmerDefaults.min as number;
                                         const max = e.max as number !== undefined ? e.max as number : DimmerDefaults.max as number;
                                         return (

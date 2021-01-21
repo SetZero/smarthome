@@ -66,7 +66,7 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
             </MenuItem>
             {items.map((e, i) => {
               return (
-                <MenuItem value={i}>{e.name}</MenuItem>
+                <MenuItem key={i} value={i}>{e.name}</MenuItem>
               );
             })}
           </Select>
@@ -76,9 +76,9 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={(e) => {
             const item = items[choosenItem];
-            if (parentType == ParentType.ROOM) {
+            if (parentType === ParentType.ROOM) {
               dispatch(addItemToRoom({ link: item.link }, parentName));
-            } else if (parentType == ParentType.SCENE) {
+            } else if (parentType === ParentType.SCENE) {
               // TODO: use real scene
               dispatch(addActionToScene({ name: parentName, url: "", actions : [] }, { item: item }));
             }

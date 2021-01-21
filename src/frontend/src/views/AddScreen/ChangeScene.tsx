@@ -38,14 +38,14 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   }
 
   const onActionChange = (action : ItemAction) => {
-    const currentScene = scenes.find(e => e.name == sceneState.name);
+    const currentScene = scenes.find(e => e.name === sceneState.name);
     if (currentScene != undefined)
       dispatch(updateAction(currentScene, action));
   }
 
   const onActionDelete = (action : ItemAction) => {
-    const currentScene = scenes.find(e => e.name == sceneState.name);
-    if (currentScene != undefined)
+    const currentScene = scenes.find(e => e.name === sceneState.name);
+    if (currentScene !== undefined)
       dispatch(removeActionFromScene(currentScene, action));
   }
 
@@ -111,7 +111,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
             <Typography variant="h4"> Aktionen </Typography>
           </Grid>
         </Grid>
-        {scenes.find(s => s.name == sceneState.name)?.actions.filter(e => e.item != undefined && (e.item.type == 'Switch' || e.item.type == 'Dimmer')).map(e => {
+        {scenes.find(s => s.name === sceneState.name)?.actions.filter(e => e.item !== undefined && (e.item.type === 'Switch' || e.item.type === 'Dimmer')).map(e => {
           return (
               <Grid className="Left" container alignItems="center" justify="flex-start" spacing={2} key={e.item.link}>
                 <Grid item xs={1}>
@@ -127,7 +127,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                     {e.item.name}
                   </Typography>
                 </Grid>
-                {e.item.type == 'Switch' ?
+                {e.item.type === 'Switch' ?
                   <Grid item sm={2} xs={2}>
                     <Switch
                       name="unused"
@@ -142,7 +142,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                   </Grid>
                   : ""
                 }
-              { e.item.type == "Dimmer" ? (() => {
+              { e.item.type === "Dimmer" ? (() => {
                 const range = GetValueRangeOfItem(e.item.name);
                 return (
                   <Grid item xs={7}>

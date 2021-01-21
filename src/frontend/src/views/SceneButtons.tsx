@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -9,8 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { removeScene } from '../reducer/actions/SceneActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@material-ui/core';
 import { StateType } from '../reducer/rootReducer';
+import { ApiService } from '../Utils/ApiService';
+import { ItemState } from '../reducer/states/ItemState';
 
 
 const options = [
@@ -112,16 +113,16 @@ interface ButtonBasesProps {
   setShowChangeSceneFunction: (selectedScene: SceneState) => void
 }
 
-export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: ButtonBasesProps) {
+export default function ButtonBases({ sceneState, setShowChangeSceneFunction }: ButtonBasesProps) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const classesButton = useStylesButton();
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
- 
 
-  
+
+
 
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -132,13 +133,28 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
     setAnchorEl(null);
   };
 
-  function handleClickOnOption (option:string) {
-    if(option == 'Löschen')
+  const handleAction = (event: React.MouseEvent<HTMLElement>) => {
+    scenes.forEach(e => {
+      e.actions.forEach(action => {
+        let item = action.item;
+        switch (item.type) {
+          case "Dimmer":
+            ApiService.ChangeDimmer((item.state as number), item.link);
+            break;
+          case "Switch":
+            ApiService.switchStateChange((item.state as ItemState), item.link);
+            break;
+        }
+      })
+    })
+  }
+
+  function handleClickOnOption(option: string) {
+    if (option === 'Löschen')
       dispatch(removeScene(sceneState));
-    if(option == 'Bearbeiten')
-      {
-        setShowChangeSceneFunction(sceneState);
-      }
+    if (option === 'Bearbeiten') {
+      setShowChangeSceneFunction(sceneState);
+    }
     handleClose();
   };
 
@@ -154,6 +170,7 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
         style={{
           width: '70%',
         }}
+        onClick={handleAction}
       >
         <span
           className={classes.imageSrc}
@@ -174,38 +191,38 @@ export default function ButtonBases({ sceneState,setShowChangeSceneFunction }: B
           </Typography>
         </span>
 
-      
 
-      <div className="Right" >
-        <IconButton
-          color="primary"
-          aria-label="more"
-          aria-controls="long-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          id="long-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: '20ch',
-            },
-          }}
-        >
-          {options.map((option) => (
-            <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => handleClickOnOption(option)}>
-              {option}
-            </MenuItem>
-          ))}
-        </Menu>
-      </div>
+
+        <div className="Right" >
+          <IconButton
+            color="primary"
+            aria-label="more"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              style: {
+                maxHeight: ITEM_HEIGHT * 4.5,
+                width: '20ch',
+              },
+            }}
+          >
+            {options.map((option) => (
+              <MenuItem key={option} selected={option === 'Pyxis'} onClick={() => handleClickOnOption(option)}>
+                {option}
+              </MenuItem>
+            ))}
+          </Menu>
+        </div>
 
       </ButtonBase>
     </div>

@@ -48,8 +48,8 @@ export let roomsReducer = async () => {
                     case "UPDATE_ROOM": {
                         let newRooms = Array.from(state.rooms);
                         let selectedRoomIndex = newRooms.findIndex(e => e.name === action.payload.name);
-                        if (selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined
-                            && action.room2 != undefined) {
+                        if (selectedRoomIndex !== undefined && newRooms[selectedRoomIndex].sensors !== undefined
+                            && action.room2 !== undefined) {
                             newRooms[selectedRoomIndex].name = action.room2.name;
                             newRooms[selectedRoomIndex].url = action.room2.url;
                         }
@@ -65,8 +65,8 @@ export let roomsReducer = async () => {
                         let ref = action.payload.ref.link;
                         let newRooms = Array.from(state.rooms);
                         let selectedRoomIndex = newRooms.findIndex(e => e.name === action.payload.roomName);
-                        if (selectedRoomIndex != undefined && newRooms[selectedRoomIndex].sensors != undefined) {
-                            newRooms[selectedRoomIndex].sensors = newRooms[selectedRoomIndex]?.sensors?.filter(e => e.link != ref);
+                        if (selectedRoomIndex !== undefined && newRooms[selectedRoomIndex].sensors !== undefined) {
+                            newRooms[selectedRoomIndex].sensors = newRooms[selectedRoomIndex]?.sensors?.filter(e => e.link !== ref);
                         }
                         return { ...state, rooms: newRooms };
                     }
