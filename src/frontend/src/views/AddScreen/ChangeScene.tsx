@@ -19,6 +19,7 @@ interface ChangeSceneProps {
 
 export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: ChangeSceneProps) {
   const scenes = useSelector<StateType, StateType["scenesReducer"]["scenes"]>((state) => state?.scenesReducer?.scenes ?? []);
+  const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const dispatch = useDispatch();
   const [name, setName] = React.useState<string>(sceneState.name);
   const [url, setUrl] = React.useState<string>(sceneState.url);
@@ -51,6 +52,27 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
   const handleGoBack = (event: React.MouseEvent<HTMLElement>) => {
     setShowChangeSceneFunction({ name: "", url: "", actions : [] });
   }
+
+  const GetCurrentItem = (itemName : string) => {
+    return items.find(e => e.name === itemName);
+  }
+
+  const GetValueRangeOfItem = (itemName : string) => {
+        let currentItem = GetCurrentItem(itemName);
+        let min = 0;
+        let max = 0;
+
+        if (currentItem !== undefined) {
+            if (currentItem.min !== undefined) {
+                min = currentItem.min;
+            }
+            if (currentItem.max !== undefined) {
+                max = currentItem.max;
+            }
+        }
+
+        return [min, max];
+    }
 
   return (
     <div>
@@ -91,7 +113,6 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
         </Grid>
         {scenes.find(s => s.name == sceneState.name)?.actions.filter(e => e.item != undefined && (e.item.type == 'Switch' || e.item.type == 'Dimmer')).map(e => {
           return (
-            <div>
               <Grid className="Left" container alignItems="center" justify="flex-start" spacing={2} key={e.item.link}>
                 <Grid item xs={1}>
                   <IconButton aria-label="delete" onClick={() => {
@@ -121,13 +142,16 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                   </Grid>
                   : ""
                 }
-                {e.item.type == 'Dimmer' ?
+              { e.item.type == "Dimmer" ? (() => {
+                const range = GetValueRangeOfItem(e.item.name);
+                return (
                   <Grid item xs={7}>
                     <Grid container spacing={2}>
                       <Grid item xs={10}>
-                        <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
+                        <Slider defaultValue={e.item.state as number}
+                          aria-labelledby="discrete-slider"
+                          min={range[0]} max={range[1]}
                           onChange={(ev, val) => {
-                            // TODO: what is this datatype ??
                             e.item.state = parseInt(val + "");
                             onActionChange(e);
                           }} />
@@ -138,11 +162,11 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
                         </Typography>
                       </Grid>
                     </Grid>
-                  </Grid>
-                  : ""
-                }
+                  </Grid>)
+              })()
+                : ""
+              }
               </Grid>
-            </div>
           )
         })}
 

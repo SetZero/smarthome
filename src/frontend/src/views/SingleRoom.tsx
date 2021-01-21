@@ -22,17 +22,20 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
 
-    const [isChangeRoom, setIsChangeRoom] = useState(false);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [state, setRoomProps] = React.useState<RoomState>({ name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] });
-    const [oldState, setCurrentRoomProps] = React.useState<RoomState>({ name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] });
-    const open = Boolean(anchorEl);
-
     const options = [
         'Raum bearbeiten'
     ];
 
-const updateCurrentRoomProps = () => {
+    const initialRoomProps = () => {
+        const currentRoom = rooms.find(e => e.name == roomName);
+        if (currentRoom === undefined) {
+            return { name : roomName, url : "", cardSize : RoomCardSize.SMALL, sensors : []};
+        }
+
+        return currentRoom;
+    }
+
+    const updateCurrentRoomProps = () => {
         const currentRoom = rooms.find(e => e.name == state.name);
         if (currentRoom == undefined) {
             // Update wasn't succesfull
@@ -77,6 +80,12 @@ const updateCurrentRoomProps = () => {
         handleClose();
     };
 
+    const [isChangeRoom, setIsChangeRoom] = useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [state, setRoomProps] = React.useState<RoomState>(initialRoomProps());
+    const [oldState, setCurrentRoomProps] = React.useState<RoomState>(initialRoomProps());
+    const open = Boolean(anchorEl);
+
     return (
         <div>
             <Grid container spacing={4}>
@@ -117,12 +126,12 @@ const updateCurrentRoomProps = () => {
                         <Grid container>
                             <Grid container spacing={2}>
                                 <Grid item xs={8}>
-                                    <TextField id="standard-basic" label="Name" onChange={(e) => { handleChangeText(e) }} />
+                                    <TextField id="standard-basic" label="Name" defaultValue={oldState.name} onChange={handleChangeText} />
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} alignItems="flex-end">
                                 <Grid item xs={8}>
-                                    <TextField id="url" label="Bild Url" onChange={(e) => { handleChangeTexturl(e); }} />
+                                    <TextField id="url" label="Bild Url" defaultValue={oldState.url} onChange={handleChangeTexturl} />
                                 </Grid>
                                 <Grid item xs={2}>
                                     <Button variant="contained" color="primary" onClick={(e) => {
@@ -194,7 +203,6 @@ const updateCurrentRoomProps = () => {
                                                 <Grid item xs={10}>
                                                     <Slider defaultValue={e.state as number} 
                                                     aria-labelledby="discrete-slider" 
-                                                    step={2} marks
                                                     min={min} max={max}
                                                     onChange={(ev, val) => {
                                                         e.state = parseInt(val + "");
