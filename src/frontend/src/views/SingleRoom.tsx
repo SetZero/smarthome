@@ -32,7 +32,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
         'Raum bearbeiten'
     ];
 
-    const updateCurrentRoomProps = () => {
+const updateCurrentRoomProps = () => {
         const currentRoom = rooms.find(e => e.name == state.name);
         if (currentRoom == undefined) {
             // Update wasn't succesfull
@@ -145,7 +145,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                 </Grid>
                 {
                     items.filter(currentSensor => {
-                        const thisRoom = rooms.find(r => r.name === roomName);
+                        const thisRoom = rooms.find(r => r.name === oldState.name);
                         console.log("This room : " + JSON.stringify(thisRoom));
 
                         return thisRoom?.sensors?.find(cs => cs.link === currentSensor.link) != undefined
@@ -158,7 +158,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         <Grid item xs={1}>
                                             <IconButton aria-label="delete"
                                                 onClick={() => {
-                                                    dispatch(removeItemFromRoom({ link: e.link }, roomName));
+                                                    dispatch(removeItemFromRoom({ link: e.link }, oldState.name));
                                                 }}>
                                                 <DeleteIcon />
                                             </IconButton >
@@ -220,7 +220,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                     }
                 </Grid>
             </Grid>
-            <AddButton type={ElementType.ITEM} parentName={roomName} parentType={ParentType.ROOM} />
+            <AddButton type={ElementType.ITEM} parentName={oldState.name} parentType={ParentType.ROOM} />
         </div>
     );
 }

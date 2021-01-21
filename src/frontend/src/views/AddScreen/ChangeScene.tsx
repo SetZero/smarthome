@@ -68,7 +68,7 @@ export default function ChangeScene({ sceneState, setShowChangeSceneFunction }: 
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={8}>
-              <TextField id="standard-basic" label="Name" value={name} defaultValue={sceneState.name} onChange={handleChangeText} />
+              <TextField id="standard-basic" label="Name" value={name} onChange={handleChangeText} />
           </Grid>
         </Grid>
         <Grid container spacing={2} alignItems="flex-end">
