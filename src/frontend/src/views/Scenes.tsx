@@ -23,7 +23,7 @@ export const Scenes: React.FC<SceneProps> = () => {
                             Szenen
                     </Typography>
                     {scenes.map((element, i) => {
-                        return (<SceneButtons sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
+                        return (<SceneButtons key={i} sceneState={element} setShowChangeSceneFunction = {setShowChangeScene}/>)
                     })}
                     <AddButton type={ElementType.SCENE} parentName={"test2"} parentType={ParentType.NOPARENT}/>
                    </div>

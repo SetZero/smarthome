@@ -215,7 +215,7 @@ export default function Settings() {
                                             <Button variant="contained" color="secondary"> Zurücksetzen </Button>
                                         </Grid>
                                         <Grid item xs={6} onClick={UpdateSelectedItem}>
-                                            <Button variant="contained" color="secondary"> Übernehmen </Button>
+                                            <Button variant="contained" color="primary"> Übernehmen </Button>
                                         </Grid>
                                         <Grid item xs={3} />
                                     </Grid>
