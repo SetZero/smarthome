@@ -94,7 +94,8 @@ export let itemReducer = async () => {
                             newItems[foundItem].max = newItem.max;
                             newItems[foundItem].min = newItem.min;
                             newItems[foundItem].ignoreRoomSwitch = newItem.ignoreRoomSwitch;
-                            newItems[foundItem].min = newItem.min;
+                            newItems[foundItem].offState = newItem.offState;
+                            newItems[foundItem].onState = newItem.onState;
                         }
 
                         return { ...state, items: [ ...newItems ]};

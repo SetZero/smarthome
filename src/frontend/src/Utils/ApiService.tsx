@@ -1,10 +1,15 @@
-import { Store } from "redux";
-import { ItemState } from "../reducer/states/ItemState";
+import { request } from "http";
+import { Action, Store } from "redux";
+import { Url } from "url";
+import { ItemAction } from "../reducer/actions/ItemActions";
+import { DimmerDefaults, ItemState, SwitchDefaults } from "../reducer/states/ItemState";
 
 export class ApiService {
 
-    static itemURL: string = "http://localhost:8080/rest/items/";
-    static persistenceURL: string = "http://localhost:8080/rest/persistence/items/";
+    static eventURL: string = "//" + window.location.hostname + ":8080/rest/events";
+    static apiURL: string = window.location.protocol + "//" + window.location.hostname + ":8080";
+    static itemURL: string = ApiService.apiURL + "/rest/items/";
+    static persistenceURL: string = ApiService.apiURL + "/rest/persistence/items/";
 
     static async StoreState(state: string) {
         return await fetch(this.itemURL + "stateUI/state", {
@@ -19,6 +24,7 @@ export class ApiService {
     }
 
     static async GetStoredState() {
+        console.log(ApiService.itemURL);
         const response = await fetch(this.persistenceURL + "stateUI", {
             method: 'GET',
             headers: {
@@ -105,7 +111,7 @@ export class ApiService {
 
     //Funktioniert noch nicht. response liegt als Promise<response> vor soll aber json sein
     static async GetAllItems() {
-        const response = await fetch("http://localhost:8080/rest/items?recursive=false", {
+        const response = await fetch(ApiService.itemURL + "?recursive=false", {
             method: 'GET',
             headers: { 'Accept': 'application/json' },
 
@@ -129,19 +135,22 @@ export class ApiService {
                 return e;
             } 
 
-            const min = foundItemEq.min === undefined ? 0 : foundItemEq.min;
-            const max = foundItemEq.max === undefined ? 0 : foundItemEq.max;
+            const DefaultValues = e.type === "Dimmer" ? DimmerDefaults : SwitchDefaults;
 
-            console.log("Max/min" + e.min + " " + e.max);
+            const min = foundItemEq.min === undefined ? DefaultValues.min : foundItemEq.min;
+            const max = foundItemEq.max === undefined ? DefaultValues.max : foundItemEq.max;
+            const ignoreRoomSwitch = foundItemEq.ignoreRoomSwitch === undefined ? DefaultValues.ignoreRoomSwitch : foundItemEq.ignoreRoomSwitch;
+            const onState = foundItemEq.onState === undefined ? DefaultValues.onState : foundItemEq.onState;
+            const offState = foundItemEq.offState === undefined ? DefaultValues.offState : foundItemEq.offState;
 
-            return { ...e, min : min, max : max };
+            return { ... e, min : min, max : max, ignoreRoomSwitch : ignoreRoomSwitch, onState : onState, offState : offState };
         });
 
         return { items: correctlySetItems };
     }
 
     static async listenForItemChange(store: Store<any, any>, listenForEvents: (store: Store<any>, event: MessageEvent<string>) => void) {
-        var connection = new EventSource('//localhost:8080/rest/events/');
+        var connection = new EventSource(ApiService.eventURL);
 
         // Log errors
         connection.onerror = function (error) {
