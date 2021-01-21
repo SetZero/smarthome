@@ -7,10 +7,15 @@ import RoomServiceIcon from '@material-ui/icons/RoomService';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 
-enum CurrentView {
+export class StateHelper {
+    public dispatcher?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export enum CurrentView {
     Room,
     Scene,
-    Settings
+    Settings,
+    Other
 }
 
 interface MainViewProps { }
@@ -19,6 +24,9 @@ interface MainViewState {
 }
 
 export class MainView extends React.Component<MainViewProps, MainViewState> {
+    private roomRef = React.createRef<HTMLDivElement>()
+    private stateHelper = new StateHelper();
+
     constructor(props: MainViewProps) {
         super(props);
         this.state = { currentView: CurrentView.Room };
@@ -26,12 +34,17 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
 
     private handleChange(change: React.ChangeEvent<{}>, value: CurrentView.Room) {
         this.setState({ currentView: value });
+        if(this.stateHelper.dispatcher !== undefined) {
+            this.stateHelper.dispatcher(false);
+        }
     }
+
     render() {
         let showComponent = null;
         switch (this.state.currentView) {
             case CurrentView.Room:
-                showComponent = <Rooms isNew='true'/>;
+            case CurrentView.Other:
+                showComponent = <Rooms stateTransfer={this.stateHelper} />;
                 break;
             case CurrentView.Scene:
                 showComponent = <Scenes />;
