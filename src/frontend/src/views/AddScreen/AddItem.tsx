@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { useDispatch, useSelector } from "react-redux"
 import { StateType } from '../../reducer/rootReducer';
 import { FormControl } from '@material-ui/core';
@@ -41,43 +42,37 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
   };
 
   return (
-      <Grid spacing={2}>
-        <Grid container spacing={2}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4">
             Gerät Hinzufügen
           </Typography>
         </Grid>
-        </Grid>
 
-        <FormControl>
-          <Grid container spacing={2}>
-            <Grid alignItems="stretch" item xs={12}>
-              <InputLabel id="art-select-label">Gerät</InputLabel>
-              <Select
-                labelId="art-select-label"
-                id="art-select"
-                open={openList}
-                onClose={handleCloseList}
-                onOpen={handleOpenList}
-                value={list}
-                onChange={handleChangeList}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {items.map((e, i) => {
-                  return (
-                    <MenuItem value={i}>{e.name}</MenuItem>
-                  );
-                })}
-              </Select>
-            </Grid>
-          </Grid>
+      <Grid item xs={12}>
+        <FormControl fullWidth={true}>
+          <InputLabel id="art-select-label">Gerät</InputLabel>
+          <Select
+            labelId="art-select-label"
+            id="art-select"
+            open={openList}
+            onClose={handleCloseList}
+            onOpen={handleOpenList}
+            value={list}
+            onChange={handleChangeList}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {items.map((e, i) => {
+              return (
+                <MenuItem value={i}>{e.name}</MenuItem>
+              );
+            })}
+          </Select>
         </FormControl>
+      </Grid>
 
-
-      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={(e) => {
             const item = items[choosenItem];
@@ -92,8 +87,6 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
             Hinzufügen
             </Button>
         </Grid>
-
       </Grid>
-    </Grid>
   );
 }

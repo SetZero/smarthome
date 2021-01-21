@@ -190,7 +190,7 @@ const updateCurrentRoomProps = () => {
                                         <Grid item xs={7}>
                                             <Grid container spacing={2}>
                                                 <Grid item xs={10}>
-                                                    <Slider defaultValue={20} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
+                                                    <Slider defaultValue={e.state as number} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
                                                         onChange={(ev, val) => {
                                                             e.state = parseInt(val + "");
                                                             dispatch(itemStateChange(e));
