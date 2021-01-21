@@ -11,6 +11,7 @@ import { AddButton, ElementType, ParentType } from "./AddScreen/AddButton";
 import { removeItemFromRoom } from "../reducer/actions/RoomActions";
 import { RoomCardSize, RoomState } from "../reducer/states/RoomStates";
 import { updateRoom, removeRoom } from "../reducer/actions/RoomActions"
+import { DeleteDialog } from "./DeleteDialog";
 
 interface SingleRoomProps {
     roomName: string,
@@ -21,6 +22,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
+    let [openRemoveDialog, setOpenRemoveDialog] = useState(false);
 
     const options = [
         'Raum bearbeiten',
@@ -34,7 +36,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     const initialRoomProps = () => {
         const currentRoom = getCurrentRoom();
         if (currentRoom === undefined) {
-            return { name : roomName, url : "", cardSize : RoomCardSize.SMALL, sensors : []};
+            return { name: roomName, url: "", cardSize: RoomCardSize.SMALL, sensors: [] };
         }
 
         return currentRoom;
@@ -83,15 +85,27 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
     const handleClickOnOption = (option: string) => {
         if (option === 'Raum bearbeiten') {
             setIsChangeRoom(true);
+            handleClose();
         } else if (option === 'Raum löschen') {
-            handleGoBack();
             const currentRoom = getCurrentRoom();
             if (currentRoom !== undefined) {
-                dispatch(removeRoom(currentRoom));
+                //dispatch(removeRoom(currentRoom));
+                setOpenRemoveDialog(true);
             }
         }
-        handleClose();
     };
+
+    const additionalConfirmAction = () => {
+        handleGoBack();
+    }
+
+    const createRoomRemoveAction = () => {
+        const currentRoom = getCurrentRoom();
+        if (currentRoom !== undefined) {
+            return removeRoom(currentRoom);
+        }
+        return undefined;
+    }
 
     const [isChangeRoom, setIsChangeRoom] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -101,6 +115,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
 
     return (
         <div>
+            <DeleteDialog open={openRemoveDialog} setOpen={setOpenRemoveDialog} action={createRoomRemoveAction()} additionalAction={additionalConfirmAction}/>
             <Grid container spacing={4}>
                 <Grid item xs={2} >
                     <IconButton onClick={handleGoBack}>
@@ -169,8 +184,8 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                     items.filter(currentSensor => {
                         const thisRoom = rooms.find(r => r.name === oldState.name);
 
-                        return thisRoom?.sensors?.find(cs => cs.link === currentSensor.link) != undefined
-                            && (currentSensor.type == 'Switch' || currentSensor.type == 'Dimmer')
+                        return thisRoom?.sensors?.find(cs => cs.link === currentSensor.link) !== undefined
+                            && (currentSensor.type === 'Switch' || currentSensor.type === 'Dimmer')
                     })
                         ?.map(e => {
                             return (
@@ -179,7 +194,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         <Grid item xs={1}>
                                             <IconButton aria-label="delete"
                                                 onClick={() => {
-                                                    dispatch(removeItemFromRoom({ link: e.link }, oldState.name));
+                                                    dispatch(removeItemFromRoom({ link: e.link }, oldState.name))
                                                 }}>
                                                 <DeleteIcon />
                                             </IconButton >
@@ -192,13 +207,13 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                             {e.name}
                                         </Typography>
                                     </Grid>
-                                    { e.type == "Switch" ?
+                                    { e.type === "Switch" ?
                                         <Grid alignItems="flex-end" item xs={7}>
                                             <Switch
                                                 name="unused"
                                                 inputProps={{ 'aria-label': 'secondary-checkbox' }}
                                                 onChange={(event, state) => {
-                                                    e.state = e.state == ItemState.OFF ? ItemState.ON : ItemState.OFF;
+                                                    e.state = e.state === ItemState.OFF ? ItemState.ON : ItemState.OFF;
                                                     dispatch(itemStateChange(e))
                                                 }}
                                                 checked={e.state === ItemState.ON ?? false}
@@ -211,24 +226,25 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         const min = e.min as number !== undefined ? e.min as number : DimmerDefaults.min as number;
                                         const max = e.max as number !== undefined ? e.max as number : DimmerDefaults.max as number;
                                         return (
-                                        <Grid item xs={7}>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={10}>
-                                                    <Slider defaultValue={e.state as number} 
-                                                    aria-labelledby="discrete-slider" 
-                                                    min={min} max={max}
-                                                    onChange={(ev, val) => {
-                                                        e.state = parseInt(val + "");
-                                                        dispatch(itemStateChange(e));
-                                                    }} />
+                                            <Grid item xs={7}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={10}>
+                                                        <Slider defaultValue={e.state as number}
+                                                            aria-labelledby="discrete-slider"
+                                                            min={min} max={max}
+                                                            onChange={(ev, val) => {
+                                                                e.state = parseInt(val + "");
+                                                                dispatch(itemStateChange(e));
+                                                            }} />
+                                                    </Grid>
+                                                    <Grid item xs={2}>
+                                                        <Typography>
+                                                            {e.state}
+                                                        </Typography>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={2}>
-                                                    <Typography>
-                                                        {e.state}
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>)})()
+                                            </Grid>)
+                                    })()
                                         : ""
                                     }
 
