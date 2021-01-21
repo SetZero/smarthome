@@ -1,7 +1,7 @@
 import { Store } from "redux";
-import { Item, ItemState } from "../states/ItemState";
+import { HabItem, Item, ItemState } from "../states/ItemState";
 
-export type ItemAction = { type: "ADD_ITEM" | "STATE_CHANGE" | "STATE_CHANGE_WITHOUT_REST", payload: Item };
+export type ItemAction = { type: "ADD_ITEM" | "STATE_CHANGE" | "STATE_CHANGE_WITHOUT_REST" | "UPDATE_INFO", payload: Item | HabItem};
 
 export const addItem = (item: Item): ItemAction => ({
     type: "ADD_ITEM",
@@ -13,7 +13,12 @@ export const itemStateChange = (item: Item): ItemAction => ({
     payload: item
 });
 
-const _itemStateChangeWithoutRest = (item: Item): ItemAction => ({
+export const itemUpdateInfo = (item : Item) : ItemAction => ({
+    type : "UPDATE_INFO",
+    payload: item
+})
+
+const _itemStateChangeWithoutRest = (item: HabItem): ItemAction => ({
     type: "STATE_CHANGE_WITHOUT_REST",
     payload: item
 });
@@ -39,20 +44,22 @@ export let itemUpdater = (store: Store<any>, event: MessageEvent<string>) => {
     // otherwise this will lead to a recursion without any breaks!
     // Don't touch if you don't want to use up all your ram
     if (item.includes("stateUI")) {
-        // console.log("stateUI was updated returning");
         return;
     }
 
     switch (type) {
         case "state":
             let payload: HabMqttPayload = JSON.parse(message.payload);
-            store.dispatch(_itemStateChangeWithoutRest({
+            let updatedItem : HabItem = {
                 link: item,
                 label: item,
                 state: payload.value, 
                 type: item,
                 name: item
-            }));
+            };
+
+            store.dispatch(_itemStateChangeWithoutRest(updatedItem));
+
             break;
         default:
             // console.log("Unknown MQTT message: " + type);

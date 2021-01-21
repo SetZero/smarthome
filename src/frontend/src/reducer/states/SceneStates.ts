@@ -25,7 +25,7 @@ export interface ScenesState {
 export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllScenes().then((readState: ScenesState) => {
-            console.log("Current scenes state : " + JSON.stringify(readState));
+            // console.log("Current scenes state : " + JSON.stringify(readState));
             const reducer = (state: ScenesState = readState, action: Action) => {
                 switch(action.type) {
                     case "ADD_SCENE": {

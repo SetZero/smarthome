@@ -9,23 +9,6 @@ export class ApiService {
     static itemURL: string = "http://localhost:8080/rest/items/";
     static persistenceURL: string = "http://localhost:8080/rest/persistence/items/";
 
-    static async ChangeSwitch(onOff: boolean, name: string) {
-        var message;
-        if (onOff)
-            message = "ON";
-        else
-            message = "OFF";
-
-        const response = await fetch(this.itemURL + name, {
-            method: 'POST',
-            body: message,
-            headers: {
-                'Content-Type': 'text/plain',
-                'Accept': 'application/json'
-            }
-        });
-    }
-
     static async StoreState(state: string) {
         const response = await fetch(this.itemURL + "stateUI/state", {
             method: 'PUT',
@@ -133,23 +116,31 @@ export class ApiService {
         // For now ignore stateUI item
         // TODO: maybe add some sort of prefix for special items
         const filteredItems = (await response.json().then((ele : any) => {
-            return  { items : ele.filter((item : any) => item.name != "stateUI")};
+            return ele.filter((item : any) => item.name != "stateUI");
         }));
-        return filteredItems;
-    }
 
-    static async GetSwitchState(name: string) {
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+        let storedItemsReducer = (await ApiService.GetStoredState()).itemsReducer;
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                console.log(this.responseText);
-            }
+        if (storedItemsReducer === undefined || storedItemsReducer.items === undefined) {
+            return { items : filteredItems };
+        }
+
+        const correctlySetItems = filteredItems.map((e : any) => {
+            const foundItemEq = storedItemsReducer.items.find((otherItem : any) => otherItem.name === e.name);
+
+            if (foundItemEq === undefined) {
+                return e;
+            } 
+
+            const min = foundItemEq.min === undefined ? 0 : foundItemEq.min;
+            const max = foundItemEq.max === undefined ? 0 : foundItemEq.max;
+
+            console.log("Max/min" + e.min + " " + e.max);
+
+            return { ... e, min : min, max : max };
         });
 
-        xhr.open("GET", "https://localhost:8443/rest/items/DeckenlampeSZ");
-        xhr.send();
+        return { items: correctlySetItems };
     }
 
     static async listenForItemChange(store: Store<any, any>, listenForEvents: (store: Store<any>, event: MessageEvent<string>) => void) {

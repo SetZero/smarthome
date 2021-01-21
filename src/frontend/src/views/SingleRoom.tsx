@@ -146,7 +146,6 @@ const updateCurrentRoomProps = () => {
                 {
                     items.filter(currentSensor => {
                         const thisRoom = rooms.find(r => r.name === oldState.name);
-                        console.log("This room : " + JSON.stringify(thisRoom));
 
                         return thisRoom?.sensors?.find(cs => cs.link === currentSensor.link) != undefined
                             && (currentSensor.type == 'Switch' || currentSensor.type == 'Dimmer')
@@ -186,15 +185,21 @@ const updateCurrentRoomProps = () => {
                                         : ""
                                     }
 
-                                    { e.type == "Dimmer" ?
+                                    { e.type == "Dimmer" ? (() => {
+                                        const min = e.min !== undefined ? e.min : 0;
+                                        const max = e.max !== undefined ? e.max : 100;
+                                        return (
                                         <Grid item xs={7}>
                                             <Grid container spacing={2}>
                                                 <Grid item xs={10}>
-                                                    <Slider defaultValue={e.state as number} aria-labelledby="discrete-slider" step={2} marks min={0} max={35}
-                                                        onChange={(ev, val) => {
-                                                            e.state = parseInt(val + "");
-                                                            dispatch(itemStateChange(e));
-                                                        }} />
+                                                    <Slider defaultValue={e.state as number} 
+                                                    aria-labelledby="discrete-slider" 
+                                                    step={2} marks
+                                                    min={min} max={max}
+                                                    onChange={(ev, val) => {
+                                                        e.state = parseInt(val + "");
+                                                        dispatch(itemStateChange(e));
+                                                    }} />
                                                 </Grid>
                                                 <Grid item xs={2}>
                                                     <Typography>
@@ -202,7 +207,7 @@ const updateCurrentRoomProps = () => {
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid>)})()
                                         : ""
                                     }
 

@@ -8,7 +8,6 @@ var store : any = null;
 export const updateStoredState = () => {
     try {
       ApiService.StoreState(JSON.stringify(store.getState()));
-      console.log("Current state" + JSON.stringify(store.getState()));
     } catch {
     } 
 }

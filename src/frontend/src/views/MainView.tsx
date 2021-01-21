@@ -1,13 +1,16 @@
 import Rooms from './Rooms';
+import Settings from './Settings'
 import { Scenes } from './Scenes';
 import { AppBar, BottomNavigation, BottomNavigationAction, Container } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
+import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 
 enum CurrentView {
     Room,
     Scene,
+    Settings
 }
 
 interface MainViewProps { }
@@ -33,6 +36,9 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
             case CurrentView.Scene:
                 showComponent = <Scenes />;
                 break;
+            case CurrentView.Settings:
+                showComponent = <Settings />
+                break;
             default:
                 showComponent = <div />;
         }
@@ -49,6 +55,7 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
                 >
                     <BottomNavigationAction label="Räume" icon={<HomeIcon />} value={CurrentView.Room} />
                     <BottomNavigationAction label="Szenen" icon={<RoomServiceIcon />} value={CurrentView.Scene} />
+                    <BottomNavigationAction label="Einstellungen" icon={<SettingsIcon />} value={CurrentView.Settings} />
                 </BottomNavigation>
             </AppBar>
         </div>)
