@@ -9,6 +9,8 @@ import Slider from '@material-ui/core/Slider'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default function Settings() {
     const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
@@ -18,7 +20,7 @@ export default function Settings() {
         return items.map(e => e.name);
     };
 
-    const HandleRangeChange = (event : any, newValue : number | number []) => {
+    const HandleRangeChange = (event: any, newValue: number | number[]) => {
         setItemRange(newValue as number[]);
     }
 
@@ -43,7 +45,7 @@ export default function Settings() {
         return [min, max];
     }
 
-    const SelectedItem = (event: any, value : any) => {
+    const SelectedItem = (event: any, value: any) => {
         setCurrentItem(value as string);
         const currentItemInstance = GetCurrentItem(value as string);
 
@@ -82,60 +84,75 @@ export default function Settings() {
     const [CurrentItem, setCurrentItem] = React.useState<string>("");
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
+        <Box p={2}>
+            <Box pb={8}>
                 <Typography variant="h2">
                     Einstellungen
                 </Typography>
-            </Grid>
-            <Grid item xs={12}>
-            <Typography variant="h4">
-                Allgemein
-            </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant="h4">
-                    Geräteeinstellungen
+            </Box>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>Allgemein</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Keine Optionen vorhanden!
                 </Typography>
-            </Grid>
-            <Grid item xs={3} />
-            <Grid item xs={6}>
-                <Autocomplete 
-                fullWidth={true}
-                defaultValue = ""
-                options={GetAllItemNames()}
-                renderInput={(params) =>  <TextField {...params} label="Geräte" variant="outlined" /> } 
-                onChange={SelectedItem}/>
-            </Grid>
-            <Grid item xs={3} />
-            {
-                items.filter(e => e.name === CurrentItem).map(e => {
-                    return (
-                        <Grid item xs={12}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={3} />
-                                    { e.type === "Dimmer" ?
-                                    <Grid container item xs={6} spacing={2}>
-                                        <Grid item xs={6} >
-                                            <Typography variant="h6"> Gültigen Bereich wählen</Typography>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Slider valueLabelDisplay="auto" aria-labelledby="range-slider" value={itemRange} onChange={HandleRangeChange}/>
-                                        </Grid>
-                                        <Grid item xs={4} />
-                                        <Grid item xs={4} onClick={UpdateSelectedItemRange}>
-                                            <Button variant="contained" color="secondary"> Übernehmen </Button>
-                                        </Grid>
-                                        <Grid item xs={4} />
+                </AccordionDetails>
+            </Accordion>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                >
+                    <Typography>Geräteeinstellungen</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Container>
+                    <Container>
+                        <Autocomplete
+                            fullWidth={true}
+                            defaultValue=""
+                            options={GetAllItemNames()}
+                            renderInput={(params) => <TextField {...params} label="Geräte" variant="outlined" />}
+                            onChange={SelectedItem} />
+                    </Container>
+                    {
+                        items.filter(e => e.name === CurrentItem).map(e => {
+                            return (
+                                <Box mt={6} mb={2}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={3} />
+                                        {e.type === "Dimmer" ?
+                                            <Grid container item xs={6} spacing={2}>
+                                                <Grid item xs={6} >
+                                                    <Typography variant="h6"> Gültigen Bereich wählen</Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Slider valueLabelDisplay="auto" aria-labelledby="range-slider" value={itemRange} onChange={HandleRangeChange} />
+                                                </Grid>
+                                                <Grid item xs={4} />
+                                                <Grid item xs={4} onClick={UpdateSelectedItemRange}>
+                                                    <Button variant="contained" color="secondary"> Übernehmen </Button>
+                                                </Grid>
+                                                <Grid item xs={4} />
+                                            </Grid>
+                                            : ""
+                                        }
+                                        <Grid item xs={3} />
                                     </Grid>
-                                        : ""
-                                    }
-                                <Grid item xs={3} />
-                            </Grid>
-                        </Grid>
-                    )
-                })
-            }
-        </Grid>
+                                </Box>
+                            )
+                        })
+                    }
+                    </Container>
+                </AccordionDetails>
+            </Accordion>
+        </Box>
     )
 }

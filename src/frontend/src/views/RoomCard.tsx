@@ -104,7 +104,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                     <CardMedia
                         onClick={handleClickOnCard}
                         className={classes.media}
-                        image={info.url}
+                        image={info.url || "/default-image.jpg"}
                         title="Contemplative Reptile"
                     />
                 </CardActionArea>
