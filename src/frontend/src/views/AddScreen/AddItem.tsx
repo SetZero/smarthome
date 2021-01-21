@@ -21,14 +21,10 @@ interface AddItemProps {
 export default function AddItem({parentName, parentType, closeAnchorFunction}:AddItemProps) {
   const [list, setList] = React.useState<string | number>('');
   const [openList, setOpenList] = React.useState(false);
-  const [name, setName] = React.useState<string>("");
   const items = useSelector<StateType, StateType["itemsReducer"]["items"]>((state) => state?.itemsReducer?.items ?? []);
   const [choosenItem, setChoosenItem] = React.useState<number>(0);
 
 
-  const handleChangeText = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setName(event.target.value as string);
-  }
   const dispatch = useDispatch();
 
   const handleChangeList = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -72,7 +68,7 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
                 </MenuItem>
                 {items.map((e, i) => {
                   return (
-                    <MenuItem value={i}>{e.label}</MenuItem>
+                    <MenuItem value={i}>{e.name}</MenuItem>
                   );
                 })}
               </Select>
@@ -84,9 +80,6 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={(e) => {
-            //let item = {label: items[choosenItem].label.toString(), state: ItemState.ON, link: items[choosenItem].link.toString() }
-            //onAddItem(items[choosenItem]);
-            // TODO: Change this from hardcoded:
             const item = items[choosenItem];
             if (parentType == ParentType.ROOM) {
               dispatch(addItemToRoom({ link: item.link }, parentName));
@@ -94,8 +87,6 @@ export default function AddItem({parentName, parentType, closeAnchorFunction}:Ad
               // TODO: use real scene
               dispatch(addActionToScene({ name: parentName, url: "", actions : [] }, { item: item }));
             }
-            setName("");
-            setList(-1);
             closeAnchorFunction(false);
           }}>
             Hinzufügen
