@@ -140,8 +140,6 @@ export class ApiService {
             const onState = foundItemEq.onState === undefined ? DefaultValues.onState : foundItemEq.onState;
             const offState = foundItemEq.offState === undefined ? DefaultValues.offState : foundItemEq.offState;
 
-            console.log("Max/min" + e.min + " " + e.max);
-
             return { ... e, min : min, max : max, ignoreRoomSwitch : ignoreRoomSwitch, onState : onState, offState : offState };
         });
 

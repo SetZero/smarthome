@@ -229,7 +229,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                             <Grid item xs={7}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={10}>
-                                                        <Slider defaultValue={e.state as number}
+                                                        <Slider value={e.state as number}
                                                             aria-labelledby="discrete-slider"
                                                             min={min} max={max}
                                                             onChange={(ev, val) => {

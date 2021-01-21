@@ -36,8 +36,6 @@ export let scenesReducer = async () => {
                     }
                     case "REMOVE_SCENE": {
                         let tempState = JSON.parse(JSON.stringify(state));
-                        console.log("RemoveScene",state)
-                        console.log(action.payload.name)
                         var found = false;
                         for(var i =0; i<tempState.scenes.length;i++){
                             if(tempState.scenes[i].name ==action.payload.name){
@@ -48,13 +46,9 @@ export let scenesReducer = async () => {
                                 tempState.scenes[i-1] = tempState.scenes[i];
                         }
                         tempState.scenes.pop();
-                        console.log("TempStat: ",tempState);
-                        console.log("scenes: ",state.scenes)
                         return { ...state, ...tempState };
                     }
                     case "CHANGE_SCENE": {
-                        console.log("ChangeScene", state)
-                        console.log(action.payload.name)
                         let newScenes = Array.from(state.scenes);
 
                         const resultIndex = newScenes.findIndex(e => e.name == action.payload.name);

@@ -79,8 +79,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
         setAnchorEl(null);
     };
     function handleClickOnOption(option: string) {
-        console.log("OPTION", option);
-        console.log("NAME", info.name);
         switch(option) {
             case 'DELETE':
                 //dispatch(removeRoom(info));

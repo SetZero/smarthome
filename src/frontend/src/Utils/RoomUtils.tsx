@@ -66,8 +66,6 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
                 allOff = false;
             }
 
-            console.log("Offstate : " + JSON.stringify(actionToExecute) + " CurrentState " + JSON.stringify(currentItem.state))
-
             allOff = allOff && (actionToExecute.toString() === currentItem.state.toString());
         });
 
@@ -77,6 +75,6 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
     return (
         <Switch inputProps={{ 'aria-label': 'primary checkbox' }} 
         onChange={() => { executeToggleRoom(roomName)}}
-        checked={isRoomOff(roomName)}/>
+        checked={!isRoomOff(roomName)}/>
     );
 };
