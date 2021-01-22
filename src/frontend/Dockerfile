@@ -1,20 +1,30 @@
+###################
+
 # base image
-FROM node:15.1-alpine
+FROM node:15.1-alpine as build
 
 # set working directory
-WORKDIR /my-app
+WORKDIR /mainpage
 
 # add `/app/node_modules/.bin` to $PATH
-ENV PATH /my-app/node_modules/.bin:$PATH
+ENV PATH /mainpage/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-RUN yarn global add serve@11.3.2
-RUN yarn global add react-scripts@4.0.0
-
-COPY ./start.sh /opt/start.sh
-RUN chmod +x /opt/start.sh
+RUN yarn global add react-scripts@4.0.1
 
 COPY ./package.json ./package.json
 RUN yarn install
 COPY ./  ./
-RUN npm run build
+RUN yarn run build
+
+COPY start.sh /opt/start.sh
+RUN chmod +x /opt/start.sh
+
+# production environment
+FROM nginx:alpine
+COPY --from=build /mainpage/build /usr/share/nginx/html
+COPY --from=build /opt/start.sh /opt/start.sh
+EXPOSE 80
+
+# start app
+CMD ["/opt/start.sh"]
