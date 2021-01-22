@@ -131,10 +131,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                                 {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={4} className={classes.center}>
+                        <Grid item xs={6} sm={4} className={classes.center}>
                             <RoomToggle roomName={info.name} />
                         </Grid>
-                        <Grid item xs={12} sm={2} className={classes.centerRight}>
+                        <Grid item xs={6} sm={2} className={classes.centerRight}>
                             <IconButton
                                 aria-label="more"
                                 aria-controls="long-menu"
