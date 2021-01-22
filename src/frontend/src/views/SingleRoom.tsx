@@ -191,7 +191,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                             return (
                                 <Grid className="Left" container alignItems="center" spacing={2}>
                                     {isChangeRoom ?
-                                        <Grid item xs={1}>
+                                        <Grid item xs={2} sm={1}>
                                             <IconButton aria-label="delete"
                                                 onClick={() => {
                                                     dispatch(removeItemFromRoom({ link: e.link }, oldState.name))
@@ -202,13 +202,13 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         : ""
                                     }
 
-                                    <Grid item xs={4}>
+                                    <Grid item xs={10} sm={4}>
                                         <Typography variant="h5" component="h6">
                                             {e.name}
                                         </Typography>
                                     </Grid>
                                     { e.type === "Switch" ?
-                                        <Grid alignItems="flex-end" item xs={7}>
+                                        <Grid alignItems="flex-end" item xs={12} sm={7}>
                                             <Switch
                                                 name="unused"
                                                 inputProps={{ 'aria-label': 'secondary-checkbox' }}
@@ -226,7 +226,7 @@ export default function SingleRoom({ roomName, showRoomFunction }: SingleRoomPro
                                         const min = e.min as number !== undefined ? e.min as number : DimmerDefaults.min as number;
                                         const max = e.max as number !== undefined ? e.max as number : DimmerDefaults.max as number;
                                         return (
-                                            <Grid item xs={7}>
+                                            <Grid item xs={12} sm={7}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={10}>
                                                         <Slider value={e.state as number}

@@ -26,7 +26,7 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
 
     return (
         <Grid container>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
                 <Typography variant="h6">
                     {labelName}
                 </Typography>
@@ -35,7 +35,7 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
                 (() => {
                     const asNumber = currentValue as number;
                     return (
-                        <Grid container item xs={6}>
+                        <Grid container item xs={12} sm={6}>
                             <Grid item xs={10}>
                                 <Slider aria-labelledby="discrete-slider"
                                     value={asNumber}
@@ -58,7 +58,7 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
                 (() => {
                     const asBool = currentValue as ItemState === ItemState.ON ? true : false;
                     return (
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <Switch
                                     name ="unused"
                                     inputProps={{ 'aria-label': 'secondary-checkbox' }}

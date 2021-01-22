@@ -146,10 +146,10 @@ export default function Settings() {
                     <Container>
                         <Container>
                             <Grid container item xs={12} spacing={2}>
-                                <Grid item xs={6} >
+                                <Grid item xs={12} sm={6} >
                                     <Typography variant="h6"> Dunkles Thema verwenden </Typography>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12} sm={6}>
                                     <Switch
                                         checked={darkTheme}
                                         onChange={handleThemeChange}
@@ -187,21 +187,21 @@ export default function Settings() {
                                         <Grid container spacing={2}>
                                             {e.type === "Dimmer" ?
                                                 <Grid container item xs={12} spacing={2}>
-                                                    <Grid item xs={6} >
+                                                    <Grid item xs={12} sm={6} >
                                                         <Typography variant="h6"> Gültigen Bereich wählen</Typography>
                                                     </Grid>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={12} sm={6}>
                                                         <Slider valueLabelDisplay="auto" aria-labelledby="range-slider" value={itemRange} onChange={HandleRangeChange} />
                                                     </Grid>
                                                 </Grid>
                                                 : ""
                                             }
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} sm={6}>
                                                 <Typography variant="h6">
                                                     Raumschalter ignorieren
-                                            </Typography>
+                                                </Typography>
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} sm={6}>
                                                 <Switch
                                                     name="unused"
                                                     onChange={HandleIgnoreRoomSwitch}
@@ -234,10 +234,10 @@ export default function Settings() {
                                                 : ""
                                             }
 
-                                            <Grid item xs={6} onClick={(e) => { ReadDefaultValues(CurrentItem); }}>
+                                            <Grid item xs={12} sm={6} onClick={(e) => { ReadDefaultValues(CurrentItem); }}>
                                                 <Button variant="contained" color="secondary"> Zurücksetzen </Button>
                                             </Grid>
-                                            <Grid item xs={6} onClick={UpdateSelectedItem}>
+                                            <Grid item xs={12} sm={6} onClick={UpdateSelectedItem}>
                                                 <Button variant="contained" color="primary"> Übernehmen </Button>
                                             </Grid>
                                             <Grid item xs={3} />
