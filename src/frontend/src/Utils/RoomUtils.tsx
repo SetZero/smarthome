@@ -88,14 +88,13 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
         return allOff;
     }
 
-    return (
-        <div>
-            { ShouldBeVisible(roomName) ?
-                <Switch inputProps={{ 'aria-label': 'primary checkbox' }} 
-                onChange={() => { executeToggleRoom(roomName)}}
-                checked={!isRoomOff(roomName)}/>
-            : ""
-            }
-        </div>
-    );
+    if( ShouldBeVisible(roomName)) {
+        return (
+            <Switch inputProps={{ 'aria-label': 'primary checkbox' }} 
+            onChange={() => { executeToggleRoom(roomName)}}
+            checked={!isRoomOff(roomName)}/>
+        );
+    } else {
+        return <div></div> 
+    }
 };
