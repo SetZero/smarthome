@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //Configuration for the 3 dot menu
 const options = [
-    {name: '🡼 Nach oben', op: 'DOWN'},
-    {name: '🢆 Nach unten', op: 'UP'},
-    {name: 'Raum löschen', op: 'DELETE'},
+    { name: '🡼 Nach oben', op: 'DOWN' },
+    { name: '🢆 Nach unten', op: 'UP' },
+    { name: 'Raum löschen', op: 'DELETE' },
 ];
 const ITEM_HEIGHT = 48;
 
@@ -79,7 +79,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
         setAnchorEl(null);
     };
     function handleClickOnOption(option: string) {
-        switch(option) {
+        switch (option) {
             case 'DELETE':
                 //dispatch(removeRoom(info));
                 setOpenRemoveDialog(true);
@@ -101,7 +101,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
 
     return (
         <Grid item xs={sizeXS} sm={sizeSM} md={sizeMD} lg={sizeLG} className={classes.fullHeightCard}>
-            <DeleteDialog open={openRemoveDialog} setOpen={setOpenRemoveDialog} action={removeRoom(info)}/>
+            <DeleteDialog open={openRemoveDialog} setOpen={setOpenRemoveDialog} action={removeRoom(info)} />
             <Card className={classes.fullHeightCard}>
                 <CardActionArea >
                     <CardMedia
@@ -114,7 +114,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                 <CardContent>
                     <Typography gutterBottom variant={info.name.length > 9 ? "h6" : "h5"} component="h2">
                         {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
-                    </Typography>
                         <IconButton
                             aria-label="more"
                             aria-controls="long-menu"
@@ -142,6 +141,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                                 </MenuItem>
                             ))}
                         </Menu>
+                    </Typography>
                 </CardContent>
             </Card>
         </Grid>
