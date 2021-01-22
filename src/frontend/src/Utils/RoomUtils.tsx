@@ -95,6 +95,6 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
             checked={!isRoomOff(roomName)}/>
         );
     } else {
-        return <div></div> 
+        return <span></span> 
     }
 };
