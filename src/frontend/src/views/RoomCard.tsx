@@ -114,7 +114,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                 <CardContent>
                     <Typography gutterBottom variant={info.name.length > 9 ? "h6" : "h5"} component="h2">
                         {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
-                        <RoomToggle roomName={info.name} />
+                    </Typography>
                         <IconButton
                             aria-label="more"
                             aria-controls="long-menu"
@@ -123,6 +123,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                         >
                             <MoreVertIcon />
                         </IconButton>
+                        <RoomToggle roomName={info.name} />
                         <Menu
                             id="long-menu"
                             anchorEl={anchorEl}
@@ -141,7 +142,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </Typography>
                 </CardContent>
             </Card>
         </Grid>
