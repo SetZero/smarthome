@@ -71,12 +71,12 @@ export let roomsReducer = async () => {
                     }
                     case "MOVE_ROOM_UP": {
                         let index = state.rooms.findIndex(e => e.name === action.payload.name);
-                        let newRooms = arrayMove(state.rooms, index, index - 1);
+                        let newRooms = arrayMove(state.rooms, index, index + 1);
                         return { ...state, rooms: newRooms };
                     }
                     case "MOVE_ROOM_DOWN": {
                         let index = state.rooms.findIndex(e => e.name === action.payload.name);
-                        let newRooms = arrayMove(state.rooms, index, index + 1);
+                        let newRooms = arrayMove(state.rooms, index, index - 1);
                         return { ...state, rooms: newRooms };
                     }
                     default: {

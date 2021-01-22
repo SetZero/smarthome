@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //Configuration for the 3 dot menu
 const options = [
-    {name: 'Nach oben', op: 'DOWN'},
-    {name: 'Nach unten', op: 'UP'},
+    {name: '🡼 Nach oben', op: 'DOWN'},
+    {name: '🢆 Nach unten', op: 'UP'},
     {name: 'Raum löschen', op: 'DELETE'},
 ];
 const ITEM_HEIGHT = 48;
