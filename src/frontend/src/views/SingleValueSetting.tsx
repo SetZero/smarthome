@@ -16,14 +16,6 @@ interface SingleValueSettingProps {
 };
 
 export default function SingleValueSetting({ labelName, settingType, currentValue, min, max, updateSettingHandle }: SingleValueSettingProps) {
-    if (min === undefined) {
-        min = 0;
-    }
-
-    if (max === undefined) {
-        max = 100;
-    }
-
     return (
         <Grid container>
             <Grid item xs={6}>
@@ -33,7 +25,7 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
             </Grid>
             {settingType === "Dimmer" ?
                 (() => {
-                    const asNumber = currentValue as number;
+                    const asNumber = Math.min(max as number, Math.max(min as number, currentValue as number));
                     return (
                         <Grid container item xs={6}>
                             <Grid item xs={10}>
@@ -46,7 +38,7 @@ export default function SingleValueSetting({ labelName, settingType, currentValu
                             </Grid>
                             <Grid item xs={2}>
                                 <Typography>
-                                    {currentValue}
+                                    {asNumber}
                                 </Typography>
                             </Grid>
                         </Grid>

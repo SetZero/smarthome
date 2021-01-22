@@ -15,6 +15,22 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
     const rooms = useSelector<StateType, StateType["roomsReducer"]["rooms"]>((state) => state?.roomsReducer?.rooms ?? []);
     const dispatch = useDispatch();
 
+    const ShouldBeVisible = (roomName : string) : boolean => {
+        const currentRoom = rooms.find(e => e.name === roomName);
+
+        let relevantEntries : number = 0;
+
+        currentRoom?.sensors?.forEach(item => {
+            const currentItem = items.find(e => e.link === item.link);
+
+            if (currentItem !== undefined && currentItem.ignoreRoomSwitch !== undefined && !currentItem.ignoreRoomSwitch) {
+                relevantEntries++;
+            }
+        });
+
+        return relevantEntries != 0;
+    }
+
     const executeToggleRoom = (roomName: string) => {
         const currentRoom = rooms.find(e => e.name === roomName);
         const isOff : boolean = isRoomOff(roomName);
@@ -26,7 +42,7 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
         currentRoom.sensors?.forEach(a => {
             let currentItem = items.find(i => i.link === a.link);
 
-            if (currentItem === undefined || currentItem.ignoreRoomSwitch) {
+            if (currentItem === undefined || currentItem.ignoreRoomSwitch === undefined || currentItem.ignoreRoomSwitch) {
                 return;
             }
 
@@ -73,8 +89,13 @@ export default function RoomToggle({roomName} : RoomToggleProps) {
     }
 
     return (
-        <Switch inputProps={{ 'aria-label': 'primary checkbox' }} 
-        onChange={() => { executeToggleRoom(roomName)}}
-        checked={!isRoomOff(roomName)}/>
+        <div>
+            { ShouldBeVisible(roomName) ?
+                <Switch inputProps={{ 'aria-label': 'primary checkbox' }} 
+                onChange={() => { executeToggleRoom(roomName)}}
+                checked={!isRoomOff(roomName)}/>
+            : ""
+            }
+        </div>
     );
 };

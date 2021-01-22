@@ -92,6 +92,7 @@ export let itemReducer = async () => {
 
                         if (newItems !== undefined && newItems[foundItem] !== undefined && newItem !== undefined) {
                             newItems[foundItem].max = newItem.max;
+
                             newItems[foundItem].min = newItem.min;
                             newItems[foundItem].ignoreRoomSwitch = newItem.ignoreRoomSwitch;
                             newItems[foundItem].offState = newItem.offState;
