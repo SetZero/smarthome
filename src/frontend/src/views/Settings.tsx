@@ -117,13 +117,13 @@ export default function Settings() {
     const [onAction, setOnAction] = React.useState<number | ItemState>(0);
     const [offAction, setOffAction] = React.useState<number | ItemState>(0);
     const [CurrentItem, setCurrentItem] = React.useState<string>("");
-    const [darkTheme, setDarkTheme] = React.useState<boolean>(localStorage.getItem('ui-theme') === "dark" ? false : true);
+    const [darkTheme, setDarkTheme] = React.useState<boolean>(localStorage.getItem('ui-theme') === "dark" ? true : false);
 
     const handleThemeChange = (event: any) => {
         setDarkTheme(event.target.checked);
         var event: any = new Event('themeChanged');
 
-        event.value = darkTheme ? "dark" : "light";
+        event.value = !darkTheme ? "dark" : "light";
         document.dispatchEvent(event);
     }
 
