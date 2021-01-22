@@ -20,6 +20,19 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         media: {
             height: 140
+        },
+        center: {
+            alignSelf: "center"
+        },
+        rightText: {
+            textAlign: "right"
+        },
+        leftText: {
+            textAlign: "left"
+        },
+        centerRight: {
+            alignSelf: "center",
+            textAlign: "right"
         }
     }));
 
@@ -112,36 +125,44 @@ export const RoomCard: React.FC<RoomCardProps> = ({ info, showRoomFunction, setR
                     />
                 </CardActionArea>
                 <CardContent>
-                    <Typography gutterBottom variant={info.name.length > 9 ? "h6" : "h5"} component="h2">
-                        {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
-                        <RoomToggle roomName={info.name} />
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={HandleClick}
-                        >
-                            <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                            id="long-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                                style: {
-                                    maxHeight: ITEM_HEIGHT * 4.5,
-                                    width: '20ch',
-                                },
-                            }}>
-                            {options.map((option) => (
-                                <MenuItem key={option.name} onClick={() => handleClickOnOption(option.op)}>
-                                    {option.name}
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Typography>
+                    <Grid container justify="space-between" alignContent="center" alignItems="stretch">
+                        <Grid item xs={12} sm={6} className={classes.center}>
+                            <Typography variant={info.name.length > 9 ? "h6" : "h5"} component="h2" className={classes.leftText}>
+                                {info.name.length > maxCharWidth ? info.name.substr(0, maxCharWidth - 3) + "..." : info.name}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4} className={classes.center}>
+                            <RoomToggle roomName={info.name} />
+                        </Grid>
+                        <Grid item xs={12} sm={2} className={classes.centerRight}>
+                            <IconButton
+                                aria-label="more"
+                                aria-controls="long-menu"
+                                aria-haspopup="true"
+                                onClick={HandleClick}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="long-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}>
+                                {options.map((option) => (
+                                    <MenuItem key={option.name} onClick={() => handleClickOnOption(option.op)}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Grid>
+                    </Grid>
                 </CardContent>
             </Card>
         </Grid>
