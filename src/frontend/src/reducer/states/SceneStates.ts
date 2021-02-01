@@ -2,6 +2,7 @@ import { ApiService } from "../../Utils/ApiService";
 import { Reducer } from "redux";
 import { Action } from "../actions/SceneActions";
 import { HabItem } from "./ItemState";
+import { CollectionsBookmarkOutlined } from "@material-ui/icons";
 
 export interface SmallItem extends HabItem {
 }
@@ -24,8 +25,8 @@ export interface ScenesState {
 export let scenesReducer = async () => {
     return new Promise<Reducer<any, Action>>((resolve, reject) => {
         ApiService.GetAllScenes().then((readState: ScenesState) => {
-            // console.log("Current scenes state : " + JSON.stringify(readState));
             const reducer = (state: ScenesState = readState, action: Action) => {
+                // console.log("Current scenes state : " + JSON.stringify(readState));
                 switch(action.type) {
                     case "ADD_SCENE": {
                         return {...state, scenes: [...state.scenes, action.payload]};

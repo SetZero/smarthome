@@ -98,16 +98,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-/*const useStylesButton = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-  }),
-);*/
-
 interface ButtonBasesProps {
   sceneState: SceneState;
   setShowChangeSceneFunction: (selectedScene: SceneState) => void
@@ -133,10 +123,10 @@ export default function ButtonBases({ sceneState, setShowChangeSceneFunction }: 
     setAnchorEl(null);
   };
 
-  const handleAction = (event: React.MouseEvent<HTMLElement>) => {
-    scenes.forEach(e => {
-      e.actions.forEach(action => {
+  const handleAction = (event: React.MouseEvent<HTMLElement>, sceneName: string) => {
+    scenes.find(e => e.name ===sceneName)?.actions.forEach(action => {
         let item = action.item;
+        console.log("ItemState" + (item.state as number));
         switch (item.type) {
           case "Dimmer":
             ApiService.ChangeDimmer((item.state as number), item.link);
@@ -146,7 +136,6 @@ export default function ButtonBases({ sceneState, setShowChangeSceneFunction }: 
             break;
         }
       })
-    })
   }
 
   function handleClickOnOption(option: string) {
@@ -170,7 +159,7 @@ export default function ButtonBases({ sceneState, setShowChangeSceneFunction }: 
         style={{
           width: '70%',
         }}
-        onClick={handleAction}
+        onClick={(e) => {handleAction(e, sceneState.name)}}
       >
         <span
           className={classes.imageSrc}
